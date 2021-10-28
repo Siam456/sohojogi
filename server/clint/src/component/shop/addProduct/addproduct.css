@@ -1,0 +1,38 @@
+#shopC{
+     
+        background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('https://thumbs.dreamstime.com/b/food-background-breakfast-yogurt-granola-muesli-strawberries-banner-image-website-gray-concrete-table-top-view-214357125.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: auto;
+        width: 100%;
+        min-height: 100vh;
+        
+    
+}
+.overly{
+    height: auto;
+    width: 100%;
+    background: rgba(0, 0, 0, .7);
+    padding-bottom: 50px;
+    padding-top: 50px;
+    min-height: 100vh;
+}
+
+.close{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    font-size: 1.25rem;
+    background: none;
+}
+
+.ei-error{
+    border: 1px solid red;
+}
+
+.hide{
+    display: none;
+}
+

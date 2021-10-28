@@ -1,0 +1,73 @@
+
+.commentbtn{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    transition: .5s ease;
+}
+.commentbtn:hover{
+    text-decoration: underline;
+}
+
+.docWrapper{
+    width: 50%;
+    margin: auto;
+    background: #FFFFFF;
+    border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+    padding: 20px;
+    -webkit-box-shadow: var(0 1px 2px var(rgba(0,0,0,.2)));
+    box-shadow: 0 1px 2px var(rgba(0,0,0,.2));
+    margin-top: 10px;
+}
+
+textarea{
+    background-color: #E4E6E9;
+}
+.imageWrapperDoc{
+    padding: 0 10px 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+}
+.reactColor{
+    color: #EE5670;
+}
+
+.commentinput{
+    width: 90%;
+}
+.far{
+    margin-right: 0;
+}
+
+.cwrapper{
+    margin-left: 10px;
+    padding: 5px 15px 5px 5px;
+}
+
+.likeComment{
+    cursor: pointer;
+}
+
+input{
+    height: 40px;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    .docWrapper{
+         width: 70%;
+    }
+    .cwrapper{
+        margin-left: 10px;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .docWrapper{
+         width: 90%;
+    }
+    .cwrapper{
+        margin-left: 20px;
+    }
+  }

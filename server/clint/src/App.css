@@ -1,0 +1,31 @@
+
+.cardWrapperX{
+    background: rgba(0, 0, 0, .5);
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+
+.productCard{
+    padding: 30px;
+    cursor: pointer;
+    background: #E0E5EC;
+    border-radius: 5px;
+}
+
+
+.seeMore{
+    border: none;
+    padding: 0;
+    color: gray;
+    text-decoration: underline;
+    transition: .5s ease;
+}
+
+.seeMore:hover{
+    color: black;
+}
+
+.cardb{
+    background: #E0E5EC;
+}

@@ -1,0 +1,24 @@
+.i-error{
+    border: 1px solid red;
+}
+
+.filterDate{
+    display: flex;
+    width: 50%;
+    margin-left: auto;
+}
+
+.hide{
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+    .filterDate{
+         width: 60%;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .filterDate{
+         width: 100%;
+    }
+  }

@@ -1,0 +1,98 @@
+#shop{
+    background-image: url('https://thumbs.dreamstime.com/b/food-background-breakfast-yogurt-granola-muesli-strawberries-banner-image-website-gray-concrete-table-top-view-214357125.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: auto;
+    width: 100%;
+    min-height: 100vh;
+    
+
+}
+.overly{
+height: auto;
+width: 100%;
+background: rgba(0, 0, 0, .7);
+padding-bottom: 50px;
+padding-top: 50px;
+min-height: 100vh;
+}
+
+.close{
+cursor: pointer;
+border: none;
+outline: none;
+font-weight: bold;
+font-size: 1.25rem;
+background: none;
+}
+
+.ei-error{
+border: 1px solid red;
+}
+
+.cardWrapperPC{
+background: white;
+padding: 20px;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+
+.cardX{
+box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+margin-left: auto;
+margin-right: auto;
+padding: 30px;
+margin-bottom: 30px;
+}
+
+.card-d{
+width: 100%;
+
+justify-content: space-between;
+display: inline-flex;
+flex-wrap: wrap;
+}
+.card-b{
+border: none;
+color: black;
+transition: .5s ease;
+}
+.card-b:hover{
+color: #333634;
+}
+.far{
+margin-right: 20px;
+}
+
+.card-d-wi{
+max-width: 63%;
+}
+
+
+.xs{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.iSearch{
+    width: 30%;
+}
+
+.NF{
+    padding: 50px;
+    text-align: center;
+    border: 1px dotted gray;
+    margin-top: 70px;
+    color: gray;
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .xs{
+        display: block;
+    }
+    .iSearch{
+        width: 100%;
+    }
+  }

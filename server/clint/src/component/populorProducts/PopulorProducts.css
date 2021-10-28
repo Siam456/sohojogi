@@ -1,0 +1,16 @@
+.pdetails{
+    transition: .5s ease;
+    cursor: pointer;
+}
+.pdetails:hover{
+    color: white;
+}
+
+.pdetailsCart{
+    color: white;
+    transition: .5s ease;
+}
+
+.pdetailsCart:hover{
+    color: black;
+}
