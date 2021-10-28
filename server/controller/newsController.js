@@ -95,7 +95,7 @@ const editNews = async (req, res) => {
                         catagory: req.body.catagory,
                     }
                 });
-                const delPath = path.join(__dirname, '..' , '..' , `public/userUpload/${response.avater}`)
+                const delPath = `${__dirname}/../clint/public/newsCover/${response.newsCoverPhoto}`
                 fs.unlinkSync(delPath);
                 res.json({
                     news: response,

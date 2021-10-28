@@ -124,7 +124,7 @@ const editUser = async (req, res) => {
                         address: req.body.address,
                     }
                 });
-                const delPath = path.join(__dirname, '..' , '..' , `public/userUpload/${response.avater}`)
+                const delPath = `${__dirname}/../clint/public/userUpload/${response.avater}`
                 fs.unlinkSync(delPath);
                 res.json({
                     user: response,
