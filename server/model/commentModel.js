@@ -16,6 +16,9 @@ const Schema = mongoose.Schema({
         type: String,
         require: true,
     },
+    commentAttachment: {
+        type: String,
+    },
     replies: [
         {
             user: {
@@ -30,6 +33,7 @@ const Schema = mongoose.Schema({
             text: String,
             likes: [],
             createdAt: Date,
+            replyAttachment: String,
         }
     ],
     likes: [

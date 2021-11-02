@@ -3,7 +3,7 @@ const express = require('express');
 const route = express.Router();
 
 //internal import
-const { getreplies, postreplies , incLike } = require('../controller/repliesController');
+const { getreplies, postreplies , incLike, deletereplies } = require('../controller/repliesController');
 const checkLogin = require('../middleware/common/checkLogin');
 
 //check admin
@@ -16,10 +16,23 @@ const checkadmin = (req, res, next) => {
         })
     }
 }
+
+const upload = require('../utilities/replyUploader');
+
+const bodyParseData = (req, res, next) => {
+    const body = JSON.parse(req.body.text);
+    
+    req.body = body;
+    //console.log(req.body);
+    next();
+}
+
 route.get('/', getreplies);
-route.post('/:id', checkLogin, postreplies);
+route.post('/:id', checkLogin, upload.single('attachment'), bodyParseData, postreplies);
 route.patch('/:id/:mainId', checkLogin, incLike);
 // route.delete('/:id', checkLogin, deleteStatus);
+route.delete('/:id', checkLogin, deletereplies);
+
 
 module.exports = route;
 

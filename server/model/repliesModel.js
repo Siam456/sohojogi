@@ -16,6 +16,9 @@ const Schema = mongoose.Schema({
         type: String,
         require: true,
     },
+    replyAttachment: {
+        type: String,
+    },
     likes: [
         {
             type: mongoose.Types.ObjectId,

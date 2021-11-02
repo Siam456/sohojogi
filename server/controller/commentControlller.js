@@ -1,5 +1,7 @@
 const commentModel = require('../model/commentModel');
 const statusModel = require('../model/statusModel');
+const fs = require('fs');
+const repliesModel = require('../model/repliesModel');
 
 const getComment = async (req, res) => {
     try{
@@ -15,29 +17,83 @@ const getComment = async (req, res) => {
     }
 }
 const postComment = async (req, res) => {
+    
     try{
-        const comment = new commentModel({
-            ...req.body,
-            user: {
-                id: req.user._id,
-                name: req.user.name,
-                email: req.user.email,
-                phone: req.user.phone,
-                address: req.user.address,
-                avater: req.user.avater,
-            },
-            statusid: req.params.id,
-        })
+        if(req.file && req.body){
+            const comment = new commentModel({
+                text: req.body,
+                user: {
+                    id: req.user._id,
+                    name: req.user.name,
+                    email: req.user.email,
+                    phone: req.user.phone,
+                    address: req.user.address,
+                    avater: req.user.avater,
+                },
+                statusid: req.params.id,
+                commentAttachment: req.file.filename,
+            })
+    
+            const response = await comment.save();
+            if(response){
+                console.log(response._id)
+                const responseU = await statusModel.findByIdAndUpdate({_id: response.statusid},
+                    { $push: { comments: response._id } },)
+            }
+            res.json({
+                response
+            })
 
-        const response = await comment.save();
-        if(response){
-            console.log(response._id)
-            const responseU = await statusModel.findByIdAndUpdate({_id: response.statusid},
-                { $push: { comments: response._id } },)
+        } else if(req.file){
+            const comment = new commentModel({
+                text: '',
+                user: {
+                    id: req.user._id,
+                    name: req.user.name,
+                    email: req.user.email,
+                    phone: req.user.phone,
+                    address: req.user.address,
+                    avater: req.user.avater,
+                },
+                statusid: req.params.id,
+                commentAttachment: req.file.filename,
+            })
+    
+            const response = await comment.save();
+            if(response){
+                console.log(response._id)
+                const responseU = await statusModel.findByIdAndUpdate({_id: response.statusid},
+                    { $push: { comments: response._id } },)
+            }
+            res.json({
+                response
+            })
+
+        } else{
+            const comment = new commentModel({
+                text: req.body,
+                user: {
+                    id: req.user._id,
+                    name: req.user.name,
+                    email: req.user.email,
+                    phone: req.user.phone,
+                    address: req.user.address,
+                    avater: req.user.avater,
+                },
+                statusid: req.params.id,
+            })
+    
+            const response = await comment.save();
+            if(response){
+                console.log(response._id)
+                const responseU = await statusModel.findByIdAndUpdate({_id: response.statusid},
+                    { $push: { comments: response._id } },)
+            }
+            res.json({
+                response
+            })
         }
-        res.json({
-            response
-        })
+        
     } catch(err){
         res.status(500).json({
             err
@@ -84,4 +140,38 @@ const incLike = async (req, res) => {
     }
 }
 
-module.exports = { getComment, postComment , incLike }
+const deleteComment = async (req, res) => {
+    console.log(req.params.id)
+    try{
+        const response = await commentModel.findByIdAndDelete({_id: req.params.id});
+        
+        if(response.commentAttachment){
+            console.log(response.commentAttachment)
+            const delPathComment = `${__dirname}/../clint/public/CommentUpload/${response.commentAttachment}`
+            fs.unlinkSync(delPathComment);
+        }
+
+        if(response.replies.length > 0){
+            response.replies.forEach(async (element) => {
+                const responseReplies = await repliesModel.findByIdAndDelete({_id: element.id});
+
+                if(responseReplies.replyAttachment){
+                    const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`
+                    fs.unlinkSync(delPathreply);
+                }
+                
+            });
+        }
+
+        res.json({
+            msg: 'delete comment successfully'
+        });
+
+    } catch(err){
+        res.status(500).json({
+            err
+        })
+    }
+}
+
+module.exports = { getComment, postComment , incLike, deleteComment }

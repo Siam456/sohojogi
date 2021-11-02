@@ -24,7 +24,7 @@ const ShopRq = () => {
     const setval = (e) => {
         const value = e.target.value;
         const name = e.target.name;
-        console.log(user);
+        //console.log(user);
 
         if(name === 'avater'){
             setavater(e.target.files[0]);
@@ -219,7 +219,7 @@ const ShopRq = () => {
                                             
                                             <option selected value="Food">Food</option>
                                             <option value="Grocery">Grocery</option>
-                                            <option value="Electronics">Electronics</option>
+                                            <option value="Phamacy">Phamacy</option>
                                         </select> <br/>
                                     </div>
 

@@ -11,17 +11,14 @@ const Home = () => {
     useEffect(() => {
         axios.get('/product/all')
         .then(res => {
-            if(unmount){
-                setproducts(res.data.products);
-                //console.log(products)
-            }
+            setproducts(res.data.products);
         })
         .catch(err => console.log(err))
 
         return(() => {
             unmount = false;
         })
-    })
+    }, [products])
 
 
     //show product 

@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGOOSE_CONNECTION_STRING,
         //useFindAndModify: true }
         )
 .then(() => {
-    console.log('connection successfully')
+    console.log(`connection successfully with ${process.env.MONGOOSE_CONNECTION_STRING}`)
 })
 .catch(err => {
     console.log(err); 

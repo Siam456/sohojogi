@@ -13,6 +13,11 @@ const Schema = mongoose.Schema({
         type: String,
         require: true,
     },
+    statusAttachment: [
+        {
+            type: String,
+        }
+    ],
     comments: [
         {
             type: mongoose.Types.ObjectId,

@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const fs = require('fs');
-const path = require('path');
 //import model
 const people = require('../model/userModel');
 
@@ -74,9 +73,30 @@ const getUserById = async (req, res) => {
     }
 }
 
+const getprofileById = async (req, res) => {
+    try{
+        const users = await people.findOne({_id: req.params.id}, {password: 0})
+        .populate({path: "products"});
+        if(users){
+            res.json({
+                users,
+            });
+        } else{
+            res.status(404).json({
+                errors: {
+                    msg: 'not available',
+                }
+            })
+        }
+
+    } catch(err){
+        console.log(err.message);
+    }
+}
+
 const postUser = async (req, res) => {
     try{
-        
+        console.log('ok')
         const salt = 10;
         const hashPass = await bcrypt.hash(req.body.password, salt);
         
@@ -181,5 +201,6 @@ module.exports = {
     editUser,
     deleteUser,
     getSeller,
-    getUserById
+    getUserById,
+    getprofileById
 }

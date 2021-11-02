@@ -37,7 +37,7 @@ const PopulorProducts = () => {
 		return () => {
 			unmout = false;
 		};
-	}, [product]);
+	}, ["/product/all"]);
 
 	//add cart
 
@@ -81,39 +81,46 @@ const PopulorProducts = () => {
 
 	const locationSearch = (e) => {
 		setSearchlocation(e.target.value);
+        console.log(Searchlocation)
 	};
 
 	return (
 		<div style={{ display: "flex" }}>
 			<div className="populorProductDetails">
-				<h2 className="container m-3">
+				<h2 className="container m-3 text-success">
 					<i className="fas fa-fire-alt"></i> Populor Products
 				</h2>
-				<div className="container">
+				<div className="container psearch">
 					<select
 						onChange={locationSearch}
-						className="form-select"
+						className="form-select m-2"
 						aria-label="Default select example"
 					>
-						<option selected>All</option>
+						<option defaultValue>All</option>
 						<option value="Dhaka">Dhaka</option>
 						<option value="Faridpur">Faridpur</option>
 						<option value="Sadarpur">Sadarpur</option>
 					</select>
+                    <input onChange={locationSearch} className="form-control m-2" placeholder='Search Product/shop...'  />
 				</div>
+                
 
 				<div className="containe">
 					<div
-						className="row m-5"
-						style={{ alignItems: "center", justifyContent: "center" }}
+						className="row"
+						
 					>
 						{product.length !== 0 ? 
                             product.map((v, i) => {
                                 const x = v.sellerA.address;
+                                const p = v.title;
+                                const s = v.sellerA.shopname
                                 // /console.log(x + Se)
                                 if (
                                     Searchlocation === "All" ||
-                                    x === Searchlocation
+                                    x === Searchlocation 
+                                    || p.includes(Searchlocation)
+                                    || s.includes(Searchlocation) 
                                 ) {
                                     if (v.avater) {
                                         source =
@@ -123,14 +130,24 @@ const PopulorProducts = () => {
                                             "https://www.wallpapertip.com/wmimgs/86-867734_object-splashing-in-water.jpg";
                                     }
     
-                                    let description = v.description.substring(0, 6);
+                                    let description = v.description.length >6 ? v.description.substring(0, 6) + '...' : v.description;
+
+                                    let titleIcon;
+                                    if(v.sellerA.catagory === 'Food'){
+                                        titleIcon = <i style={{color: '#DC6B29'}} className="fas fa-pizza-slice"></i>
+                                    } else if(v.sellerA.catagory === 'Grocery'){
+                                        titleIcon = <i style={{color: '#82C91E'}} className="fas fa-leaf"></i>
+                                    } else if(v.sellerA.catagory === 'Pharmacy'){
+                                        titleIcon = <i style={{color: '#348bb3'}} className="fas fa-capsules"></i>
+                                    }
                                     return (
-                                        <div key={i} className="col-sm my-3">
+                                        <div key={i} className="col-sm-12  col-lg-4 col-md-6 my-3" >
                                             <div
-                                                className="productCard"
+                                                className="productCard m-auto"
                                                 style={{
                                                     width: '18rem',
-                                                    cursor: 'default'
+                                                    cursor: 'default',
+                                                    
                                                 }}
                                                 
                                             >
@@ -138,12 +155,13 @@ const PopulorProducts = () => {
                                                 <span style={{display: 'flex'}}>
                                                 <div className="card-body">
                                                     <h5 className="card-title">
-                                                    <span style={{ fontWeight: "bold" }}><i style={{color: '#DC6B29'}} className="fas fa-pizza-slice"></i> {v.title}</span>
+                                                    <span style={{ fontWeight: "bold" }}>{titleIcon} {v.title}</span>
                                                     </h5>
                                                     <h6 className='text-muted'><i style={{color: '#D04545'}} className="fas fa-map-marker-alt"></i> {v.sellerA.address}</h6>
                                                     <span >
-                                                        <p className='text-muted'>{description}...</p>
+                                                        <p className='text-muted'>{description}</p>
                                                         <p className='text-muted'><i style={{color: '#348bb3'}} className="fas fa-grip-horizontal"></i> {v.sellerA.catagory}</p>
+                                                        <p className='text-muted'><i style={{color: '#BF1B28'}} className="fas fa-store-alt"></i> {v.sellerA.shopname}</p>
                                                         <h6 style={{ fontWeight: "bold"}}><i className="fas fa-tags"></i> tk {v.price}</h6>
                                                     
                                                     </span>
@@ -193,7 +211,7 @@ const PopulorProducts = () => {
                                             <div
                                                 className="modal fade"
                                                 id="exampleModalLong"
-                                                tabindex="-1"
+                                                tabIndex="-1"
                                                 role="dialog"
                                                 aria-labelledby="exampleModalLongTitle"
                                                 aria-hidden="true"

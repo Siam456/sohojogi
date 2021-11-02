@@ -34,6 +34,11 @@ import NewsAll from "../news/NewsAll";
 import NewsAdmin from "../news/NewsAdmin";
 import News from "../news/News";
 import Docdiray from "../docdiary/Docdiray";
+import Foodproduct from "../populorProducts/Foodproduct";
+import Groceryproduct from "../populorProducts/Groceryproduct";
+import Pharmacyproduct from "../populorProducts/Pharmacyproduct";
+import Profile from "../profile/Profile";
+import Othersprofile from "../profile/Othersprofile";
 
 const Nav = () => {
 	const [user, setuser] = useState({
@@ -60,7 +65,7 @@ const Nav = () => {
 		return () => {
 			unmount = true;
 		};
-	});
+	}, ['/userprofile']);
 
 	//logout
 
@@ -98,41 +103,64 @@ const Nav = () => {
 	if (user.role === "admin") {
 		links = (
 			<>
+			
+			<li className="nav-item dropdown">
+				<a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				admin
+				</a>
+				<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					
+					
+					<li>
+						<NavLink activeClassName="active" className="dropdown-item" to="/admin">
+							Admin
+						</NavLink>
+					</li>
 
-				<li>
+					<li>
+						<NavLink
+							activeClassName="active"
+							className="dropdown-item"
+							to="/adminnews"
+						>
+							NewsPost
+						</NavLink>
+					</li>
+
+					<li>
+						<NavLink
+							activeClassName="active"
+							className="dropdown-item"
+							to="/amdin/adminshoprq"
+						>
+							shop request
+						</NavLink>
+					</li>
+
+					<li>
+						<NavLink
+							activeClassName="active"
+							className="dropdown-item"
+							to="/amdin/adminriderrq"
+						>
+							Rider request
+						</NavLink>
+					</li>
+
+					<li>
 					<NavLink
 						activeClassName="active"
-						className="nav-link"
-						to="/adminnews"
+						className="dropdown-item"
+						to="/amdin/adminproducts"
 					>
-						NewsPost
+						Product Controller
 					</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink activeClassName="active" className="nav-link" to="/admin">
-						Admin
-					</NavLink>
-				</li>
+				</div>
+			</li>
 
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/amdin/adminshoprq"
-					>
-						shop request
-					</NavLink>
-				</li>
 
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/amdin/adminriderrq"
-					>
-						Rider request
-					</NavLink>
-				</li>
+			
 
 				<li>
 					<NavLink
@@ -144,15 +172,7 @@ const Nav = () => {
 					</NavLink>
 				</li>
 
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/amdin/adminproducts"
-					>
-						Product Controller
-					</NavLink>
-				</li>
+				
 
 				<li>
 					<NavLink
@@ -201,6 +221,16 @@ const Nav = () => {
 						My Deliveries
 					</NavLink>
 				</li> */}
+
+				<li>
+					<NavLink
+						activeClassName="active"
+						className="nav-link"
+						to="/profile"
+					>
+						profile
+					</NavLink>
+				</li>
 
 				<li>
 					<NavLink activeClassName="active" className="nav-link" to="/cart">
@@ -285,6 +315,15 @@ const Nav = () => {
 					{" "}
 					<Docdiray user={user} />{" "}
 				</Route>
+				<Route path="/profile">
+					{" "}
+					<Profile user={user} />{" "}
+				</Route>
+
+				<Route path="/profileOther/:id">
+					{" "}
+					<Othersprofile />{" "}
+				</Route>
 			</>
 		);
 	}
@@ -303,14 +342,6 @@ const Nav = () => {
 				</li>
 
 				<li>
-					<NavLink activeClassName="active" className="nav-link" to="/cart">
-						<i
-							className="fas fa-shopping-cart"
-							style={{ fontSize: "20px", marginInlineStart: "20px" }}
-						></i>
-					</NavLink>
-				</li>
-				<li>
 					<NavLink
 						activeClassName="active"
 						className="nav-link"
@@ -319,6 +350,26 @@ const Nav = () => {
 						Doc Diary
 					</NavLink>
 				</li>
+
+				<li>
+					<NavLink
+						activeClassName="active"
+						className="nav-link"
+						to="/profile"
+					>
+						profile
+					</NavLink>
+				</li>
+
+				<li>
+					<NavLink activeClassName="active" className="nav-link" to="/cart">
+						<i
+							className="fas fa-shopping-cart"
+							style={{ fontSize: "20px", marginInlineStart: "20px" }}
+						></i>
+					</NavLink>
+				</li>
+				
 			</>
 		);
 
@@ -344,6 +395,14 @@ const Nav = () => {
 				<Route path="/docdiary">
 					{" "}
 					<Docdiray user={user} />{" "}
+				</Route>
+				<Route path="/profile">
+					{" "}
+					<Profile user={user} />{" "}
+				</Route>
+				<Route path="/profileOther/:id">
+					{" "}
+					<Othersprofile />{" "}
 				</Route>
 				
 			</>
@@ -382,6 +441,16 @@ const Nav = () => {
 						Doc Diary
 					</NavLink>
 				</li>
+
+				<li>
+					<NavLink
+						activeClassName="active"
+						className="nav-link"
+						to="/profile"
+					>
+						profile
+					</NavLink>
+				</li>
 			</>
 		);
 
@@ -413,6 +482,14 @@ const Nav = () => {
 				<Route path="/docdiary">
 					{" "}
 					<Docdiray user={user} />{" "}
+				</Route>
+				<Route path="/profile">
+					{" "}
+					<Profile user={user} />{" "}
+				</Route>
+				<Route path="/profileOther/:id">
+					{" "}
+					<Othersprofile />{" "}
 				</Route>
 			</>
 		);
@@ -519,16 +596,49 @@ const Nav = () => {
 									shop
 								</NavLink>
 							</li>
+							
 
-							<li className="nav-item">
-								<a
-									activeClassName="active"
-									className="nav-link"
-									href="/populorProduct"
-								>
-									Products <span className="sr-only">(current)</span>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Product
 								</a>
+								<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								
+									<a
+										activeClassName="active"
+										className="dropdown-item"
+										href="/populorProduct"
+									>
+										Products <span className="sr-only">(current)</span>
+									</a>
+
+									<a
+										activeClassName="active"
+										className="dropdown-item"
+										href="/food"
+									>
+										Food
+									</a>
+
+									<a
+										activeClassName="active"
+										className="dropdown-item"
+										href="/pharmacy"
+									>
+										Pharmacy
+									</a>
+
+									<a
+										activeClassName="active"
+										className="dropdown-item"
+										href="/grocery"
+									>
+										Grocery
+									</a>
+								</div>
 							</li>
+
+							
 
 							{links}
 						</ul>
@@ -563,6 +673,10 @@ const Nav = () => {
 					<Route path='/allshop'> <Allshop/></Route>
 					<Route path='/shop/:id'> <ShopProducts/></Route>
 					<Route path='/populorProduct'> <PopulorProducts /> </Route>
+
+					<Route path='/food'> <Foodproduct /> </Route>
+					<Route path='/grocery'> <Groceryproduct /> </Route>
+					<Route path='/pharmacy'> <Pharmacyproduct /> </Route>
 
 					<Route path='/featureProduct'> <FeatureProduct /> </Route>
 

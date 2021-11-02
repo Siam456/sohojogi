@@ -23,7 +23,7 @@ const NewsAll = () => {
 			.then((res) => {
 				if (unmount) {
 					setgetNews(res.data.news);
-					console.log(getNews);
+					//console.log(getNews);
 				}
 			})
 			.catch((err) => console.log(err));
@@ -69,7 +69,7 @@ const NewsAll = () => {
 				</button>
 			</div>{" "}
 			<br></br>
-			<div className="row">
+			<div className="row" >
 				{getNews.map((v, i) => {
 
                     var checkDAte = new Date(v.createdAt);
@@ -81,6 +81,7 @@ const NewsAll = () => {
                     
 
 					let source;
+                    //console.log(window.location.origin)
 					if (v.newsCoverPhoto) {
 						source = window.location.origin + `/newsCover/${v.newsCoverPhoto}`;
 					} else {
@@ -95,7 +96,7 @@ const NewsAll = () => {
 					let hrf = `/news/${v._id}`;
 					if(Sdate === ''){
                         return (
-                            <>
+                            <div key={i} className="col-sm-12 col-lg-4 col-md-6 my-3">
                                 <a
                                     href={hrf}
                                     key={i}
@@ -105,7 +106,7 @@ const NewsAll = () => {
                                         cursor: "pointer",
                                         marginTop: "30px",
                                     }}
-                                    className="col-sm"
+                                    
                                 >
                                     <div
                                         className="card"
@@ -141,7 +142,7 @@ const NewsAll = () => {
                                         </div>
                                     </div>
                                 </a>
-                            </>
+                            </div>
                         );
                     } else if(Sdate === cdate){
                         return (

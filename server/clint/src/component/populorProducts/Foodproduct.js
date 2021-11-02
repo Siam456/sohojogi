@@ -3,7 +3,7 @@ import axios from "axios";
 import "./PopulorProducts.css";
 import ShopCart from "../shopProducts/ShopCart";
 
-const FeatureProduct = () => {
+const Foodproduct = () => {
 	const [product, setproduct] = useState([]);
 
 	const [productDet, setproductDet] = useState({
@@ -42,7 +42,7 @@ const FeatureProduct = () => {
 	//add cart
 
 	const addcart = async (id, status, shop_id) => {
-		alert("Added");
+		//alert("Added");
 		//alert(status);
 		var up = true;
 		let body = {
@@ -87,7 +87,7 @@ const FeatureProduct = () => {
 		<div style={{ display: "flex" }}>
 			<div className="populorProductDetails">
 				<h2 className="container m-3">
-                <ion-icon name="flash-outline"></ion-icon> Feature Products
+                    <i style={{color: '#FD7E14'}} className="fas fa-utensils"></i> Foods
 				</h2>
 				<div className="container psearch">
 					<select
@@ -109,7 +109,7 @@ const FeatureProduct = () => {
 						
 					>
 						{product.map((v, i) => {
-							if(v.feature === 'true'){
+							if(v.sellerA.catagory === 'Food'){
                                 const x = v.sellerA.address;
                                 const p = v.title;
                                 const s = v.sellerA.shopname
@@ -136,7 +136,7 @@ const FeatureProduct = () => {
                                     } else if(v.sellerA.catagory === 'Grocery'){
                                         titleIcon = <i style={{color: '#82C91E'}} className="fas fa-leaf"></i>
                                     } else if(v.sellerA.catagory === 'Pharmacy'){
-                                        titleIcon = <i style={{color: '#348bb3'}} className="fas fa-capsules"></i>
+                                        titleIcon = <i style={{color: '#BF1B28'}} className="fas fa-capsules"></i>
                                     }
                                     return (
                                         <div key={i} className="col-sm-12  col-lg-4 col-md-6 my-3" >
@@ -318,4 +318,4 @@ const FeatureProduct = () => {
 	);
 };
 
-export default FeatureProduct;
+export default Foodproduct;

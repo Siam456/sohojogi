@@ -14,3 +14,13 @@
 .pdetailsCart:hover{
     color: black;
 }
+
+.psearch{
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .psearch{
+        display: block;
+    }
+}

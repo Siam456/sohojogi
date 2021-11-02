@@ -36,7 +36,7 @@ const News = () => {
                 <br/>
                 <h2>{getNews.title}</h2>
                 <p className='text-muted'><i className="fas fa-globe-europe"></i> {getNews.catagory}</p>
-                <p>Published At: {getNews.createdAt}</p>
+                <p >Published At: {new Date(getNews.createdAt).toDateString()}</p>
                 {getNews.newsCoverPhoto ? 
                 <img src={window.location.origin + `/newsCover/${getNews.newsCoverPhoto}`} alt='news img' width= '100%' />
             : <img src={window.location.origin + `/newsCover/${avater}`} alt='news img' width= '100%' />}

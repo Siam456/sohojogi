@@ -39,22 +39,23 @@ const Allshop = () => {
                     </select>
 
                     <div className="container my-3">
-                        <div className="row">
+                        <div className="row m-auto" style={{width: 'auto', justifyContent: 'center'}}>
                             {shop === undefined ? 
                             <div>No Shop </div>: <>
                                 {shop.map((value, index) => {
                                     if(Searchlocation=== 'All' || Searchlocation === value.address){
                                             let source;
                                         if(value.avater){
+                                            //console.log(value.avater)
                                             source = window.location.origin + `/userUpload/${value.avater}`
                                         } else{
                                             source = 'https://media.istockphoto.com/photos/pizza-quattro-formaggi-on-the-rome-dough-picture-id1159174187?k=20&m=1159174187&s=612x612&w=0&h=JKXqYbemo44T-5Gb3zgb2_fwJRtKimmbQQDmMGGtgmQ='
                                         }
                                         return(
                                             <>
-                                                <a key={index} href={`/shop/${value._id}`} className="col-sm cardWrapperAll">
+                                                <a key={index} href={`/shop/${value._id}`} className="col-sm-12  col-lg-4 col-md-6 my-3 cardWrapperAll">
                                                     
-                                                    <div className="card m-3" style={{width: '18rem'}} >
+                                                    <div className="card" style={{width: '18rem'}} >
                                                         <div style={{height: '180px', overflow: 'hidden'}}>
                                                             <img className="card-img-top" src={source} alt="Card image cap" />
                                                         </div>

@@ -1,6 +1,7 @@
 .cardWrapperAll{
     cursor: pointer;
     text-decoration: none;
+    width: auto;
 }
 .cardWrapperAll .card{
     padding: .5%;

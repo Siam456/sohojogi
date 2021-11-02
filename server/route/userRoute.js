@@ -12,7 +12,8 @@ const { getUser
         editUser,
         deleteUser,
         getSeller,
-        getUserById
+        getUserById,
+        getprofileById
      } = require('../controller/userController');
 const upload = require('../utilities/singleFileUpload');
 
@@ -31,6 +32,7 @@ route.delete('/:id',checkLogin, deleteUser);
 
 route.get('/seller', getSeller);
 route.get('/shop/:id', getUserById);
+route.get('/:id', getprofileById);
 
 
 
