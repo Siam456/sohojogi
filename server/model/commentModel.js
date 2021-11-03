@@ -33,6 +33,7 @@ const Schema = mongoose.Schema({
             text: String,
             likes: [],
             createdAt: Date,
+            statusid: mongoose.Types.ObjectId,
             replyAttachment: String,
         }
     ],

@@ -12,6 +12,9 @@ const Schema = mongoose.Schema({
     commentid: {
         type: mongoose.Types.ObjectId,
     },
+    statusid: {
+        type: mongoose.Types.ObjectId,
+    },
     text: {
         type: String,
         require: true,
@@ -19,6 +22,7 @@ const Schema = mongoose.Schema({
     replyAttachment: {
         type: String,
     },
+
     likes: [
         {
             type: mongoose.Types.ObjectId,

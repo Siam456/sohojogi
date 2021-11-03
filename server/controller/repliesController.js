@@ -1,6 +1,7 @@
 const commentModel = require('../model/commentModel');
 const repliesModel = require('../model/repliesModel');
 const fs = require('fs');
+const statusModel = require('../model/statusModel');
 
 const getreplies = async (req, res) => {
     try{
@@ -30,6 +31,7 @@ const postreplies = async (req, res) => {
                     avater: req.user.avater,
                 },
                 commentid: req.params.id,
+                statusid:  req.params.statusId,
                 replyAttachment: req.file.filename,
             })
     
@@ -48,6 +50,7 @@ const postreplies = async (req, res) => {
                         },
                         id: response._id,
                         text: response.text,
+                        statusid:  req.params.statusId,
                         replyAttachment: req.file.filename,
                         createdAt: response.createdAt,
                     } 
@@ -72,6 +75,7 @@ const postreplies = async (req, res) => {
                     avater: req.user.avater,
                 },
                 commentid: req.params.id,
+                statusid:  req.params.statusId,
                 replyAttachment: req.file.filename,
             })
     
@@ -90,6 +94,7 @@ const postreplies = async (req, res) => {
                         },
                         id: response._id,
                         text: response.text,
+                        statusid:  req.params.statusId,
                         replyAttachment: response.replyAttachment,
                         createdAt: response.createdAt,
                     } 
@@ -114,6 +119,7 @@ const postreplies = async (req, res) => {
                     avater: req.user.avater,
                 },
                 commentid: req.params.id,
+                statusid:  req.params.statusId,
             })
     
             const response = await replies.save();
@@ -131,6 +137,7 @@ const postreplies = async (req, res) => {
                         },
                         id: response._id,
                         text: response.text,
+                        statusid:  req.params.statusId,
                         createdAt: response.createdAt,
                     } } })
             }
@@ -189,24 +196,34 @@ const incLike = async (req, res) => {
 
 const deletereplies = async (req, res) => {
     try{
-        const responseReplies = await repliesModel.findByIdAndDelete({_id: req.params.id});
 
-        console.log(responseReplies)
+        const responseUser = await repliesModel.find({_id: req.params.id});
+        
+        responseUser.forEach(async (x) => {
+            //console.log(x)
+            const statusUser = await statusModel.findOne({_id: x.statusid});
+            //console.log(statusUser);
+            if(statusUser.user.id.toString() === req.user._id || x.user.id.toString() === req.user._id){
+                const responseReplies = await repliesModel.findByIdAndDelete({_id: req.params.id});
 
-        if(responseReplies.replyAttachment){
-            const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`
-            fs.unlinkSync(delPathreply);
-        }
-
-        const commentReplies = await commentModel.findByIdAndUpdate({_id: responseReplies.commentid},{
-            $pull: {
-                replies:  {id: responseReplies._id},
+                if(responseReplies.replyAttachment){
+                    const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`
+                    fs.unlinkSync(delPathreply);
+                }
+        
+                const commentReplies = await commentModel.findByIdAndUpdate({_id: responseReplies.commentid},{
+                    $pull: {
+                        replies:  {id: responseReplies._id},
+                    }
+                })
+        
+                res.json({
+                    msg: 'successfully delete reply'
+                })
             }
         })
 
-        res.json({
-            msg: 'successfully delete reply'
-        })
+        
 
         
     } catch(err){

@@ -28,7 +28,7 @@ const bodyParseData = (req, res, next) => {
 }
 
 route.get('/', getreplies);
-route.post('/:id', checkLogin, upload.single('attachment'), bodyParseData, postreplies);
+route.post('/:id/:statusId', checkLogin, upload.single('attachment'), bodyParseData, postreplies);
 route.patch('/:id/:mainId', checkLogin, incLike);
 // route.delete('/:id', checkLogin, deleteStatus);
 route.delete('/:id', checkLogin, deletereplies);

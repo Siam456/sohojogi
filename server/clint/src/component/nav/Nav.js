@@ -81,7 +81,7 @@ const Nav = () => {
 	let links;
 	let route;
 	let login = (
-		<div className="btn btn-primary my-2 my-sm-0">
+		<div className="btn btn-primary my-0 my-sm-0">
 			<NavLink style={{ color: "white" }} to="/login">
 				<i className="fas fa-sign-in-alt"></i>
 			</NavLink>
@@ -93,7 +93,7 @@ const Nav = () => {
 			<button
 				type="button"
 				onClick={logOut}
-				className="btn btn-outline-success my-2 my-sm-0"
+				className="btn btn-outline-success my-0 my-sm-0"
 			>
 				<i className="fas fa-power-off"></i>
 			</button>
@@ -451,6 +451,14 @@ const Nav = () => {
 						profile
 					</NavLink>
 				</li>
+				<li>
+					<NavLink activeClassName="active" className="nav-link" to="/cart">
+						<i
+							className="fas fa-shopping-cart"
+							style={{ fontSize: "20px", marginInlineStart: "20px" }}
+						></i>
+					</NavLink>
+				</li>
 			</>
 		);
 
@@ -491,6 +499,10 @@ const Nav = () => {
 					{" "}
 					<Othersprofile />{" "}
 				</Route>
+				<Route path="/cart">
+					{" "}
+					<Cart />{" "}
+				</Route>
 			</>
 		);
 	}
@@ -522,7 +534,14 @@ const Nav = () => {
 						Doc Diary
 					</NavLink>
 				</li>
-
+				<li>
+					<NavLink activeClassName="active" className="nav-link" to="/cart">
+						<i
+							className="fas fa-shopping-cart"
+							style={{ fontSize: "20px", marginInlineStart: "20px" }}
+						></i>
+					</NavLink>
+				</li>
 			</>
 		);
 
@@ -551,14 +570,27 @@ const Nav = () => {
 					{" "}
 					<Docdiray user={user} />{" "}
 				</Route>
+				<Route path="/cart">
+					{" "}
+					<Cart />{" "}
+				</Route>
 			</>
 		);
+	}
+
+	const [ serachstr, setserachstr] = useState('');
+	const search = (e) => {
+		setserachstr(e.target.value);
+	}
+
+	const clearStr = (e) => {
+		setserachstr('');
 	}
 
 	return (
 		<div>
 			<Router>
-				<nav className="navbar navbar-expand-lg navbar-light bg-light">
+				<nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
 					<a style={{ marginLeft: "20px" }} className="navbar-brand" href="/">
 						eFo<span style={{color: 'green'}}>od.</span>
 					</a>
@@ -577,7 +609,7 @@ const Nav = () => {
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav ml-auto">
 							<li className="nav-item">
-								<NavLink activeClassName="active" className="nav-link" to="/">
+								<NavLink onClick={clearStr} activeClassName="active" className="nav-link" to="/">
 									Home <span className="sr-only">(current)</span>
 								</NavLink>
 							</li>
@@ -642,19 +674,32 @@ const Nav = () => {
 
 							{links}
 						</ul>
-						<div className="form-inline my-2 my-lg-0">{login}</div>
+						
+
+						
+					</div>
+
+					<div className='mx-2' style={{display: 'flex'}}>
+						<form className="form-inline m-0">
+							<input value={serachstr} onChange={search} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+							
+						</form>
+						<div className="form-inline mx-2 my-lg-0">{login}</div>
 					</div>
 				</nav>
 
 				<Switch>
+					{serachstr === '' ? 
 					<Route exact path="/">
 						{" "}
 						<Home />{" "}
-					</Route>
-					<Route path="/products">
+					</Route> :
+					<Route path="/">
 						{" "}
-						<AllProduct />{" "}
-					</Route>
+						<AllProduct serachstr={serachstr} />{" "}
+					</Route>}
+					
+					
 					<Route path="/login">
 						{" "}
 						<Login />{" "}

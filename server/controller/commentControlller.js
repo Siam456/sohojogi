@@ -141,31 +141,42 @@ const incLike = async (req, res) => {
 }
 
 const deleteComment = async (req, res) => {
-    console.log(req.params.id)
+    //console.log(req.params.id)
     try{
-        const response = await commentModel.findByIdAndDelete({_id: req.params.id});
-        
-        if(response.commentAttachment){
-            console.log(response.commentAttachment)
-            const delPathComment = `${__dirname}/../clint/public/CommentUpload/${response.commentAttachment}`
-            fs.unlinkSync(delPathComment);
-        }
 
-        if(response.replies.length > 0){
-            response.replies.forEach(async (element) => {
-                const responseReplies = await repliesModel.findByIdAndDelete({_id: element.id});
+        const CommentUser = await commentModel.find({_id: req.params.id});
 
-                if(responseReplies.replyAttachment){
-                    const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`
-                    fs.unlinkSync(delPathreply);
+        CommentUser.forEach( async (commentX) => {
+            //console.log(commentX)
+            const status = await statusModel.findOne({_id: commentX.statusid})
+            if(status.user.id.toString() === req.user._id || commentX.user.id.toString() === req.user._id){
+                const response = await commentModel.findByIdAndDelete({_id: req.params.id});
+             
+                if(response.commentAttachment){
+                    console.log(response.commentAttachment)
+                    const delPathComment = `${__dirname}/../clint/public/CommentUpload/${response.commentAttachment}`
+                    fs.unlinkSync(delPathComment);
                 }
-                
-            });
-        }
 
-        res.json({
-            msg: 'delete comment successfully'
-        });
+                if(response.replies.length > 0){
+                    response.replies.forEach(async (element) => {
+                        const responseReplies = await repliesModel.findByIdAndDelete({_id: element.id});
+
+                        if(responseReplies.replyAttachment){
+                            const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`
+                            fs.unlinkSync(delPathreply);
+                        }
+                        
+                    });
+                }
+
+                res.json({
+                    msg: 'delete comment successfully'
+                });
+            }
+        })
+
+        
 
     } catch(err){
         res.status(500).json({

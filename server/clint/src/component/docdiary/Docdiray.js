@@ -34,18 +34,26 @@ const Docdiray = (props) => {
 		settextfildStatus(true);
 
 	}
+	
 	//get status
 	let unmount = true;
-	useEffect(() => {
-		
-		axios
-			.get("/status")
-			.then((res) => {
-				if (unmount) {
+	const getfunasync = async () => {
+		try{
+			const res = await axios.get("/status");
+			if(res){
+					if (unmount) {
 					setgetStatus(res.data.response);
 				}
-			})
-			.catch((err) => console.log(err.message));
+			}
+		} catch(err){
+			console.log(err.message);
+		}
+	}
+
+	
+	useEffect(() => {
+		
+		getfunasync();
 
 		return () => {
 			unmount = false;
@@ -105,19 +113,24 @@ const Docdiray = (props) => {
 	const [deletecheck, setdeletecheck] = useState(true);
 	const [pdi, setpdi] = useState(0)
 	const showDelete = (i) => {
+		//alert(i)
+		//
 		setpdi(i);
+		//alert(pdi)
 		if(pdi === i){
 			if (deletecheck) {
 				setdeletecheck(false);
 				document.getElementById(`dbtn${i}`).classList.remove("hide");
+				
 			} else {
 				setdeletecheck(true);
 				document.getElementById(`dbtn${i}`).classList.add("hide");
 			}
 		} else{
-			document.getElementById(`dbtn${pdi}`).classList.add("hide");
-			document.getElementById(`dbtn${i}`).classList.remove("hide");
-			setdeletecheck(false);
+			// document.getElementById(`dbtn${pdi}`).classList.add("hide");
+			// document.getElementById(`dbtn${i}`).classList.remove("hide");
+			// setdeletecheck(false);
+			alert('siam')
 		}
 	};
 
@@ -269,7 +282,7 @@ const Docdiray = (props) => {
 		}
 	};
 
-	const postreply = (id, i) => {
+	const postreply = (id, i, statusId) => {
 		//alert(repluinputId)
 		document.getElementById(`repluinputId${i}`).value = "";
 
@@ -281,7 +294,7 @@ const Docdiray = (props) => {
 		
 
 		axios
-			.post(`/replies/${id}`, data)
+			.post(`/replies/${id}/${statusId}`, data)
 			.then((res) => {
 				console.log("res");
 			})
@@ -855,7 +868,7 @@ const Docdiray = (props) => {
 															encType='multipart/form-data'
 															onSubmit={(e) => {
 																e.preventDefault();
-																postreply(value._id, i);
+																postreply(value._id, i, v._id);
 															}}
 															autoComplete='off'
 															style={{
@@ -886,7 +899,7 @@ const Docdiray = (props) => {
 															/>
 															{/* <p  id={commentName}>{v._id}</p> */}
 															<div
-																onClick={() => postreply(value._id, i)}
+																onClick={() => postreply(value._id, i, v._id)}
 																className="btn"
 															>
 																<i className="far fa-paper-plane" disabled></i>

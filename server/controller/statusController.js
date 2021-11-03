@@ -103,17 +103,17 @@ const incLike = async (req, res) => {
     let check = false;
     try{
         const status = await statusModel.findOne({_id: req.params.mainId});
-        console.log(status)
+        //console.log(status)
      
         for (let element of status.likes) {
-            console.log(element)
+            //console.log(element)
             if(req.params.id === element.toString()){
                 check = true;
                 break;
             }
         }
 
-        console.log(check);
+        //console.log(check);
         let response; 
 
         if(check){
