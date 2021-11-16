@@ -39,6 +39,7 @@ import Groceryproduct from "../populorProducts/Groceryproduct";
 import Pharmacyproduct from "../populorProducts/Pharmacyproduct";
 import Profile from "../profile/Profile";
 import Othersprofile from "../profile/Othersprofile";
+import Test from "../docdiary/Test";
 
 const Nav = () => {
 	const [user, setuser] = useState({
@@ -65,7 +66,7 @@ const Nav = () => {
 		return () => {
 			unmount = true;
 		};
-	}, ['/userprofile']);
+	}, [user]);
 
 	//logout
 
@@ -320,9 +321,9 @@ const Nav = () => {
 					<Profile user={user} />{" "}
 				</Route>
 
-				<Route path="/profileOther/:id">
+				<Route path="/profileOther/:_id">
 					{" "}
-					<Othersprofile />{" "}
+					<Othersprofile  user={user} />{" "}
 				</Route>
 			</>
 		);
@@ -400,9 +401,9 @@ const Nav = () => {
 					{" "}
 					<Profile user={user} />{" "}
 				</Route>
-				<Route path="/profileOther/:id">
+				<Route path="/profileOther/:_id">
 					{" "}
-					<Othersprofile />{" "}
+					<Othersprofile  user={user} />{" "}
 				</Route>
 				
 			</>
@@ -495,9 +496,9 @@ const Nav = () => {
 					{" "}
 					<Profile user={user} />{" "}
 				</Route>
-				<Route path="/profileOther/:id">
+				<Route path="/profileOther/:_id">
 					{" "}
-					<Othersprofile />{" "}
+					<Othersprofile  user={user} />{" "}
 				</Route>
 				<Route path="/cart">
 					{" "}
@@ -534,6 +535,7 @@ const Nav = () => {
 						Doc Diary
 					</NavLink>
 				</li>
+				
 				<li>
 					<NavLink activeClassName="active" className="nav-link" to="/cart">
 						<i
@@ -542,6 +544,8 @@ const Nav = () => {
 						></i>
 					</NavLink>
 				</li>
+
+				
 			</>
 		);
 
@@ -569,6 +573,14 @@ const Nav = () => {
 				<Route path="/docdiary">
 					{" "}
 					<Docdiray user={user} />{" "}
+				</Route>
+				<Route path="/profile">
+					{" "}
+					<Profile user={user} />{" "}
+				</Route>
+				<Route path="/profileOther/:id">
+					{" "}
+					<Othersprofile />{" "}
 				</Route>
 				<Route path="/cart">
 					{" "}
@@ -636,37 +648,37 @@ const Nav = () => {
 								</a>
 								<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								
-									<a
+									<NavLink
 										activeClassName="active"
 										className="dropdown-item"
-										href="/populorProduct"
+										to="/populorProduct"
 									>
 										Products <span className="sr-only">(current)</span>
-									</a>
+									</NavLink>
 
-									<a
+									<NavLink
 										activeClassName="active"
 										className="dropdown-item"
-										href="/food"
+										to="/food"
 									>
 										Food
-									</a>
+									</NavLink>
 
-									<a
+									<NavLink
 										activeClassName="active"
 										className="dropdown-item"
-										href="/pharmacy"
+										to="/pharmacy"
 									>
 										Pharmacy
-									</a>
+									</NavLink>
 
-									<a
+									<NavLink
 										activeClassName="active"
 										className="dropdown-item"
-										href="/grocery"
+										to="/grocery"
 									>
 										Grocery
-									</a>
+									</NavLink>
 								</div>
 							</li>
 
@@ -733,6 +745,9 @@ const Nav = () => {
                         {" "}
                         <News />{" "}
                     </Route>
+					<Route path='/test'>
+						<Test />
+					</Route>
 
 					{route}
 				</Switch>

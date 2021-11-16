@@ -4,7 +4,14 @@ const multer = require('multer');
 const route = express.Router();
 
 //internal import
-const { getStatus, postStatus, incLike, deleteStatus } = require('../controller/statusController');
+const {
+  getStatus,
+  postStatus,
+  incLike,
+  deleteStatus,
+  getStatusById,
+  deleteAttchment
+} = require("../controller/statusController");
 const checkLogin = require('../middleware/common/checkLogin');
 
 const upload = require('../utilities/statusUploader');
@@ -31,9 +38,11 @@ const bodyParseData = (req, res, next) => {
 }
 
 route.get('/', getStatus);
+route.get('/x/:id', getStatusById);
 route.post('/', checkLogin, upload.array('statusAttachment', 5), bodyParseData, postStatus);
 route.patch('/:id/:mainId', checkLogin, incLike);
 route.delete('/:id', checkLogin, deleteStatus);
+route.delete('/delete/:id/:image', checkLogin, deleteAttchment);
 
 module.exports = route;
 

@@ -31,6 +31,14 @@ const Schema = mongoose.Schema({
     avater: {
         type: String
     },
+    about: {
+        type: String,
+        default: null,
+    },
+    coverPhoto: {
+        type: String,
+        default: null
+    },
     role: {
         type: String,
         enum: ["user" , "admin" , "seller" , "rider"],
@@ -54,6 +62,21 @@ const Schema = mongoose.Schema({
         type: String,
         enum: ['free','busy'],
         default: 'free',
+    },
+    Bkash: {
+        type: String,
+        require: true,
+        default: null
+    },
+    Rocket: {
+        type: String,
+        require: true,
+        default: null
+    },
+    Nagad: {
+        type: String,
+        require: true,
+        default: null
     },
     
 },

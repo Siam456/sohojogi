@@ -15,11 +15,16 @@ const ShopCart = () => {
 	
 	
 	//try
+	let unmout = true;
 	const getdata = async () => {
 		//console.log('siams')
 		try{
 			const res = await axios.get("/cart");
-			setcart(res.data.cart);
+			if(res){
+				if(unmout){
+					setcart(res.data.cart);
+				}
+			}
 			//console.log(res) 
 			
 		} catch(err){
@@ -34,7 +39,7 @@ const ShopCart = () => {
 		getdata();
 
 		return(() => {
-			//console.log('clean up too')
+			unmout = false;
 		})
 	}, [cart])
 
@@ -214,11 +219,12 @@ const ShopCart = () => {
 				<div className="cartbtnWrapper">
 				{/* <a className='cartbtn' href='/cart' >View Cart </a> */}
 				{/* <!-- Button trigger modal --> */}
+				<br/>
 				<button
 					type="button"
-					className="btn cartbtn"
+					className="cartbtn"
 					data-toggle="modal"
-					data-target="#exampleModalLong"
+					data-target="#cartPhone"
 				>
 					<span style={{ float: "left" }}>
 						<i className="fas fa-shopping-bag">
@@ -234,7 +240,7 @@ const ShopCart = () => {
 			{/* <!-- Modal --> */}
 			<div
 				className="modal fade"
-				id="exampleModalLong"
+				id="cartPhone"
 				tabIndex="-1"
 				role="dialog"
 				aria-labelledby="exampleModalLongTitle"

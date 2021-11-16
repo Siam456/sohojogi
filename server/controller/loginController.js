@@ -31,7 +31,10 @@ const loginPost = async (req, res) => {
                 shopname: user.shopname,
                 address: user.address,
                 status: user.status,
-                catagory: user.catagory
+                catagory: user.catagory,
+                Bkash: user.Bkash,
+                Rocket: user.Rocket,
+                Nagat: user.Rocket,
             }
             //console.log(userObj)
             const token = jwt.sign(userObj, process.env.JWT_SECRATE , {

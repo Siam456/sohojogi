@@ -2,6 +2,7 @@ const commentModel = require('../model/commentModel');
 const statusModel = require('../model/statusModel');
 const fs = require('fs');
 const repliesModel = require('../model/repliesModel');
+const people = require('../model/userModel');
 
 const getComment = async (req, res) => {
     try{
@@ -19,6 +20,7 @@ const getComment = async (req, res) => {
 const postComment = async (req, res) => {
     
     try{
+        const userX = await people.findOne({_id: req.user._id});
         if(req.file && req.body){
             const comment = new commentModel({
                 text: req.body,
@@ -28,7 +30,7 @@ const postComment = async (req, res) => {
                     email: req.user.email,
                     phone: req.user.phone,
                     address: req.user.address,
-                    avater: req.user.avater,
+                    avater: userX.avater,
                 },
                 statusid: req.params.id,
                 commentAttachment: req.file.filename,
@@ -53,7 +55,7 @@ const postComment = async (req, res) => {
                     email: req.user.email,
                     phone: req.user.phone,
                     address: req.user.address,
-                    avater: req.user.avater,
+                    avater: userX.avater,
                 },
                 statusid: req.params.id,
                 commentAttachment: req.file.filename,
@@ -78,7 +80,7 @@ const postComment = async (req, res) => {
                     email: req.user.email,
                     phone: req.user.phone,
                     address: req.user.address,
-                    avater: req.user.avater,
+                    avater: userX.avater,
                 },
                 statusid: req.params.id,
             })

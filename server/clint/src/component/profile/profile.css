@@ -1,6 +1,7 @@
-.descriptionWrapper{
-    width: 90%;
-    margin: auto;
+.profileWrapper{
+    position: relative;
+    margin: 0;
+    padding: 0;
 }
 .coveruploadlbl{
     position: absolute;
@@ -8,3 +9,96 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.description{
+    display: flex;
+    position: absolute;
+    top: 62%;
+    left: 15%;
+    width: 80%;
+}
+.infoProfile{
+    margin-top: 100px;
+    margin-left: 2%;
+    width: 70%;
+}
+.infoFirst{
+    display: flex;
+}
+i{
+    margin-top: 5px;
+}
+.bc{
+    min-height: 35vh;
+    background: #DAE2ED;
+  
+}
+.profilebtn{
+    cursor: pointer;
+}
+.bold{
+    font-weight: bold;
+    color: black;
+}
+.coverAction{
+    width: 100%;
+    position: absolute;
+    bottom: 10%;
+    left: 80%;
+    display: flex;
+    z-index: 20;
+    
+}
+
+.uploadAvater{
+    position: absolute;
+    bottom: 15%;
+    left: 70%;
+    background: gray;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.accountWrapper{
+    display: flex;
+    width: 100%;
+}
+.imgHeight{
+    height: 40vh;
+}
+.editBio{
+    color: blue;
+    transition: .5s ease;
+    cursor: pointer;
+}
+.editBio:hover{
+    text-decoration: underline;
+}
+@media only screen and (max-width: 730px) {
+    .imgHeight{
+        height: 25vh;
+    }
+    .accountWrapper{
+        display: block;
+    }
+    .description{
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .infoProfile{
+        margin-top: 10px;
+        width: 100%;
+    }
+    .infoFirst{
+        display: block;
+    }
+    .bc{
+        min-height: 73vh;
+    }
+    .coverAction{
+        top: 15%;
+        left: 5%;
+        height: 50px;
+        
+    }
+  }

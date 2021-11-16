@@ -22,12 +22,12 @@ const PopulorProducts = () => {
 	let srcMI;
 
 	//get products
-	let unmout = true;
+	let unmoutp = true;
 	useEffect(() => {
 		axios
 			.get("/product/all")
 			.then((res) => {
-				if (unmout) {
+				if (unmoutp) {
 					setproduct(res.data.products);
 					//console.log(product)
 				}
@@ -35,9 +35,9 @@ const PopulorProducts = () => {
 			.catch((err) => console.log(err));
 
 		return () => {
-			unmout = false;
+			unmoutp = false;
 		};
-	}, ["/product/all"]);
+	}, [product]);
 
 	//add cart
 
@@ -285,6 +285,7 @@ const PopulorProducts = () => {
                                                                         <span> TK </span> {productDet.price}{" "}
                                                                     </b>
                                                                 </p>
+                                                                <br/>
     
                                                                 <div
                                                                     className="btn btn-danger"

@@ -8,13 +8,27 @@ const Home = () => {
     
     let flag = 0;
     let unmount = true;
-    useEffect(() => {
-        axios.get('/product/all')
-        .then(res => {
-            setproducts(res.data.products);
-        })
-        .catch(err => console.log(err))
 
+    const getdata = async() => {
+        try{
+            const res = await axios.get('/product/all');
+            if(unmount){
+                setproducts(res.data.products);
+            }
+
+        } catch(err){
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        // axios.get('/product/all')
+        // .then(res => {
+        //     if(unmount){
+        //         setproducts(res.data.products);
+        //     }
+        // })
+        // .catch(err => console.log(err))
+        getdata();
         return(() => {
             unmount = false;
         })

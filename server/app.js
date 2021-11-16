@@ -61,12 +61,16 @@ app.use('/replies', replies);
 //logout 
 const checklogin = require('./middleware/common/checkLogin');
 const { response } = require('express');
+
+const people = require('./model/userModel');
  
-app.get('/userprofile' , checklogin, (req, res) => {
+app.get('/userprofile' , checklogin, async (req, res) => {
     //console.log(req.user)
     if(req.user){
+        const response = await people.findOne({_id: req.user._id});
+        //console.log(response)
         res.json({
-            profile: req.user
+            profile: response
         })
     }
 })

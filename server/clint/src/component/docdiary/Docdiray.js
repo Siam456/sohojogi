@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./docdiary.css";
 import RealTimeAgo from "react-time-ago";
+import Replies from "./Replies";
+import { Link } from "react-router-dom";
 
 const Docdiray = (props) => {
 	const { name, avater, _id } = props.user;
@@ -16,7 +18,7 @@ const Docdiray = (props) => {
 
 	//visiblereply states for replies
 	const [vreply, setvreply] = useState(true);
-	const [prevIndex, setprevIndex] = useState(0);
+	const [prevIndex, setprevIndex] = useState(null);
 
 	const [prevCommentIndex, setprevCommentIndex] = useState(0);
 
@@ -42,7 +44,7 @@ const Docdiray = (props) => {
 			const res = await axios.get("/status");
 			if(res){
 					if (unmount) {
-					setgetStatus(res.data.response);
+					  setgetStatus(res.data.response);
 				}
 			}
 		} catch(err){
@@ -86,7 +88,7 @@ const Docdiray = (props) => {
 		axios
 			.post("/status", data)
 			.then((res) => {
-				//setvreply(false)
+				console.log(res);
 			})
 			.catch((err) => console.log(err.response));
 	};
@@ -109,15 +111,31 @@ const Docdiray = (props) => {
 			.catch((err) => console.log(err));
 	};
 
+  //edit status 
+  const postStatusEdit = (id) => {
+    alert(id)
+    
+  }
+
 	//delete
 	const [deletecheck, setdeletecheck] = useState(true);
-	const [pdi, setpdi] = useState(0)
+	const [pdi, setpdi] = useState(null)
 	const showDelete = (i) => {
 		//alert(i)
 		//
 		setpdi(i);
 		//alert(pdi)
-		if(pdi === i){
+		if(pdi === null){
+			if (deletecheck) {
+				setdeletecheck(false);
+				document.getElementById(`dbtn${i}`).classList.remove("hide");
+				
+			} else {
+				setdeletecheck(true);
+				document.getElementById(`dbtn${i}`).classList.add("hide");
+			}
+		}
+		else if(pdi === i){
 			if (deletecheck) {
 				setdeletecheck(false);
 				document.getElementById(`dbtn${i}`).classList.remove("hide");
@@ -127,10 +145,10 @@ const Docdiray = (props) => {
 				document.getElementById(`dbtn${i}`).classList.add("hide");
 			}
 		} else{
-			// document.getElementById(`dbtn${pdi}`).classList.add("hide");
-			// document.getElementById(`dbtn${i}`).classList.remove("hide");
-			// setdeletecheck(false);
-			alert('siam')
+			document.getElementById(`dbtn${pdi}`).classList.add("hide");
+			document.getElementById(`dbtn${i}`).classList.remove("hide");
+			setdeletecheck(false);
+			//alert('siam')
 		}
 	};
 
@@ -143,9 +161,11 @@ const Docdiray = (props) => {
 			.catch((err) => console.log(err.response));
 	};
 
-	//edit status
-	const editStatus = (id) => {
-		alert(id)
+	
+	const setEditStatus = (e) => {
+		seteditStatusText(e.target.value);
+    settextfildStatus(false)
+    
 	}
 
 	//status attachment
@@ -246,7 +266,17 @@ const Docdiray = (props) => {
 		//console.log(document.getElementById(`replySection${i}${n}`))
 		setprevIndex(i);
 		setprevCommentIndex(n);
-		if (prevIndex === i && prevCommentIndex === n) {
+		if(prevIndex === null){
+			if (vreply) {
+				document
+					.getElementById(`replySection${i}${n}`)
+					.classList.remove("hide");
+				setvreply(false);
+			} else {
+				document.getElementById(`replySection${i}${n}`).classList.add("hide");
+				setvreply(true);
+			}
+		} else if (prevIndex === i && prevCommentIndex === n) {
 			if (vreply) {
 				document
 					.getElementById(`replySection${i}${n}`)
@@ -284,14 +314,14 @@ const Docdiray = (props) => {
 
 	const postreply = (id, i, statusId) => {
 		//alert(repluinputId)
-		document.getElementById(`repluinputId${i}`).value = "";
+		//document.getElementById(`repluinputId${i}`).value = "";
 
 		const newReply = JSON.stringify(reply);
 		const data = new FormData();
 		data.append('text', newReply);
 		data.append('attachment', replyAttachmentImage);
 
-		
+		setreply('')
 
 		axios
 			.post(`/replies/${id}/${statusId}`, data)
@@ -305,12 +335,7 @@ const Docdiray = (props) => {
 	};
 
 
-	//delete reply
-	const deleteReply = (id) => {
-		axios.delete(`/replies/${id}`)
-		.then(res => console.log(res))
-		.catch(err => console.log(err.response))
-	}
+	
 
 	//delete comment
 	const deleteComment = (id) => {
@@ -318,8 +343,83 @@ const Docdiray = (props) => {
 		.then(res => console.log(res))
 		.catch(err => console.log(err.response))
 	}
+
+
+	//edit for status attachment
+
+	const [ statusAttachmentEditState, setstatusAttachmentEditState ] = useState([]);
+
+	const [ statusAttachmentPreviewEdit, setstatusAttachmentPreviewEdit ] = useState([]);
+
+	//edit status
+	const [ editStatusText, seteditStatusText ] = useState('')
+	
+
+  const [ imageX , setimageX ]= useState([]);
+  
+  const editStatusfun = (status) => {
+		
+		seteditStatusText(status.text);
+    setstatusAttachmentPreviewEdit([]);
+    setimageX(status.statusAttachment);
+    if(status.text !== ""){
+      settextfildStatus(false);
+    }
+    
+    //console.log(imageX);
+    
+		
+	}
+
+	
+	const StatusAttachmentEdit= (e) => {
+		settextfildStatus(false);
+		//console.log(e.target.files)
+		setstatusAttachmentEditState([]);
+		setstatusAttachmentEditState(e.target.files);
+		setstatusAttachmentPreviewEdit([])
+		//console.log(statusAttachment[0])
+		for(const element of e.target.files){
+			
+			
+			const render = new FileReader();
+			render.onloadend = () => {
+				setstatusAttachmentPreviewEdit(oldArray => [...oldArray, render.result]);
+				
+			}
+			render.readAsDataURL(element)
+		}
+	}
+
+  //close photo edit
+
+  const xEdit = async (imageq, id) => {
+    try{
+      //console.log('s')
+      const res = await axios.delete(`status/delete/${id}/${imageq}`);
+      if(res){
+        setimageX(res.data.response.statusAttachment);
+      }
+
+    }catch(err){
+      console.log(err.response)
+    }
+  }
+  const closePhoto = (imageq, id) => {
+    //let flag = false;
+    xEdit(imageq, id);
+    
+    //alert(id)
+  }
+
 	return (
 		<div className="py-4" style={{ background: "#dae2ed", minHeight: "100vh" }}>
+			{/* <UserContext.Consumer>
+				{value => {
+					console.log(value)
+				}}
+			</UserContext.Consumer> */}
+			
 			<h2 style={{ textAlign: "center" }} className="text-success py-4">
 				Welcome to Doc Diary
 			</h2>
@@ -448,487 +548,642 @@ const Docdiray = (props) => {
 				const commentName = `sId${i}`;
 				const cv = `cv${i}`;
 				const profilehref = `/profileOther/${v.user.id}`
+				
+				const editStatus = `editStatus${i}`
+				
 				return (
-					<div key={i} className="docWrapper my-3">
-						{/* header */}
+          <div key={i} className='docWrapper my-3'>
+            {/* header */}
 
-						<div style={{ display: "flex", marginBottom: "1rem" }}>
-							<div className="imageWrapperDoc" style={{ width: "10%" }}>
-								<img
-									src={statusUseravaterSource}
-									alt="siams"
-									height="50px"
-									width="50px"
-									style={{ borderRadius: "50%" }}
-								/>
-							</div>
-							<div
-								className="px-3 my-auto"
-								style={{
-									width: "90%",
-									display: "flex",
-									justifyContent: "space-between",
-								}}
-							>
-								<div>
-									<h6 style={{ marginBottom: "0" }}><a className='profile' href={profilehref}>{v.user.name}</a></h6>
-									<p style={{ marginBottom: "0" }} className="text-muted">
-										{formatedDate} <i className="fas fa-globe-europe"></i>
-									</p>
-								</div>
-								{v.user.id === _id ? (
-									<div style={{ textAlign: "right", position: "relative" }}>
-										<div onClick={() => showDelete(i)} className="btn cbtn">
-											<i className="fas fa-ellipsis-v"></i>
-										</div>
-										<div
-											style={{ position: "absolute" }}
-											className="hide"
-											id={hide}
-										>
-											<div
-												
-												className="btn cbtn"
-												//data-toggle="modal" 
-												//data-target="#exampleModal"
-											>
-												Edit
-											</div>
-											
+            <div style={{ display: "flex", marginBottom: "1rem" }}>
+              <div className='imageWrapperDoc' style={{ width: "10%" }}>
+                <img
+                  src={statusUseravaterSource}
+                  alt='siams'
+                  height='50px'
+                  width='50px'
+                  style={{ borderRadius: "50%" }}
+                />
+              </div>
+              <div
+                className='px-3 my-auto'
+                style={{
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <h6 style={{ marginBottom: "0" }}>
+                    
+                    {v.user.id === _id ? (
+                      <Link className='profile' to='/profile'>
+                        {v.user.name}
+                      </Link>
+                    ) : (
+						<Link className='profile' to={profilehref}>
+						{v.user.name}
+					  </Link>
+                    )}
+                  </h6>
+                  <p style={{ marginBottom: "0" }} className='text-muted'>
+                    {formatedDate} <i className='fas fa-globe-europe'></i>
+                  </p>
+                </div>
+                {v.user.id === _id ? (
+                  <div style={{ textAlign: "right", position: "relative" }}>
+                    <div onClick={() => showDelete(i)} className='btn cbtn'>
+                      <i className='fas fa-ellipsis-v'></i>
+                    </div>
+                    <div
+                      style={{ position: "absolute" }}
+                      className='hide'
+                      id={hide}
+                    >
+                      <div
+                        onClick={() => editStatusfun(v)}
+                        className='btn cbtn'
+                        data-toggle='modal'
+                        data-target={"#" + editStatus}
+                      >
+                        Edit
+                      </div>
 
-											{/* <!-- Modal -->
-											<div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													...
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary" onClick={() => editStatus(v._id)}>Save changes</button>
-												</div>
-												</div>
-											</div>
-											</div> */}
+                      {/* <!-- Modal --> */}
+                      <div
+                        className='modal fade'
+                        id={editStatus}
+                        tabIndex='-1'
+                        role='dialog'
+                        aria-labelledby='exampleModalLabel'
+                        aria-hidden='true'
+                      >
+                        <div className='modal-dialog' role='document'>
+                          <div className='modal-content'>
+                            <div className='modal-body'>
+                              <button
+                                type='button'
+                                className='close'
+                                data-dismiss='modal'
+                                aria-label='Close'
+                              >
+                                <span aria-hidden='true'>&times;</span>
+                              </button>
+                              <form
+                                onSubmit={(e) => {
+                                  e.preventDefault();
+                                  postStatusEdit(v._id);
+                                }}
+                                method='POST'
+                                encType='multipart/form-data'
+                              >
+                                <textarea
+                                  onChange={setEditStatus}
+                                  style={{
+                                    backgroundColor: "#E4E6E9",
+                                    borderRadius: "10px",
+                                  }}
+                                  className='form-control'
+                                  value={editStatusText}
+                                  placeholder={
+                                    "Edit your status " + name + "..."
+                                  }
+                                />
+
+                                <br />
+
+                                {imageX.map((im , ina) => {
+                                  return (
+                                    //console.log(im)
+                                    <span style={{ position: "relative" }}>
+                                      <img
+                                        src={
+                                          window.location.origin +
+                                          "/statusUpload/" +
+                                          im
+                                        }
+                                        alt='siam'
+                                        width='50%'
+                                      />
+                                      <span
+                                        style={{
+                                          position: "absolute",
+                                          left: "10px",
+                                          cursor: "pointer",
+                                        }}
+                                        onClick = {() => closePhoto(im, v._id)}
+                                      >
+                                        <i className='fas fa-times-circle'></i>
+                                      </span>
+                                    </span>
+                                  );
+                                })}
 
 
-											<div
-												onClick={() => deleteStatus(v._id)}
-												className="btn cbtn"
-											>
-												Delete
-											</div>
-										</div>
-									</div>
-								) : (
-									<span></span>
-								)}
-							</div>
-						</div>
+                                <span>
+                                  {statusAttachmentPreviewEdit.map(
+                                    (imageURL, imageindex) => {
+                                      return (
+                                        <span style={{ position: 'relative' }}>
+                                          <img
+                                          key={imageindex}
+                                          src={imageURL}
+                                          alt='xd'
+                                          width= '50%'
+                                        />
+                                        <span
+                                        style={{
+                                          position: "absolute",
+                                          left: "10px",
+                                          cursor: "pointer",
+                                        }}
+                                        //onClick = {() => closePhoto(imageURL)}
+                                      >
+                                        <i className='fas fa-times-circle'></i>
+                                      </span>
 
-						{/* body */}
-
-						<div className="px-4" style={{ wordWrap: "break-word" }}>
-							<span>
-							{v.text.length < 50 ? (
-								<span style={{ fontSize: "25px" }}>{v.text}</span>
-							) : (
-								<div>{v.text}</div>
-							)}
-							</span>
-							<div className='my-3' style={{textAlign: 'center'}}>{v.statusAttachment.length > 0 ? 
-								v.statusAttachment.map((AttachmentImageForStatus, aisIndex) => {
-									let StatusAttachmentSrc = window.location.origin + `/statusUpload/${AttachmentImageForStatus}`
-									return(
-										<img key={aisIndex} src={StatusAttachmentSrc} alt='siam' width='50%' />
-									)
-								})
-							: <span></span>}</div>
-
-						</div>
-
-						{/* like & comment section */}
-
-						<div
-							className="my-3 mx-auto"
-							style={{
-								display: "flex",
-								justifyContent: "space-between",
-								width: "90%",
-								borderBottom: "1px solid #edc2ca",
-								borderTop: "1px solid #edc2ca",
-							}}
-						>
-							<div>
-								<p style={{ marginTop: ".5rem", marginBottom: ".5rem" }}>
-									{v.likes.includes(_id) ? (
-										<i style={{cursor: 'pointer'}}
-											onClick={() => likeUnlike(v)}
-											className="fas fa-heart reactColor"
-										></i>
-									) : (
-										<i style={{cursor: 'pointer'}}
-											onClick={() => likeUnlike(v)}
-											className="far fa-heart reactColor"
-										></i>
-									)}
-									&nbsp;
-									{v.likes.length === 0 ? (
-										<span></span>
-									) : v.likes.length < 9 ? (
-										<span>0{v.likes.length} Likes</span>
-									) : (
-										v.likes.length + " Likes"
-									)}
-								</p>
-							</div>
-							<div
-								className="text-muted commentbtn"
-								onClick={() => visibleComment(i)}
-							>
-								{v.comments.length === 0 ? (
-									<span>comment</span>
-								) : v.comments.length < 2 ? (
-									<span>{v.comments.length + "comment"}</span>
-								) : (
-									v.comments.length + "comments"
-								)}
-							</div>
-						</div>
-
-						{/* all comment */}
-
-						<div style={{ display: "flex", width: "100%" }}>
-							<div className="imageWrapperDoc" style={{ width: "10%" }}>
-								<img
-									src={useravaterSource}
-									alt="siams"
-									height="40px"
-									width="40px"
-									style={{ borderRadius: "50%" }}
-								/>
-							</div>
-							<form onSubmit={(e) => {
-								e.preventDefault();
-								postComment(v._id, i);
-							}}
-							autoComplete='off'
-								style={{
-									marginTop: "0",
-									width: "100%",
-									marginLeft: "10px",
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-								}}
-							>
-								<div className='px-2'>
-									<label style={{cursor: 'pointer'}} htmlFor='commentAttachment'><i className="fas fa-camera"></i></label>
-									<input onChange={storeComment} name='commentAttachment' style={{display: 'none'}} type='file' id='commentAttachment' />
-								</div>
-								<input
-									onChange={storeComment}
-									style={{ background: "#F0F2F5", borderRadius: "15px" }}
-									type="text"
-									name='commentText'
-									className="form-control commentinput"
-									id={commentName}
-									placeholder="Write a comment..."
-								/>
-
-								{/* <p  id={commentName}>{v._id}</p> */}
-								<div onClick={() => postComment(v._id, i)} className="btn">
-									<i className="far fa-paper-plane" disabled></i>
-								</div>
-							</form>
-						</div>
-
-						{/* comment get */}
-
-						<span id={cv} className="hide">
-							{v.comments
-								.slice(0)
-								.reverse()
-								.map((value, index) => {
-									var commnetUseravaterSource;
-									if (value.user.avater) {
-										commnetUseravaterSource =
-											window.location.origin +
-											`/userUpload/${value.user.avater}`;
-									} else {
-										commnetUseravaterSource =
-											"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04IQPD-wCoIQ3vpWQy5mjc1HTVrCP1ZvJyg&usqp=CAU";
-									}
-
-									const replySection = `replySection${index}${i}`;
-									const repluinputId = `repluinputId${index}`;
-
-									const profilehrefComment = `/profileOther/${value.user.id}`
-									const commenthref = window.location.origin + `/commentUpload/${value.commentAttachment}`;
-
-									
-									return (
-										<div
-											key={index}
-											style={{
-												display: "flex",
-												width: "100%",
-												marginTop: "15px",
-											}}
-										>
-											<div className="imageWrapperDoc" style={{ width: "10%" }}>
-												<img
-													src={commnetUseravaterSource}
-													alt="siams"
-													height="40px"
-													width="40px"
-													style={{ borderRadius: "50%" }}
-												/>
-											</div>
-											<div>
-												<div
-													className="cwrapper"
-													style={{
-														background: "#F0F2F5",
-														borderRadius: "10px",
-													}}
-												>
-													<span><a className='profile' href={profilehrefComment}>{value.user.name}</a></span> <br />
-													<span className="text-muted">{value.text}</span>
-													
-													<span>
-														{value.commentAttachment ? <span style={{ padding: '10px'}}><br/><img src={commenthref} alt='siam' height='100px' /></span> : <span></span>}
-													</span>
-													<br />
-												</div>
-												<span
-													className="cwrapper"
-													style={{ fontWeight: "bold" }}
-												>
-													{value.likes.length === 0 ? (
-														<span></span>
-													) : (
-														<span
-                                                            className='reactColor'
-                                                        >
-                                                            {value.likes.length}
-                                                        </span>
-													)}{" "}
-													{value.likes.includes(_id) ? (
-														<span
-															className="reactColor likeComment"
-															onClick={() => commentLikeUnlike(value)}
-														>
-															{" "}
-															Like
-														</span>
-													) : (
-														<span
-															className="reactColor likeComment"
-															style={{ fontWeight: "normal" }}
-															onClick={() => commentLikeUnlike(value)}
-														>
-															{" "}
-															Like
-														</span>
-													)}
-												</span>
-												<span
-													onClick={() => displayReplySection(index, i)}
-													className="reactColor commentbtn"
-												>
-													{value.replies.length > 0 ? (
-														<span style={{ fontWeight: "bold" }}>
-															{value.replies.length} Reply
-														</span>
-													) : (
-														<span>Reply</span>
-													)}
-												</span>{" "}
-												<span
-													className="text-muted"
-													style={{ fontSize: "13px" }}
-												>
-													<RealTimeAgo date={Date.parse(value.createdAt)} locale="en-US" />
-												</span>
-												{/* reply section */}
-												<div id={replySection} className="hide">
-													{/* replies */}
-													{value.replies.map((replies, ind) => {
-														var repliesUseravaterSource;
-														//console.log(replies.user)
-														if (replies.user.avater) {
-															repliesUseravaterSource =
-																window.location.origin +
-																`/userUpload/${replies.user.avater}`;
-														} else {
-															repliesUseravaterSource =
-																"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04IQPD-wCoIQ3vpWQy5mjc1HTVrCP1ZvJyg&usqp=CAU";
-														}
-
-														let replyhrefAttachment = window.location.origin + `/replyUpload/${replies.replyAttachment}`;
-														//console.log(replyhrefAttachment)
-														const profilehrefreplies = `/profileOther/${replies.user.id}`
-														return (
-															<div
-																key={ind}
-																className="cwrapper"
-																style={{ display: "flex", width: "100%" }}
-															>
-																<div
-																	className="imageWrapperDoc"
-																	style={{ width: "10%" }}
-																>
-																	<img
-																		src={repliesUseravaterSource}
+                                        </span>
+                                      );
+                                    }
+                                  )}
+                                </span>
+                                <div>
+                                  <div style={{ textAlign: "center" }}>
+                                    {/* {v.statusAttachment.map((element) => {
+																	const ol = window.location.origin + `/userUpload/${element}`
+																	//console.log(ol)
+																	return(
+																		<img
+																		src={ol}
 																		alt="siams"
-																		height="25px"
-																		width="25px"
+																		height="50px"
+																		width="50px"
 																		style={{ borderRadius: "50%" }}
-																	/>
-																</div>
-																<div
-																	className="cwrapper"
-																	style={{
-																		background: "#F0F2F5",
-																		borderRadius: "10px",
-																	}}
-																>
-																	<span><a className='profile' href={profilehrefreplies}>{replies.user.name}</a></span> <br />
-																	<span className="text-muted">
-																		{replies.text}
-																	</span>{" "}
-																	<span>
-																		{replies.replyAttachment ? <span style={{ padding: '10px'}}><br/><img src={replyhrefAttachment} alt='siam' height='100px' /></span> : <span></span>}
-																	</span>
-																	<br />
-																	<span
-																		className="text-muted"
-																		style={{ fontSize: "13px" }}
-																	>
-																		<RealTimeAgo
-																			date={Date.parse(replies.createdAt)}
-																			locale="en-US"
 																		/>
-																	</span>
-
-																	
-																</div>
-																<div
-																onClick={() => deleteReply(replies.id)}
-																	className='text-muted'
-																	style={{height: '100%', 
-																	marginTop: 'auto', 
-																	marginBottom: 'auto', 
-																	marginLeft: '10px',
-																	cursor: 'pointer',
-																	boxShadow: 'rgba(255, 255, 255, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset',
-																	width: '25px',
-																	height: '25px',
-																	borderRadius: '50%',
-																	display: 'flex',
-																	justifyContent: 'center',
-																	alignItems: 'center'}}><i className="fas fa-trash"></i></div>
-
-
+																	)
 																
-															</div>
-														);
-													})}
+																//console.log(element)
+																})} */}
 
-													{/* write replies */}
+                                    <label
+                                      htmlFor='status-attachment2'
+                                      style={{
+                                        padding: "30px",
+                                        border: "1px solid #E4E6E9",
+                                        background: "#E4E6E9",
+                                        width: "100px",
+                                        height: "100px",
+                                        margin: "10px",
+                                      }}
+                                    >
+                                      <p
+                                        className='my-0'
+                                        style={{
+                                          fontSize: "30px",
+                                          cursor: "pointer",
+                                        }}
+                                      >
+                                        +
+                                      </p>
+                                    </label>
+                                  </div>
+                                  <p className='text-muted'>
+                                    You can Upload max 5 file
+                                  </p>
+                                  <input
+                                    name='statusAttachmentEdit'
+                                    onChange={StatusAttachmentEdit}
+                                    style={{ display: "none" }}
+                                    type='file'
+                                    id='status-attachment2'
+                                    multiple
+                                  />
+                                </div>
+                                <button
+                                  //onClick={postStatus}
+                                  style={{ marginTop: "15px", width: "100%" }}
+                                  type='submit'
+                                  className='btn btn-dark'
+                                  disabled={textfildStatus}
+                                  data-dismiss='modal'
+                                >
+                                  Post
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-													<div
-														style={{
-															display: "flex",
-															width: "100%",
-															marginLeft: "10px",
-														}}
-													>
-														<div
-															className="imageWrapperDoc"
-															style={{ width: "10%" }}
-														>
-															<img
-																src={useravaterSource}
-																alt="siams"
-																height="25px"
-																width="25px"
-																style={{ borderRadius: "50%" }}
-															/>
-														</div>
-														<form
-															method='POST'
-															encType='multipart/form-data'
-															onSubmit={(e) => {
-																e.preventDefault();
-																postreply(value._id, i, v._id);
-															}}
-															autoComplete='off'
-															style={{
-																marginTop: "0",
-																width: "100%",
-																marginLeft: "10px",
-																display: "flex",
-																justifyContent: "center",
-																alignItems: "center",
-															}}
-														>
-															<div className='px-2'>
-																<label style={{cursor: 'pointer'}} htmlFor='repliesAttachment'><i className="fas fa-camera"></i></label>
-																<input onChange={storeReply} name='replyAttachment' style={{display: 'none'}} type='file' id='repliesAttachment' />
-															</div>
-															<input
-																onChange={storeReply}
-																name='replyText'
-																style={{
-																	background: "#F0F2F5",
-																	borderRadius: "15px",
-																}}
-																type="text"
-																className="form-control commentinput"
-																id={repluinputId}
-																value={reply}
-																placeholder="Write a comment..."
-															/>
-															{/* <p  id={commentName}>{v._id}</p> */}
-															<div
-																onClick={() => postreply(value._id, i, v._id)}
-																className="btn"
-															>
-																<i className="far fa-paper-plane" disabled></i>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-										<div
-											onClick={() => deleteComment(value._id)}
-											className='text-muted'
-											 style={{
-											marginTop: '20px', 
-											
-											marginLeft: '10px',
-											cursor: 'pointer',
-											boxShadow: 'rgba(255, 255, 255, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset',
-											width: '25px',
-											height: '25px',
-											borderRadius: '50%',
-											display: 'flex',
-											justifyContent: 'center',
-											alignItems: 'center'}}><i className="far fa-trash-alt"></i></div>
-										</div>
-									);
-								})}
-						</span>
-					</div>
-				);
+                      <div
+                        onClick={() => deleteStatus(v._id)}
+                        className='btn cbtn'
+                      >
+                        Delete
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <span></span>
+                )}
+              </div>
+            </div>
+
+            {/* body */}
+
+            <div className='px-4' style={{ wordWrap: "break-word" }}>
+              <span>
+                {v.text.length < 50 ? (
+                  <span style={{ fontSize: "25px" }}>{v.text}</span>
+                ) : (
+                  <div>{v.text}</div>
+                )}
+              </span>
+              <div className='my-3' style={{ textAlign: "center" }}>
+                {v.statusAttachment.length > 0 ? (
+                  v.statusAttachment.map(
+                    (AttachmentImageForStatus, aisIndex) => {
+                      let StatusAttachmentSrc =
+                        window.location.origin +
+                        `/statusUpload/${AttachmentImageForStatus}`;
+                      return (
+                        <img
+                          key={aisIndex}
+                          src={StatusAttachmentSrc}
+                          alt='siam'
+                          width='50%'
+                        />
+                      );
+                    }
+                  )
+                ) : (
+                  <span></span>
+                )}
+              </div>
+            </div>
+
+            {/* like & comment section */}
+
+            <div
+              className='my-3 mx-auto'
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "90%",
+                borderBottom: "1px solid #edc2ca",
+                borderTop: "1px solid #edc2ca",
+              }}
+            >
+              <div>
+                <p style={{ marginTop: ".5rem", marginBottom: ".5rem" }}>
+                  {v.likes.includes(_id) ? (
+                    <i
+                      style={{ cursor: "pointer" }}
+                      onClick={() => likeUnlike(v)}
+                      className='fas fa-heart reactColor'
+                    ></i>
+                  ) : (
+                    <i
+                      style={{ cursor: "pointer" }}
+                      onClick={() => likeUnlike(v)}
+                      className='far fa-heart reactColor'
+                    ></i>
+                  )}
+                  &nbsp;
+                  {v.likes.length === 0 ? (
+                    <span></span>
+                  ) : v.likes.length < 9 ? (
+                    <span>0{v.likes.length} Likes</span>
+                  ) : (
+                    v.likes.length + " Likes"
+                  )}
+                </p>
+              </div>
+              <div
+                className='text-muted commentbtn'
+                onClick={() => visibleComment(i)}
+              >
+                {v.comments.length === 0 ? (
+                  <span>comment</span>
+                ) : v.comments.length < 2 ? (
+                  <span>{v.comments.length + "comment"}</span>
+                ) : (
+                  v.comments.length + "comments"
+                )}
+              </div>
+            </div>
+
+            {/* all comment */}
+
+            <div style={{ display: "flex", width: "100%" }}>
+              <div className='imageWrapperDoc' style={{ width: "10%" }}>
+                <img
+                  src={useravaterSource}
+                  alt='siams'
+                  height='40px'
+                  width='40px'
+                  style={{ borderRadius: "50%" }}
+                />
+              </div>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  postComment(v._id, i);
+                }}
+                autoComplete='off'
+                style={{
+                  marginTop: "0",
+                  width: "100%",
+                  marginLeft: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <div className='px-2'>
+                  <label
+                    style={{ cursor: "pointer" }}
+                    htmlFor='commentAttachment'
+                  >
+                    <i className='fas fa-camera'></i>
+                  </label>
+                  <input
+                    onChange={storeComment}
+                    name='commentAttachment'
+                    style={{ display: "none" }}
+                    type='file'
+                    id='commentAttachment'
+                  />
+                </div>
+                <input
+                  onChange={storeComment}
+                  style={{ background: "#F0F2F5", borderRadius: "15px" }}
+                  type='text'
+                  name='commentText'
+                  className='form-control commentinput'
+                  id={commentName}
+                  placeholder='Write a comment...'
+                />
+
+                {/* <p  id={commentName}>{v._id}</p> */}
+                <div onClick={() => postComment(v._id, i)} className='btn'>
+                  <i className='far fa-paper-plane' disabled></i>
+                </div>
+              </form>
+            </div>
+
+            {/* comment get */}
+
+            <span id={cv} className='hide'>
+              {v.comments
+                .slice(0)
+                .reverse()
+                .map((value, index) => {
+                  var commnetUseravaterSource;
+                  if (value.user.avater) {
+                    commnetUseravaterSource =
+                      window.location.origin +
+                      `/userUpload/${value.user.avater}`;
+                  } else {
+                    commnetUseravaterSource =
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04IQPD-wCoIQ3vpWQy5mjc1HTVrCP1ZvJyg&usqp=CAU";
+                  }
+
+                  const replySection = `replySection${index}${i}`;
+                  const repluinputId = `repluinputId${index}`;
+
+                  const profilehrefComment = `/profileOther/${value.user.id}`;
+                  const commenthref =
+                    window.location.origin +
+                    `/commentUpload/${value.commentAttachment}`;
+
+                  const myprofilehrefComment = `/profile`;
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        marginTop: "15px",
+                      }}
+                    >
+                      <div className='imageWrapperDoc' style={{ width: "10%" }}>
+                        <img
+                          src={commnetUseravaterSource}
+                          alt='siams'
+                          height='40px'
+                          width='40px'
+                          style={{ borderRadius: "50%" }}
+                        />
+                      </div>
+                      <div>
+                        <div
+                          className='cwrapper'
+                          style={{
+                            background: "#F0F2F5",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <span>
+                            {value.user.id === _id ? (
+                              <Link
+                                className='profile'
+                                to={myprofilehrefComment}
+                              >
+                                {value.user.name}
+                              </Link>
+                            ) : (
+                              <Link className='profile' to={profilehrefComment}>
+                                {value.user.name}
+                              </Link>
+                            )}
+                          </span>{" "}
+                          <br />
+                          <span className='text-muted'>{value.text}</span>
+                          <span>
+                            {value.commentAttachment ? (
+                              <span style={{ padding: "10px" }}>
+                                <br />
+                                <img
+                                  src={commenthref}
+                                  alt='siam'
+                                  height='100px'
+                                />
+                              </span>
+                            ) : (
+                              <span></span>
+                            )}
+                          </span>
+                          <br />
+                        </div>
+                        <span
+                          className='cwrapper'
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {value.likes.length === 0 ? (
+                            <span></span>
+                          ) : (
+                            <span className='reactColor'>
+                              {value.likes.length}
+                            </span>
+                          )}{" "}
+                          {value.likes.includes(_id) ? (
+                            <span
+                              className='reactColor likeComment'
+                              onClick={() => commentLikeUnlike(value)}
+                            >
+                              {" "}
+                              Like
+                            </span>
+                          ) : (
+                            <span
+                              className='reactColor likeComment'
+                              style={{ fontWeight: "normal" }}
+                              onClick={() => commentLikeUnlike(value)}
+                            >
+                              {" "}
+                              Like
+                            </span>
+                          )}
+                        </span>
+                        <span
+                          onClick={() => displayReplySection(index, i)}
+                          className='reactColor commentbtn'
+                        >
+                          {value.replies.length > 0 ? (
+                            <span style={{ fontWeight: "bold" }}>
+                              {value.replies.length} Reply
+                            </span>
+                          ) : (
+                            <span>Reply</span>
+                          )}
+                        </span>{" "}
+                        <span
+                          className='text-muted'
+                          style={{ fontSize: "13px" }}
+                        >
+                          <RealTimeAgo
+                            date={Date.parse(value.createdAt)}
+                            locale='en-US'
+                          />
+                        </span>
+                        {/* reply section */}
+                        <div id={replySection} className='hide'>
+                          {/* replies */}
+                          <Replies
+                            _id={_id}
+                            v={v}
+                            commentid={value._id}
+                            reply={value.replies}
+                          />
+
+                          {/* write replies */}
+
+                          <div
+                            style={{
+                              display: "flex",
+                              width: "100%",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <div
+                              className='imageWrapperDoc'
+                              style={{ width: "10%" }}
+                            >
+                              <img
+                                src={useravaterSource}
+                                alt='siams'
+                                height='25px'
+                                width='25px'
+                                style={{ borderRadius: "50%" }}
+                              />
+                            </div>
+                            <form
+                              method='POST'
+                              encType='multipart/form-data'
+                              onSubmit={(e) => {
+                                e.preventDefault();
+                                postreply(value._id, i, v._id);
+                              }}
+                              autoComplete='off'
+                              style={{
+                                marginTop: "0",
+                                width: "100%",
+                                marginLeft: "10px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            >
+                              <div className='px-2'>
+                                <label
+                                  style={{ cursor: "pointer" }}
+                                  htmlFor='repliesAttachment'
+                                >
+                                  <i className='fas fa-camera'></i>
+                                </label>
+                                <input
+                                  onChange={storeReply}
+                                  name='replyAttachment'
+                                  style={{ display: "none" }}
+                                  type='file'
+                                  id='repliesAttachment'
+                                />
+                              </div>
+                              <input
+                                onChange={storeReply}
+                                name='replyText'
+                                style={{
+                                  background: "#F0F2F5",
+                                  borderRadius: "15px",
+                                }}
+                                type='text'
+                                className='form-control commentinput'
+                                id={repluinputId}
+                                value={reply}
+                                placeholder='Write a comment...'
+                              />
+                              {/* <p  id={commentName}>{v._id}</p> */}
+                              <div
+                                onClick={() => postreply(value._id, i, v._id)}
+                                className='btn'
+                              >
+                                <i className='far fa-paper-plane' disabled></i>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      {v.user.id === _id || value.user.id === _id ? (
+                        <div
+                          onClick={() => deleteComment(value._id)}
+                          className='text-muted'
+                          style={{
+                            marginTop: "20px",
+
+                            marginLeft: "10px",
+                            cursor: "pointer",
+                            boxShadow:
+                              "rgba(255, 255, 255, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset",
+                            width: "25px",
+                            height: "25px",
+                            borderRadius: "50%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <i className='far fa-trash-alt'></i>
+                        </div>
+                      ) : (
+                        <span></span>
+                      )}
+                    </div>
+                  );
+                })}
+            </span>
+          </div>
+        );
 			})}
 		</div>
 	);
