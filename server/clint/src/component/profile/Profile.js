@@ -40,7 +40,7 @@ const Profile = (props) => {
     "https://st4.depositphotos.com/1156795/21707/v/600/depositphotos_217073102-stock-illustration-profile-placeholder-image-gray-silhouette.jpg";
   let titleIcon = '';
   let titleIconColor = '';
-  let unmount = true;
+  let siam = true;
 
   const getdata = async () => {
     try {
@@ -62,24 +62,26 @@ const Profile = (props) => {
       .then((res) => {
         if (res) {
           //console.log(res.data.users);
-          if (unmount) {
+          if (siam) {
             setprofile(res.data.users);
-            axios.get(`/status/x/${_id}`)
-            .then(resStatus => {
-              if(resStatus){
-                setgetStatus(resStatus.data.response);
-                //console.log(resStatus.data.response)
-              }
-            })
-            .catch(errStatus => console.log(errStatus.response))
-
+            
           }
         }
       })
       .catch((err) => console.log(err.response));
 
+      // axios.get(`/status/x/${_id}`)
+      //       .then(resStatus => {
+      //         if(unmount){
+      //           setgetStatus(resStatus.data.response);
+      //           //console.log(resStatus.data.response)
+      //         }
+      //       })
+      //       .catch(errStatus => console.log(errStatus.response))
+
+
     return () => {
-      unmount = false;
+      siam = false;
     };
   }, [profile]);
 
@@ -1353,14 +1355,15 @@ const Profile = (props) => {
         </div>
       </div>
 
-      <DocDForProfile
+      {/* <DocDForProfile
         user={props.user}
         userId={props.user._id}
         getStatusX={getStatus}
-      />
+      /> */}
       {/* <Test getStatusX={getStatus} /> */}
     </>
   );
 };
 
 export default Profile;
+

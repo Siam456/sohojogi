@@ -51,14 +51,23 @@ const Docdiray = (props) => {
 			console.log(err.message);
 		}
 	}
+	let placeholderText = `What's on your mind, ${name}?`;
 
-	
 	useEffect(() => {
 		
-		getfunasync();
+		//getfunasync();
+    axios.get("/status")
+    .then(res => {
+      if (unmount) {
+        setgetStatus(res.data.response);
+        console.log(getStatus)
+      }
+    })
+    .catch(err => console.log(err))
 
+    
 		return () => {
-			unmount = false;
+			unmount = false; 
 		};
 	}, [getStatus]);
 
@@ -93,14 +102,7 @@ const Docdiray = (props) => {
 			.catch((err) => console.log(err.response));
 	};
 	
-	var useravaterSource;
-	if (avater) {
-		useravaterSource = window.location.origin + `/userUpload/${avater}`;
-	} else {
-		useravaterSource =
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04IQPD-wCoIQ3vpWQy5mjc1HTVrCP1ZvJyg&usqp=CAU";
-	}
-	let placeholderText = `What's on your mind, ${name}?`;
+	
 
 	//like
 	const likeUnlike = (obj) => {
@@ -428,13 +430,21 @@ const Docdiray = (props) => {
 				<div>
 					<div style={{ display: "flex" }}>
 						<div className="imageWrapperDoc">
-							<img
-								src={useravaterSource}
+							{avater ? 
+              <img
+								src={window.location.origin + `/userUpload/${avater}`}
 								alt="siams"
 								height="50px"
 								width="50px"
 								style={{ borderRadius: "50%" }}
-							/>
+							/> :
+              <img
+								src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04IQPD-wCoIQ3vpWQy5mjc1HTVrCP1ZvJyg&usqp=CAU"
+								alt="siams"
+								height="50px"
+								width="50px"
+								style={{ borderRadius: "50%" }}
+							/>}
 						</div>
 
 						{/* <!-- Button trigger modal --> */}
@@ -513,7 +523,7 @@ const Docdiray = (props) => {
 			</div>
 
 			{getStatus.map((v, i) => {
-				var statusUseravaterSource;
+				let statusUseravaterSource;
 				if (v.user.avater) {
 					statusUseravaterSource =
 						window.location.origin + `/userUpload/${v.user.avater}`;
@@ -577,7 +587,7 @@ const Docdiray = (props) => {
                   <h6 style={{ marginBottom: "0" }}>
                     
                     {v.user.id === _id ? (
-                      <Link className='profile' to='/profile'>
+                      <Link className='profile' to={'/profile/'+v.user.id}>
                         {v.user.name}
                       </Link>
                     ) : (
@@ -803,13 +813,11 @@ const Docdiray = (props) => {
                 {v.statusAttachment.length > 0 ? (
                   v.statusAttachment.map(
                     (AttachmentImageForStatus, aisIndex) => {
-                      let StatusAttachmentSrc =
-                        window.location.origin +
-                        `/statusUpload/${AttachmentImageForStatus}`;
+                      
                       return (
                         <img
                           key={aisIndex}
-                          src={StatusAttachmentSrc}
+                          src={window.location.origin + `/statusUpload/${AttachmentImageForStatus}`}
                           alt='siam'
                           width='50%'
                         />
@@ -877,13 +885,21 @@ const Docdiray = (props) => {
 
             <div style={{ display: "flex", width: "100%" }}>
               <div className='imageWrapperDoc' style={{ width: "10%" }}>
+                {avater ? 
                 <img
-                  src={useravaterSource}
-                  alt='siams'
-                  height='40px'
-                  width='40px'
+                  src={window.location.origin + `/userUpload/${avater}`}
+                  alt="siams"
+                  height="40px"
+                  width="40px"
                   style={{ borderRadius: "50%" }}
-                />
+                /> :
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04IQPD-wCoIQ3vpWQy5mjc1HTVrCP1ZvJyg&usqp=CAU"
+                  alt="siams"
+                  height="40px"
+                  width="40px"
+                  style={{ borderRadius: "50%" }}
+                />}
               </div>
               <form
                 onSubmit={(e) => {
@@ -1090,13 +1106,21 @@ const Docdiray = (props) => {
                               className='imageWrapperDoc'
                               style={{ width: "10%" }}
                             >
-                              <img
-                                src={useravaterSource}
-                                alt='siams'
-                                height='25px'
-                                width='25px'
-                                style={{ borderRadius: "50%" }}
-                              />
+                              {avater ? 
+                                <img
+                                  src={window.location.origin + `/userUpload/${avater}`}
+                                  alt="siams"
+                                  height="50px"
+                                  width="50px"
+                                  style={{ borderRadius: "50%" }}
+                                /> :
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ04IQPD-wCoIQ3vpWQy5mjc1HTVrCP1ZvJyg&usqp=CAU"
+                                  alt="siams"
+                                  height="50px"
+                                  width="50px"
+                                  style={{ borderRadius: "50%" }}
+                                />}
                             </div>
                             <form
                               method='POST'

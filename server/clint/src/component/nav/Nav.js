@@ -40,6 +40,7 @@ import Pharmacyproduct from "../populorProducts/Pharmacyproduct";
 import Profile from "../profile/Profile";
 import Othersprofile from "../profile/Othersprofile";
 import Test from "../docdiary/Test";
+import DocDForProfile from "../docdiary/DocDForProfile";
 
 const Nav = () => {
 	const [user, setuser] = useState({
@@ -50,23 +51,19 @@ const Nav = () => {
 		role: "",
 	});
 
-	let unmount = false;
+	//let unmount = true;
 	useEffect(() => {
 		axios
 			.get("/userprofile")
 			.then((res) => {
-				if (!unmount) {
-					setuser(res.data.profile);
-					//console.log(user)
-				}
+				//console.log('navs')
+				setuser(res.data.profile);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-		return () => {
-			unmount = true;
-		};
-	}, [user]);
+		
+	},[]);
 
 	//logout
 
@@ -227,7 +224,7 @@ const Nav = () => {
 					<NavLink
 						activeClassName="active"
 						className="nav-link"
-						to="/profile"
+						to={"/profile/"+user._id}
 					>
 						profile
 					</NavLink>
@@ -316,7 +313,7 @@ const Nav = () => {
 					{" "}
 					<Docdiray user={user} />{" "}
 				</Route>
-				<Route path="/profile">
+				<Route path="/profile/:_id">
 					{" "}
 					<Profile user={user} />{" "}
 				</Route>

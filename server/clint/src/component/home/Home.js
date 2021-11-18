@@ -7,12 +7,13 @@ const Home = () => {
     const [products, setproducts] = useState([]);
     
     let flag = 0;
-    let unmount = true;
+    let unmountww = true;
 
     const getdata = async() => {
         try{
             const res = await axios.get('/product/all');
-            if(unmount){
+            if(unmountww){
+                console.log('home')
                 setproducts(res.data.products);
             }
 
@@ -23,15 +24,11 @@ const Home = () => {
     useEffect(() => {
         // axios.get('/product/all')
         // .then(res => {
-        //     if(unmount){
-        //         setproducts(res.data.products);
-        //     }
+        //     setproducts(res.data.products);
         // })
         // .catch(err => console.log(err))
         getdata();
-        return(() => {
-            unmount = false;
-        })
+       
     }, [products])
 
 

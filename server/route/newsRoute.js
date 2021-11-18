@@ -21,7 +21,7 @@ const checkadmin = (req, res, next) => {
 route.get('/', getNews);
 route.post('/', checkLogin, checkadmin, upload.single('avater'), bodyParseData,  newsValidation , checknewsValidation , postNews);
 route.delete('/:id', checkLogin, checkadmin, deleteNews);
-route.get('/:id', checkLogin, getNewsbyId);
+route.get('/:id',  getNewsbyId);
 
 route.patch('/:id', checkLogin, checkadmin, upload.single('avater'), bodyParseData,  newsValidation , checknewsValidation , editNews);
 

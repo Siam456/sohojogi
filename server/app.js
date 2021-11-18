@@ -67,16 +67,16 @@ const people = require('./model/userModel');
 app.get('/userprofile' , checklogin, async (req, res) => {
     //console.log(req.user)
     if(req.user){
-        const response = await people.findOne({_id: req.user._id});
+        //const response = await people.findOne({_id: req.user._id});
         //console.log(response)
         res.json({
-            profile: response
+            profile: req.user
         })
     }
 })
 
 app.get('/logout' , (req, res) => {
-    console.log('siam')
+    //console.log('siam')
     res.clearCookie(process.env.COOKIE_NAME);
     res.end()
 })

@@ -461,7 +461,7 @@ const Othersprofile = (props) => {
         </div>
       </div>
       <div className='bc'></div>      
-      <DocDForProfile user={user} userId = {props.user._id} getStatusX={getStatus} /> 
+      {/* <DocDForProfile user={user} userId = {props.user._id} getStatusX={getStatus} />  */}
     </>
   );
 };
