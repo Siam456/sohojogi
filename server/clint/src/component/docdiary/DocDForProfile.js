@@ -1143,16 +1143,27 @@
 // export default DocDForProfile;
 
 
-const DocDForProfile = () => {
+const DocDForProfile = (props) => {
+  const { _id }= props;
   const [ getStatus, setgetStatus ] = useState([]);
 
+  let unmount = true;
   useEffect(() => {
-    axios.get('/status')
-    .then(res => {
-      setgetStatus(res.data.response)
+    axios
+    .get(`/status/x/${_id}`)
+    .then((resStatus) => {
+      if (unmount) {
+        setgetStatus(resStatus.data.response);
+        //console.log(resStatus)
+      }
     })
-    .catch(err => console.log('x'))
+    .catch((errStatus) => console.log(errStatus.response));
+
+    return(() => {
+      unmount = false;
+    })
   })
+
   return (
     <div>
       {getStatus.map((r, e) => {

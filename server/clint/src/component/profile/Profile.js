@@ -70,15 +70,7 @@ const Profile = (props) => {
       })
       .catch((err) => console.log(err.response));
 
-      // axios.get(`/status/x/${_id}`)
-      //       .then(resStatus => {
-      //         if(unmount){
-      //           setgetStatus(resStatus.data.response);
-      //           //console.log(resStatus.data.response)
-      //         }
-      //       })
-      //       .catch(errStatus => console.log(errStatus.response))
-
+      
 
     return () => {
       siam = false;
@@ -1355,11 +1347,9 @@ const Profile = (props) => {
         </div>
       </div>
 
-      {/* <DocDForProfile
-        user={props.user}
-        userId={props.user._id}
-        getStatusX={getStatus}
-      /> */}
+      <DocDForProfile
+        _id = {_id}
+      />
       {/* <Test getStatusX={getStatus} /> */}
     </>
   );
