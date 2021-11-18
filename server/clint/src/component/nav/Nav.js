@@ -224,7 +224,7 @@ const Nav = () => {
 					<NavLink
 						activeClassName="active"
 						className="nav-link"
-						to={"/profile/"+user._id}
+						to="/profile"
 					>
 						profile
 					</NavLink>
@@ -311,9 +311,9 @@ const Nav = () => {
 				</Route>
 				<Route path="/docdiary">
 					{" "}
-					<Docdiray user={user} />{" "}
+					<Test user={user} />{" "}
 				</Route>
-				<Route path="/profile/:_id">
+				<Route path="/profile">
 					{" "}
 					<Profile user={user} />{" "}
 				</Route>
@@ -392,7 +392,7 @@ const Nav = () => {
 				</Route>
 				<Route path="/docdiary">
 					{" "}
-					<Docdiray user={user} />{" "}
+					<Test user={user} />{" "}
 				</Route>
 				<Route path="/profile">
 					{" "}
@@ -487,7 +487,7 @@ const Nav = () => {
 				</Route>
 				<Route path="/docdiary">
 					{" "}
-					<Docdiray user={user} />{" "}
+					<Test user={user} />{" "}
 				</Route>
 				<Route path="/profile">
 					{" "}

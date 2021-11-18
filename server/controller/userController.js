@@ -415,15 +415,7 @@ const profilePicUploder = async (req, res) => {
                     }
                 });
 
-                // //const objId = Mongoose.Types.ObjectId(req.params.id);
-                // const replyUserUpdateCOmment = await commentModel.updateMany({'replies.user.id': req.params.id},
-                //     {
-                //         $set: {
-                //             "replies.user.avater": req.file.filename,
-                //         }
-                //     });
-
-                
+               
 
                 const replyUserUpdate = await repliesModel.updateMany({'user.id': req.params.id},
                 {

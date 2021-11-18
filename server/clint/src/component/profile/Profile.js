@@ -190,7 +190,7 @@ const Profile = (props) => {
 
       const res = await axios.post(`user/profilepic/${_id}`, data);
       if (res) {
-        window.location.reload();
+        console.log(res);
       }
     } catch (err) {
       console.log(err.response);

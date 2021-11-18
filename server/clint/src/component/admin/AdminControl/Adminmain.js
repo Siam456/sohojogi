@@ -154,6 +154,7 @@ const Adminmain = () => {
 							className="form-control"
 							type="text"
 							name="name"
+							value={user.name}
 							placeholder="Name"
 						></input>
 						<p id="error-name" className="ei-perror"></p> <br></br>

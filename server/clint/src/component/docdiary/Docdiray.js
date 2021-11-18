@@ -60,7 +60,7 @@ const Docdiray = (props) => {
     .then(res => {
       if (unmount) {
         setgetStatus(res.data.response);
-        console.log(getStatus)
+        //console.log(getStatus)
       }
     })
     .catch(err => console.log(err))
@@ -524,7 +524,11 @@ const Docdiray = (props) => {
 
 			{getStatus.map((v, i) => {
 				let statusUseravaterSource;
-				if (v.user.avater) {
+        if(v.user.id === _id){
+          statusUseravaterSource =
+            window.location.origin + `/userUpload/${avater}`;
+        }
+				else if (v.user.avater) {
 					statusUseravaterSource =
 						window.location.origin + `/userUpload/${v.user.avater}`;
 				} else {

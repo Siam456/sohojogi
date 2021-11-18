@@ -57,9 +57,7 @@ route.post('/profilepic/:id', checkLogin, upload.single('avater'),  profilePicUp
 //update bio
 route.post('/addbio/:id', checkLogin, addBio);
 route.patch('/bio/:id', checkLogin, editBio);
-route.delete('/bio/:id', checkLogin, (req, res) => {
-        console.log('siams')
-});
+route.delete('/bio/:id', checkLogin, deleteBio);
 
 
 
