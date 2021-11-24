@@ -22,8 +22,9 @@ const Groceryproduct = () => {
 	let srcMI;
 
 	//get products
-	let unmout = true;
+	
 	useEffect(() => {
+        let unmout = true;
 		axios
 			.get("/product/all")
 			.then((res) => {
@@ -37,7 +38,7 @@ const Groceryproduct = () => {
 		return () => {
 			unmout = false;
 		};
-	}, [product]);
+	}, []);
 
 	//add cart
 
@@ -51,7 +52,7 @@ const Groceryproduct = () => {
 
 		try {
 			const res = await axios.put(
-				`http://localhost:3000/cart/${id}/${shop_id}`,
+				`/cart/${id}/${shop_id}`,
 				body
 			);
 
@@ -139,7 +140,7 @@ const Groceryproduct = () => {
                                         titleIcon = <i style={{color: '#BF1B28'}} className="fas fa-capsules"></i>
                                     }
                                     return (
-                                        <div key={i} className="col-sm-12  col-lg-4 col-md-6 my-3" >
+                                        <div key={i} className="col-sm-12 col-lg-4 col-md-6 my-3" >
                                             <div
                                                 className="productCard m-auto"
                                                 style={{

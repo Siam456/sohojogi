@@ -223,37 +223,65 @@ const incLike = async (req, res) => {
 const deletereplies = async (req, res) => {
   try {
     //console.log(req.params.id)
-    const responseUser = await repliesModel.find({ _id: req.params.id });
+    // const responseUser = await repliesModel.find({ _id: req.params.id });
 
-    responseUser.forEach(async (x) => {
-      //console.log(x)
-      const statusUser = await statusModel.findOne({ _id: x.statusid });
-      //console.log(statusUser);
-      if (
-        statusUser.user.id.toString() === req.user._id ||
-        x.user.id.toString() === req.user._id
-      ) {
-        const responseReplies = await repliesModel.findByIdAndDelete({
-          _id: req.params.id,
-        });
+    // responseUser.forEach(async (x) => {
+    //   //console.log(x)
+    //   const statusUser = await statusModel.findOne({ _id: x.statusid });
+    //   //console.log(statusUser);
+    //   if (
+    //     statusUser.user.id.toString() === req.user._id ||
+    //     x.user.id.toString() === req.user._id
+    //   ) {
+    //     const responseReplies = await repliesModel.findByIdAndDelete({
+    //       _id: req.params.id,
+    //     });
 
-        if (responseReplies.replyAttachment) {
-          const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`;
-          fs.unlinkSync(delPathreply);
-        }
+    //     if (responseReplies.replyAttachment) {
+    //       const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`;
+    //       fs.unlinkSync(delPathreply);
+    //     }
 
-        const commentReplies = await commentModel.findByIdAndUpdate(
-          { _id: responseReplies.commentid },
-          {
-            $pull: {
-              replies: { id: responseReplies._id },
-            },
-          }
+    //     const commentReplies = await commentModel.findByIdAndUpdate(
+    //       { _id: responseReplies.commentid },
+    //       {
+    //         $pull: {
+    //           replies: { id: responseReplies._id },
+    //         },
+    //       }
+    //     );
+
+      //   res.json({
+      //     msg: "successfully delete reply",
+      //   });
+      // }
+    // });
+
+    const comment = await commentModel.findOne({_id: req.params.commentId});
+    
+    comment.replies.forEach(async(element) => {
+      
+      
+      if(element.id.toString() === req.params.id){
+        const response = await commentModel.findOneAndUpdate(
+          { _id: req.params.commentId },
+          { $pull: {"replies": {id: element.id}} }
         );
 
-        res.json({
-          msg: "successfully delete reply",
-        });
+        //console.log(element)
+
+        if(element.replyAttachment){
+          const delPathreply = `${__dirname}/../clint/public/replyUpload/${element.replyAttachment}`;
+          fs.unlinkSync(delPathreply);
+        }
+  
+        
+  
+        // if(response){
+        //   const delpath = `${__dirname}/../clint/public/statusUpload/${req.params.image}`;
+        //   //console.log(delpath)    
+        //   fs.unlinkSync(delpath);
+        // }
       }
     });
   } catch (err) {

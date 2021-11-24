@@ -39,7 +39,7 @@ const NewsAdmin = () => {
         return(() => {
             unmount = false;
         })
-    }, [getNews]);
+    }, ['/news']);
 
     //store data into state
 	const setval = (e) => {

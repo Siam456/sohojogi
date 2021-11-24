@@ -27,11 +27,7 @@
 i{
     margin-top: 5px;
 }
-.bc{
-    min-height: 35vh;
-    background: #DAE2ED;
-  
-}
+
 .profilebtn{
     cursor: pointer;
 }
@@ -92,9 +88,7 @@ i{
     .infoFirst{
         display: block;
     }
-    .bc{
-        min-height: 73vh;
-    }
+    
     .coverAction{
         top: 15%;
         left: 5%;

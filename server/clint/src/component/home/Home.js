@@ -29,7 +29,7 @@ const Home = () => {
         // .catch(err => console.log(err))
         getdata();
        
-    }, [products])
+    }, ['/product/all'])
 
 
     //show product 

@@ -88,7 +88,7 @@ const Product = (param) => {
                                              
                                             <div className='row p-0 g-5'>
                                                 <div className='col-sm-6' style={{textAlign: 'center', height: '100%', overflow: 'hidden'}}>
-                                                    <img style={{ marginBottom: '20px' , borderRadius: '3px'}} src={window.location.origin + `/productAvater/${p.avater}`} width= '300px' />
+                                                    <img style={{ marginBottom: '20px' , borderRadius: '3px'}} src={window.location.origin + `/productAvater/${p.avater}`} width= '300px' alt='siam' />
                                                 </div>
                                                 <div className='col-sm-6'>
                                                     <h2 style={{color: 'gray'}}> <i className="fab fa-phoenix-framework"></i> {value.shopname}</h2>

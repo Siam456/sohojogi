@@ -25,7 +25,6 @@ import OrderItem from "../shop/orderitem/OrderItem";
 import Register from "../register/Register";
 import DelivaryQueue from "../rider/delivary/DelivaryQueue";
 import MyDelivary from "../rider/delivary/myDekivary/MyDelivary";
-import NotFound from "../error/NotFound";
 import Allshop from "../allshop/Allshop";
 import ShopProducts from "../shopProducts/ShopProducts";
 import PopulorProducts from "../populorProducts/PopulorProducts";
@@ -40,7 +39,6 @@ import Pharmacyproduct from "../populorProducts/Pharmacyproduct";
 import Profile from "../profile/Profile";
 import Othersprofile from "../profile/Othersprofile";
 import Test from "../docdiary/Test";
-import DocDForProfile from "../docdiary/DocDForProfile";
 
 const Nav = () => {
 	const [user, setuser] = useState({
@@ -100,146 +98,162 @@ const Nav = () => {
 
 	if (user.role === "admin") {
 		links = (
-			<>
-			
-			<li className="nav-item dropdown">
-				<a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				admin
-				</a>
-				<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					
-					
-					<li>
-						<NavLink activeClassName="active" className="dropdown-item" to="/admin">
-							Admin
-						</NavLink>
-					</li>
+      <>
+        <li className="nav-item dropdown">
+          <a
+            className="nav-link dropdown-toggle"
+            href="/"
+            id="navbarDropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            admin
+          </a>
+          <div
+            className="dropdown-menu"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="dropdown-item"
+                to="/admin"
+              >
+                Admin
+              </NavLink>
+            </li>
 
-					<li>
-						<NavLink
-							activeClassName="active"
-							className="dropdown-item"
-							to="/adminnews"
-						>
-							NewsPost
-						</NavLink>
-					</li>
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="dropdown-item"
+                to="/adminnews"
+              >
+                NewsPost
+              </NavLink>
+            </li>
 
-					<li>
-						<NavLink
-							activeClassName="active"
-							className="dropdown-item"
-							to="/amdin/adminshoprq"
-						>
-							shop request
-						</NavLink>
-					</li>
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="dropdown-item"
+                to="/amdin/adminshoprq"
+              >
+                shop request
+              </NavLink>
+            </li>
 
-					<li>
-						<NavLink
-							activeClassName="active"
-							className="dropdown-item"
-							to="/amdin/adminriderrq"
-						>
-							Rider request
-						</NavLink>
-					</li>
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="dropdown-item"
+                to="/amdin/adminriderrq"
+              >
+                Rider request
+              </NavLink>
+            </li>
 
-					<li>
-					<NavLink
-						activeClassName="active"
-						className="dropdown-item"
-						to="/amdin/adminproducts"
-					>
-						Product Controller
-					</NavLink>
-				</li>
-				</div>
-			</li>
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="dropdown-item"
+                to="/amdin/adminproducts"
+              >
+                Product Controller
+              </NavLink>
+            </li>
+          </div>
+        </li>
 
+        <li>
+          <NavLink
+            activeClassName="active"
+            className="nav-link"
+            to="/amdin/addproduct"
+          >
+            My Shop
+          </NavLink>
+        </li>
 
-			
+        <li className="nav-item dropdown">
+          <a
+            className="nav-link dropdown-toggle"
+            href="/"
+            id="to"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Tracking Order
+          </a>
+          <div
+            className="dropdown-menu"
+            aria-labelledby="to"
+          >
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/shoppingitem"
+              >
+                Tracking Order
+              </NavLink>
+            </li>
 
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/amdin/addproduct"
-					>
-						My Shop
-					</NavLink>
-				</li>
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/orderitem"
+              >
+                Order Items
+              </NavLink>
+            </li>
 
-				
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/delivery"
+              >
+                Delivery Queue
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/mydelivery"
+              >
+                My Deliveries
+              </NavLink>
+            </li>
+          </div>
+        </li>
 
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/shoppingitem"
-					>
-						Tracking Order
-					</NavLink>
-				</li>
+        <li>
+          <NavLink activeClassName="active" className="nav-link" to="/docdiary">
+            Doc Diary
+          </NavLink>
+        </li>
 
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/docdiary"
-					>
-						Doc Diary
-					</NavLink>
-				</li>
+        <li>
+          <NavLink activeClassName="active" className="nav-link" to="/profile">
+            profile
+          </NavLink>
+        </li>
 
-				
-				
-
-				{/* <li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/orderitem"
-					>
-						Order Items
-					</NavLink>
-				</li>
-
-				<li>
-					<NavLink activeClassName="active" className="nav-link" to="/delivery">
-						Delivery Queue
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/mydelivery"
-					>
-						My Deliveries
-					</NavLink>
-				</li> */}
-
-				<li>
-					<NavLink
-						activeClassName="active"
-						className="nav-link"
-						to="/profile"
-					>
-						profile
-					</NavLink>
-				</li>
-
-				<li>
-					<NavLink activeClassName="active" className="nav-link" to="/cart">
-						<i
-							className="fas fa-shopping-cart"
-							style={{ fontSize: "20px", marginInlineStart: "20px" }}
-						></i>
-					</NavLink>
-				</li>
-			</>
-		);
+        <li>
+          <NavLink activeClassName="active" className="nav-link" to="/cart">
+            <i
+              className="fas fa-shopping-cart"
+              style={{ fontSize: "20px", marginInlineStart: "20px" }}
+            ></i>
+          </NavLink>
+        </li>
+      </>
+    );
 
 		route = (
 			<>
@@ -640,7 +654,7 @@ const Nav = () => {
 							
 
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Product
 								</a>
 								<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

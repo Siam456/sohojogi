@@ -28,7 +28,7 @@ const News = () => {
             unmount = false;
         })
         
-    }, [getNews]);
+    }, [`/news/${id}`]);
     return (
         <>
             <div className='container'>

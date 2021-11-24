@@ -16,6 +16,11 @@ const Schema = mongoose.Schema({
         type: String,
         require: true,
     },
+    point: {
+        type: Number,
+        require: true,
+        default: 0,
+    },
     password: {
         type: String,
         require: true

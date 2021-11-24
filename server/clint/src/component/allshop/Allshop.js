@@ -19,10 +19,10 @@ const Allshop = () => {
         axios.get('/user/seller')
         .then(res => {
             setshop(res.data.seller)
-            //console.log(shop)
+            //console.log(res.data.seller)
         })
         .catch(err => console.log(err))
-    })
+    }, ['/user/seller'])
 
     
     return (

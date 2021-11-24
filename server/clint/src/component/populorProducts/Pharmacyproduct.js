@@ -22,8 +22,9 @@ const Pharmacyproduct = () => {
 	let srcMI;
 
 	//get products
-	let unmout = true;
+	
 	useEffect(() => {
+        let unmout = true;
 		axios
 			.get("/product/all")
 			.then((res) => {
@@ -37,7 +38,7 @@ const Pharmacyproduct = () => {
 		return () => {
 			unmout = false;
 		};
-	}, [product]);
+	}, []);
 
 	//add cart
 
@@ -51,7 +52,7 @@ const Pharmacyproduct = () => {
 
 		try {
 			const res = await axios.put(
-				`http://localhost:3000/cart/${id}/${shop_id}`,
+				`/cart/${id}/${shop_id}`,
 				body
 			);
 
@@ -139,7 +140,7 @@ const Pharmacyproduct = () => {
                                         titleIcon = <i style={{color: '#348bb3'}} className="fas fa-capsules"></i>
                                     }
                                     return (
-                                        <div key={i} className="col-sm-12  col-lg-4 col-md-6 my-3" >
+                                        <div key={i} className="col-sm-12 col-lg-4 col-md-6 my-3" >
                                             <div
                                                 className="productCard m-auto"
                                                 style={{

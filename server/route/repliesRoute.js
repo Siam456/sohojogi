@@ -38,7 +38,7 @@ route.get('/:id', getrepliesById);
 route.post('/:id/:statusId', checkLogin, upload.single('attachment'), bodyParseData, postreplies);
 route.patch('/:id/:mainId', checkLogin, incLike);
 // route.delete('/:id', checkLogin, deleteStatus);
-route.delete('/:id', checkLogin, deletereplies);
+route.delete('/:statusId/:commentId/:id', checkLogin, deletereplies);
 
 
 module.exports = route;

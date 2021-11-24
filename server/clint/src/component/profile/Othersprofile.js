@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import DocDForProfile from "../docdiary/DocDForProfile";
 import "./profile.css";
 import axios from "axios";
 
@@ -19,8 +18,6 @@ const Othersprofile = (props) => {
     avater: "",
   });
 
-  const [getStatus, setgetStatus] = useState([]);
-
   const [coverPicPreview, setcoverPicPreview] = useState(null);
   let CoverPicApi = null;
 
@@ -34,37 +31,18 @@ const Othersprofile = (props) => {
   let titleIcon = '';
   let titleIconColor = '';
   
-  const getdata = async () => {
-    
-    try {
-      //console.log(_id)
-      const resStatus = await axios.get(`/status/${_id}`);
-      if(resStatus){
-        setgetStatus(resStatus.data.response);
-        //console.log(resStatus.data.response)
-      }
-    } catch (errStatus) {
-      console.log(errStatus.response);
-    }
-  };
+ 
 
-  let unmountq = true;
+
   useEffect(() => {
+    let unmountq = true;
     //getdata();
     axios.get(`/user/${_id}`)
     .then(res => {
         if (res) {
           if (unmountq) {
             setprofile(res.data.users);
-            axios.get(`/status/x/${_id}`)
-            .then(resStatus => {
-              if(resStatus){
-                setgetStatus(resStatus.data.response);
-                //console.log(resStatus.data.response)
-              }
-            })
-            .catch(errStatus => console.log(errStatus.response))
-
+            
           }
         }
     })
@@ -73,7 +51,7 @@ const Othersprofile = (props) => {
     return(() => {
       unmountq = false;
     })
-  }, [profile]);
+  });
 
   //about sub nav
   const displayGeneralInfo = () => {
@@ -94,11 +72,7 @@ const Othersprofile = (props) => {
 
   //add account
 
-  const user = {
-      _id: _id,
-      name: profile.name,
-      avater: profile.avater,
-  }
+  
   return (
     <>
       <div className='profileWrapper'>
@@ -110,7 +84,6 @@ const Othersprofile = (props) => {
               <span>
                 <div
                   
-                  className='imgHeight'
                   className='imgHeight'
                   style={{
                     width: "100%",

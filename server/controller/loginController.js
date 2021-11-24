@@ -35,12 +35,14 @@ const loginPost = async (req, res) => {
                 Bkash: user.Bkash,
                 Rocket: user.Rocket,
                 Nagat: user.Rocket,
+                point: user.point,
             }
             //console.log(userObj)
             const token = jwt.sign(userObj, process.env.JWT_SECRATE , {
                 expiresIn: process.env.JWT_EXPIRE,
             })
 
+            //console.log(token);
             //set cookies
             res.cookie(process.env.COOKIE_NAME, token,{
                 maxAge: process.env.JWT_EXPIRE,

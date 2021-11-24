@@ -1,14 +1,11 @@
 import React , { useEffect, useState} from 'react';
-import { useParams } from 'react-router';
 import axios from 'axios';
 import './tracking.css'
 
 const Tracking = () => {
-    const { indexParams , id } = useParams();
     const [cartx, setcartx] = useState([]);
 
-    const [quantity, setquantity] = useState(1);
-
+   
     useEffect(() => {
         axios.get('/shoppingitem')
             .then(res => {
@@ -100,6 +97,7 @@ const Tracking = () => {
                                         style={{ marginBottom: "20px", borderRadius: "3px" }}
                                         src={window.location.origin + `/productAvater/${value.products.avater}`}
                                         height= '200px'
+                                        alt='siam'
                                     />
                                 </div>
                                 <div className="col-sm-6">

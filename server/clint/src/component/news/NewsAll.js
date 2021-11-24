@@ -31,7 +31,7 @@ const NewsAll = () => {
 		return () => {
 			unmount = false;
 		};
-	}, [getNews]);
+	}, ["/news"]);
 
 	//store date for search
 	const storeData = (e) => {

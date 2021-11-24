@@ -34,6 +34,7 @@ const checkadmin = (req, res, next) => {
     }
 }
 
+
 route.get('/', checklogin, getProduct);
 route.get('/all', getAllProduct);
 route.post('/',checklogin, checkProductController, upload.single('avater'),  bodyParseData,ProductValidation , checkProductValidation, postProduct);

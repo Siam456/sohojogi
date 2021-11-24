@@ -9,7 +9,8 @@ const Schema = mongoose.Schema({
         name: String,
         email: String,
         phone: String,
-        address: String
+        address: String,
+        point: Number,
     },
     quantity: {
         type: Number,

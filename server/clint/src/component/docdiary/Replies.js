@@ -4,44 +4,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Replies = (props) => {
-  const { _id, v , commentid } = props;
+  const { _id, v , commentid, reply } = props;
+
+
   //delete reply
-
-  const [ reply, setreply ] = useState([]);
-  
-
-  //get replies
-
-  let unmount = true;
-
-  const getReplies = async() => {
-      try{
-          //console.log(commentid)
-        const res = await axios(`/replies/${commentid}`);
-        if(res) {
-            if(unmount){
-              setreply(res.data.response);
-            }
-            //console.log(reply);d
-        }
-      } catch(err){
-          console.log(err);
-      }
-  }
-  
-  useEffect(() => {
-      getReplies();
-
-      return(() => {
-        unmount = false
-      })
-      
-  }, [reply])
-
 
   const deleteReply = (id) => {
     axios
-      .delete(`/replies/${id}`)
+      .delete(`/replies/${v._id}/${commentid}/${id}`)
       .then((res) => console.log(res))
       .catch((err) => console.log(err.response));
   };
@@ -68,13 +38,20 @@ const Replies = (props) => {
             className='cwrapper'
             style={{ display: "flex", width: "100%" }}
           >
-            <div className='imageWrapperDoc' style={{ width: "10%" }}>
+            <div className='mt-3' style={{
+                  height: '30px',
+                  width: '30px',
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
               <img
                 src={repliesUseravaterSource}
                 alt='siams'
-                height='25px'
-                width='25px'
-                style={{ borderRadius: "50%" }}
+                height='30px'
+                width='30px'
               />
             </div>
             <div
@@ -115,7 +92,7 @@ const Replies = (props) => {
             </div>
             {v.user.id === _id || replies.user.id === _id ? (
               <div
-                onClick={() => deleteReply(replies._id)}
+                onClick={() => deleteReply(replies.id)}
                 className='text-muted'
                 style={{
                   height: "100%",

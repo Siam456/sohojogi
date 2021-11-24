@@ -26,6 +26,10 @@ const Schema = mongoose.Schema({
         type: String,
         default: 'Preparing'
     },
+    paymentStatus: {
+        type: String,
+        default: 'cashOnDelivary'
+    },
     rider: {
         id: mongoose.Types.ObjectId,
         name: String,

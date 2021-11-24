@@ -6,7 +6,7 @@ const path = require('path');
 const shoopingItemModel = require('../model/shoppingItemModel');
 const cartModel = require('../model/cartModel');
 const ProductModel = require('../model/productModel')
-
+const userModel = require('../model/userModel');
 
 const getshoppingItem = async (req, res) => {
     
@@ -54,20 +54,43 @@ const getshoppingItemShopkeeper = async (req, res) => {
 
 const postshoppingItem = async (req, res) => {
     try{
-        
+        console.log(req.body.status)
 
         const response = await cartModel.findByIdAndDelete({_id: req.params.cartId})
         .select({_id: 0})
         //console.log(response)
+        var items;
 
-        const shoppingItem = new shoopingItemModel({
-            user: response.user,
-            products: response.products,
-            quantity: response.quantity,
-            totalPrice: response.totalPrice,
-            selerId: response.selerId,
-        })
-        const items = shoppingItem.save();
+        if(req.body.status === 'cashOnDelivary'){
+            const shoppingItem = new shoopingItemModel({
+                user: response.user,
+                products: response.products,
+                quantity: response.quantity,
+                totalPrice: response.totalPrice,
+                selerId: response.selerId,
+            })
+
+            items = shoppingItem.save();
+        } else if(req.body.status === 'UsePoint'){
+            const shoppingItem = new shoopingItemModel({
+                user: response.user,
+                products: response.products,
+                quantity: response.quantity,
+                totalPrice: response.totalPrice,
+                selerId: response.selerId,
+                paymentStatus: req.body.status,
+            })
+
+            items = shoppingItem.save();
+
+            //console.log(response.totalPrice)
+            const incDnc = await userModel.findOneAndUpdate({_id: response.user.id},{
+                $inc: {point: -response.totalPrice}
+            })
+        }
+
+        
+        
         res.json({
             items,
         });
@@ -81,9 +104,6 @@ const postshoppingItemArray = (req, res) => {
    
         let array = req.body.cart;
         array.forEach(async (e) => {
-            //console.log(e._id)
-        
-
             try{
                 const response = await cartModel.findByIdAndDelete({_id: e._id})
                 .select({_id: 0})
@@ -159,54 +179,19 @@ const editshoppingItemStatus = async (req, res) => {
         } catch(err){
         console.log(err.message)
     }
-    // try{
-    //     if(req.file){
-    //         const response = await people.findByIdAndUpdate({_id: req.params.id},
-    //             {
-    //                 $set: {
-    //                     name: req.body.name,
-    //                     email: req.body.email,
-    //                     phone: req.body.phone,
-    //                     avater: req.file.filename,
-    //                     role: req.body.role,
-    //                 }
-    //             });
-    //             const delPath = path.join(__dirname, '..' , '..' , `public/userUpload/${response.avater}`)
-    //             fs.unlinkSync(delPath);
-    //             res.json({
-    //                 user: response,
-    //                 msg: 'user Update successfully',
-    //             })
-
-
-    //     } else{
-    //         const response = await people.findByIdAndUpdate({_id: req.params.id},
-    //             {
-    //                 $set: {
-    //                     name: req.body.name,
-    //                     email: req.body.email,
-    //                     phone: req.body.phone,
-    //                     role: req.body.role,
-    //                 }
-    //             });
-    //             res.json({
-    //                 user: response,
-    //                 msg: 'user Update successfully',
-    //             })
-
-    //     }
-            
-
-    // } catch(err){
-    //     console.log(err.message)
-    // }
+    
 }
 
 
 const deleteshoppingItem = async (req, res) => {
     try{
         const response = await shoopingItemModel.findByIdAndDelete({_id: req.params.id});
-        
+        //console.log(response.totalPrice);
+        if(response.paymentStatus === 'UsePoint'){
+            const x = await userModel.findOneAndUpdate({_id: response.user.id},{
+                $inc: {point: response.totalPrice}
+            })
+        }
         res.json({
             user: response,
             msg: 'shoppingItem delete successfully',

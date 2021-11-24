@@ -6,7 +6,7 @@
  import { Link } from "react-router-dom";
 
 // const DocDForProfile = (props) => {
-// 	const { user , userId, getStatusX } = props;
+// 	const { user } = props;
 // 	const {name, avater, _id } = user;
 // 	//var textfildStatus = true;
 // 	const [textfildStatus, settextfildStatus] = useState(true);

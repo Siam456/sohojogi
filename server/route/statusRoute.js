@@ -10,7 +10,8 @@ const {
   incLike,
   deleteStatus,
   getStatusById,
-  deleteAttchment
+  deleteAttchment,
+  givePoint
 } = require("../controller/statusController");
 const checkLogin = require('../middleware/common/checkLogin');
 
@@ -31,9 +32,11 @@ const checkadmin = (req, res, next) => {
 
 const bodyParseData = (req, res, next) => {
     const body = JSON.parse(req.body.text);
+    const point = JSON.parse(req.body.point);
     
     req.body = body;
-    //console.log(req.body);
+    req.point = point;
+    //console.log(point);
     next();
 }
 
@@ -43,6 +46,8 @@ route.post('/', checkLogin, upload.array('statusAttachment', 5), bodyParseData, 
 route.patch('/:id/:mainId', checkLogin, incLike);
 route.delete('/:id', checkLogin, deleteStatus);
 route.delete('/delete/:id/:image', checkLogin, deleteAttchment);
+
+route.patch('/givepoint/:statusUserId/:commentUserId', checkLogin, givePoint);
 
 module.exports = route;
 

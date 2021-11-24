@@ -37,72 +37,141 @@ const getStatusById = async (req, res) => {
 };
 
 const postStatus = async (req, res) => {
-  //console.log(req.body + 'ss')
+  console.log(req.point)
   try {
     const userX = await people.findOne({_id: req.user._id});
 
-    if (req.files && req.files.length > 0 && req.body) {
-      let attachment = [];
-      req.files.forEach((element) => {
-        attachment.push(element.filename);
-      });
-
-      const status = new statusModel({
-        text: req.body,
-        user: {
-          id: req.user._id,
-          name: req.user.name,
-          email: req.user.email,
-          phone: req.user.phone,
-          address: userX.address,
-          avater: req.user.avater,
-        },
-        statusAttachment: attachment,
-      });
-
-      const response = await status.save();
-      res.json({
-        response,
-      });
-    } else if (req.files && req.files.length > 0) {
-      let attachment = [];
-      req.files.forEach((element) => {
-        attachment.push(element.filename);
-      });
-
-      const status = new statusModel({
-        text: "",
-        user: {
-          id: req.user._id,
-          name: req.user.name,
-          email: req.user.email,
-          phone: req.user.phone,
-          address: userX.address,
-          avater: req.user.avater,
-        },
-        statusAttachment: attachment,
-      });
-
-      const response = await status.save();
-      res.json({
-        response,
-      });
-    } else {
-      const status = new statusModel({
-        text: req.body,
-        user: {
-          id: req.user._id,
-          name: req.user.name,
-          email: req.user.email,
-          phone: req.user.phone,
-          address: req.user.address,
-          avater: userX.avater,
-        },
-      });
-      const response = await status.save();
-      res.json({
-        response,
-      });
+    if(req.point === 'nonPoint'){
+      if (req.files && req.files.length > 0 && req.body) {
+        let attachment = [];
+        req.files.forEach((element) => {
+          attachment.push(element.filename);
+        });
+  
+        const status = new statusModel({
+          text: req.body,
+          user: {
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email,
+            phone: req.user.phone,
+            address: userX.address,
+            avater: req.user.avater,
+          },
+          statusAttachment: attachment,
+        });
+  
+        const response = await status.save();
+        res.json({
+          response,
+        });
+      } else if (req.files && req.files.length > 0) {
+        let attachment = [];
+        req.files.forEach((element) => {
+          attachment.push(element.filename);
+        });
+  
+        const status = new statusModel({
+          text: "",
+          user: {
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email,
+            phone: req.user.phone,
+            address: userX.address,
+            avater: req.user.avater,
+          },
+          statusAttachment: attachment,
+        });
+  
+        const response = await status.save();
+        res.json({
+          response,
+        });
+      } else {
+        const status = new statusModel({
+          text: req.body,
+          user: {
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email,
+            phone: req.user.phone,
+            address: req.user.address,
+            avater: userX.avater,
+          },
+        });
+        const response = await status.save();
+        res.json({
+          response,
+        });
+      }
+    } else if(req.point === 'point'){
+      if (req.files && req.files.length > 0 && req.body) {
+        let attachment = [];
+        req.files.forEach((element) => {
+          attachment.push(element.filename);
+        });
+  
+        const status = new statusModel({
+          text: req.body,
+          pointGive: true,
+          user: {
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email,
+            phone: req.user.phone,
+            address: userX.address,
+            avater: req.user.avater,
+          },
+          statusAttachment: attachment,
+        });
+  
+        const response = await status.save();
+        res.json({
+          response,
+        });
+      } else if (req.files && req.files.length > 0) {
+        let attachment = [];
+        req.files.forEach((element) => {
+          attachment.push(element.filename);
+        });
+  
+        const status = new statusModel({
+          text: "",
+          pointGive: true,
+          user: {
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email,
+            phone: req.user.phone,
+            address: userX.address,
+            avater: req.user.avater,
+          },
+          statusAttachment: attachment,
+        });
+  
+        const response = await status.save();
+        res.json({
+          response,
+        });
+      } else {
+        const status = new statusModel({
+          text: req.body,
+          pointGive: true,
+          user: {
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email,
+            phone: req.user.phone,
+            address: req.user.address,
+            avater: userX.avater,
+          },
+        });
+        const response = await status.save();
+        res.json({
+          response,
+        });
+      }
     }
   } catch (err) {
     res.status(500).json({
@@ -241,11 +310,34 @@ const deleteAttchment = async (req, res) => {
 
 }
 
+const givePoint = async(req, res) => {
+  try{
+    const minus = await people.findByIdAndUpdate({_id: req.params.statusUserId}, {
+       $inc: { point: -1 } 
+    })
+    
+
+    const plus = await people.findByIdAndUpdate({_id: req.params.commentUserId}, {
+      $inc: { point: 1 } 
+   })
+   console.log(plus)
+
+   res.json({
+     res: 'ok'
+   })
+  } catch (err) {
+    res.status(500).json({
+      errors: err.message,
+    });
+  }
+}
+
 module.exports = {
   getStatus,
   postStatus,
   incLike,
   deleteStatus,
   getStatusById,
-  deleteAttchment
+  deleteAttchment,
+  givePoint
 };

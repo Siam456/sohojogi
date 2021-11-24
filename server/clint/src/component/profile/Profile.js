@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import DocDForProfile from "../docdiary/DocDForProfile";
 import "./profile.css";
 import axios from "axios";
 
@@ -14,9 +13,7 @@ const Profile = (props) => {
     _id: "",
   });
 
-  //get status state
-  const [getStatus, setgetStatus] = useState([]);
-
+  
   const [coverPic, setcoverPic] = useState([]);
   const [coverPicPreview, setcoverPicPreview] = useState(null);
   let CoverPicApi = null;
@@ -40,22 +37,12 @@ const Profile = (props) => {
     "https://st4.depositphotos.com/1156795/21707/v/600/depositphotos_217073102-stock-illustration-profile-placeholder-image-gray-silhouette.jpg";
   let titleIcon = '';
   let titleIconColor = '';
-  let siam = true;
+  
 
-  const getdata = async () => {
-    try {
-      //console.log(_id)
-      const resStatus = await axios.get(`/status/${_id}`);
-      if (resStatus) {
-        setgetStatus(resStatus.data.response);
-        //console.log(resStatus.data.response)
-      }
-    } catch (errStatus) {
-      console.log(errStatus.response);
-    }
-  };
+  
 
   useEffect(() => {
+    let siam = true;
     //getdata();
     axios
       .get(`/user/${_id}`)
@@ -75,7 +62,7 @@ const Profile = (props) => {
     return () => {
       siam = false;
     };
-  }, [profile]);
+  });
 
   //about sub nav
   const displayGeneralInfo = () => {
@@ -118,7 +105,7 @@ const Profile = (props) => {
     try {
       var res = await axios.post(`user/cover/${_id}`, data);
       if (res) {
-        console.log(res);
+        alert('Successful')
       }
     } catch (err) {
       console.log(err.response);
@@ -130,7 +117,7 @@ const Profile = (props) => {
     try {
       var res = await axios.delete(`user/cover/${_id}`);
       if (res) {
-        console.log(res);
+        alert('Successful')
       }
     } catch (err) {
       console.log(err.response);
@@ -142,7 +129,7 @@ const Profile = (props) => {
     try {
       var res = await axios.patch(`user/cover/${_id}`, data);
       if (res) {
-        window.location.reload();
+        alert('Successful')
       }
     } catch (err) {
       console.log(err.response);
@@ -177,12 +164,13 @@ const Profile = (props) => {
   //update profile pic
   const updateProfilePic = async () => {
     try {
+      //salert(_id);
       const data = new FormData();
       data.append("avater", profilePic);
 
       const res = await axios.post(`user/profilepic/${_id}`, data);
       if (res) {
-        console.log(res);
+        alert('Successful')
       }
     } catch (err) {
       console.log(err.response);
@@ -253,7 +241,6 @@ const Profile = (props) => {
               <span>
                 <label
                   htmlFor='coverUpload'
-                  className='imgHeight'
                   className='imgHeight'
                   style={{
                     width: "100%",
@@ -582,11 +569,34 @@ const Profile = (props) => {
                         seteditAbout(profile.about);
                       }}
                     >
-                      Edit
+                      Edit bio
                     </span>
                   </div>
                 </span>
               )}
+
+            {profile.point === null ? (
+                <span>
+                  
+                </span>
+              ) : (
+                <span>
+                  <div
+                    style={{
+                      background: "#c8d0db",
+                      padding: "10px",
+                      borderRadius: "5px",
+                    }}
+                    className='text-muted'
+                  >
+                    You have {profile.point} points
+                  </div>
+                  <div style={{ textAlign: "center", marginTop: "5px" }}>
+                    
+                  </div>
+                </span>
+              )}
+              
             </div>
 
             {/* shop info */}
@@ -1347,9 +1357,10 @@ const Profile = (props) => {
         </div>
       </div>
 
-      <DocDForProfile
+      {/* <DocDForProfile
         _id = {_id}
-      />
+        user = {props.user}
+      /> */}
       {/* <Test getStatusX={getStatus} /> */}
     </>
   );

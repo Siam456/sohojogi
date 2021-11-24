@@ -22,8 +22,9 @@ const PopulorProducts = () => {
 	let srcMI;
 
 	//get products
-	let unmoutp = true;
+	
 	useEffect(() => {
+        let unmoutp = true;
 		axios
 			.get("/product/all")
 			.then((res) => {
@@ -37,7 +38,7 @@ const PopulorProducts = () => {
 		return () => {
 			unmoutp = false;
 		};
-	}, [product]);
+	}, []);
 
 	//add cart
 
@@ -51,7 +52,7 @@ const PopulorProducts = () => {
 
 		try {
 			const res = await axios.put(
-				`http://localhost:3000/cart/${id}/${shop_id}`,
+				`/cart/${id}/${shop_id}`,
 				body
 			);
 
@@ -141,7 +142,7 @@ const PopulorProducts = () => {
                                         titleIcon = <i style={{color: '#348bb3'}} className="fas fa-capsules"></i>
                                     }
                                     return (
-                                        <div key={i} className="col-sm-12  col-lg-4 col-md-6 my-3" >
+                                        <div key={i} className="col-sm-12 col-lg-4 col-md-6 my-3" >
                                             <div
                                                 className="productCard m-auto"
                                                 style={{

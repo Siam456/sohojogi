@@ -29,7 +29,7 @@ const getCart = async (req, res) => {
 }
 
 const postCart = async (req, res) => {
-    console.log(req.params.selerId);
+    //console.log(req.user);
     try{
         let response;
         const users = await cartModel.find({
@@ -59,6 +59,7 @@ const postCart = async (req, res) => {
                     email: req.user.email,
                     phone: req.user.phone,
                     address: req.user.address,
+                    point: req.user.point,
                     
                 },
                 
@@ -120,6 +121,7 @@ const editCart = async (req, res) => {
                         email: req.user.email,
                         phone: req.user.phone,
                         address: req.user.address,
+                        point: req.user.point
                         
                     },
                     totalPrice: product[0].price,

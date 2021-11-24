@@ -29,6 +29,11 @@ const Schema = mongoose.Schema({
             type: mongoose.Types.ObjectId,
         }
     ],
+    pointGive: {
+        type: Boolean,
+        require: true,
+        default: false,
+    }
     
 },
 {
