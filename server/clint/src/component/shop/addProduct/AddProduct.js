@@ -97,8 +97,9 @@ const AddProduct = (props) => {
 
     //get data
 
-	let unmount = true;
+	
     useEffect(() => {
+		let unmount = true;
         axios.get('/product')
         .then(res => {
             if(unmount){
@@ -354,9 +355,9 @@ const AddProduct = (props) => {
                     {getProduct.map((value, index) => {
                         let productImg;
                         if(value.avater === null){
-                            productImg = <img style={{ marginBottom: '20px' , borderRadius: '3px'}} src='https://media.istockphoto.com/vectors/male-hand-holding-megaphone-with-new-product-speech-bubble-banner-vector-id1154954910?k=20&m=1154954910&s=612x612&w=0&h=-UnuowcR6R6t7CDpl1516FAsSCZGBYKXK6Fg6CM2nTI=' height='200px' width='200px' />
+                            productImg = <img alt='siam' style={{ marginBottom: '20px' , borderRadius: '3px'}} src='https://media.istockphoto.com/vectors/male-hand-holding-megaphone-with-new-product-speech-bubble-banner-vector-id1154954910?k=20&m=1154954910&s=612x612&w=0&h=-UnuowcR6R6t7CDpl1516FAsSCZGBYKXK6Fg6CM2nTI=' height='200px' width='200px' />
                         } else{
-                            productImg = <img style={{ marginBottom: '20px' , borderRadius: '3px'}} src={window.location.origin + `/productAvater/${value.avater}`} height='200px' width='200px' />
+                            productImg = <img alt='siam' style={{ marginBottom: '20px' , borderRadius: '3px'}} src={window.location.origin + `/productAvater/${value.avater}`} height='200px' width='200px' />
                         }
 
 						let description = value.description.substring(0, 6);

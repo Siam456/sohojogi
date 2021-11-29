@@ -120,7 +120,6 @@ const Adminmain = () => {
 	//modal close
 	const closeModal = () => {
 		const modal = document.getElementById("modala");
-		const modalEdit = document.getElementById("modaledit");
 
 		const overlay = document.getElementById("overlay");
 		modal.classList.remove("active");

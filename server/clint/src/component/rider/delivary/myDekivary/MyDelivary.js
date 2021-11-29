@@ -1,14 +1,11 @@
 import React , { useEffect, useState} from 'react';
-import { useParams } from 'react-router';
 import axios from 'axios';
 import '../DelivaryQueue.css'
 
 const MyDelivary = () => {
-    const { indexParams , id } = useParams();
     const [cartx, setcartx] = useState([]);
 
-    const [quantity, setquantity] = useState(1);
-
+    
     useEffect(() => {
         axios.get('/deliveryitem/mydelivery')
             .then(res => {
@@ -27,25 +24,7 @@ const MyDelivary = () => {
     }, [])
 
 
-    //////////// on delivary
-    const changeStatus = (id) => {
-        //alert(id)
-        let body = {
-            status: "On delivery"
-        }
-
-        axios.put(`/deliveryitem/${id}`, body)
-        .then(res => {
-            if(res){
-                alert('Ok Done')
-                window.location.reload();
-            }
-        })
-        .catch(err => {
-            alert(err.response.data.msg)
-        })
-    }
-
+    
     //////////// delivered
     const changeStatusDeliverd = (id) => {
        // alert(id)
@@ -91,6 +70,7 @@ const MyDelivary = () => {
                                 style={{ marginBottom: "20px", borderRadius: "3px" }}
                                 src={window.location.origin + `/productAvater/${value.products.avater}`}
                                 height= '200px'
+                                alt='siam'
                             />
                         </div>
                         <div className="col-sm-6">

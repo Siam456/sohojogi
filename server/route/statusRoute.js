@@ -32,10 +32,8 @@ const checkadmin = (req, res, next) => {
 
 const bodyParseData = (req, res, next) => {
     const body = JSON.parse(req.body.text);
-    const point = JSON.parse(req.body.point);
     
     req.body = body;
-    req.point = point;
     //console.log(point);
     next();
 }

@@ -155,7 +155,7 @@ const deleteComment = async (req, res) => {
                 const response = await commentModel.findByIdAndDelete({_id: req.params.id});
              
                 if(response.commentAttachment){
-                    console.log(response.commentAttachment)
+                    //console.log(response.commentAttachment)
                     const delPathComment = `${__dirname}/../clint/public/CommentUpload/${response.commentAttachment}`
                     fs.unlinkSync(delPathComment);
                 }
@@ -187,4 +187,43 @@ const deleteComment = async (req, res) => {
     }
 }
 
-module.exports = { getComment, postComment , incLike, deleteComment }
+const editComment = async (req, res) => {
+    try{
+        // console.log(req.body)
+        //     console.log(req.file);
+        //     console.log(req.params.statusId);
+        //     console.log(req.params.commentId);
+        var comment;
+        if(req.file){
+            comment = await commentModel.findOneAndUpdate({_id: req.params.commentId},{
+                $set: {
+                    text: req.body,
+                    commentAttachment: req.file.filename,
+                }
+            });
+
+            if(comment.commentAttachment){
+                const delPathComment = `${__dirname}/../clint/public/CommentUpload/${comment.commentAttachment}`
+                fs.unlinkSync(delPathComment);
+            }
+   
+        } else{
+            comment = await commentModel.findOneAndUpdate({_id: req.params.commentId},{
+                $set: {
+                    text: req.body,
+                }
+            });
+        }
+
+        res.json({
+            comment,
+        })
+
+    } catch(err){
+        res.status(500).json({
+            err
+        })
+    }
+}
+
+module.exports = { getComment, postComment, incLike, deleteComment, editComment };

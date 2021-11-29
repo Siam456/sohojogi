@@ -32,7 +32,7 @@ const Schema = mongoose.Schema({
     pointGive: {
         type: Boolean,
         require: true,
-        default: false,
+        default: true,
     }
     
 },

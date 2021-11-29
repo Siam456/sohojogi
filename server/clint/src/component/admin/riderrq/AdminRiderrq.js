@@ -141,7 +141,7 @@ const AdminRiderrq = () => {
                                                     
                                                 
                                                     <div style={{textAlign: 'center' , marginBottom: '20px'}}>
-                                                        <img style={{ marginBottom: '20px'}} src={window.location.origin + `/userUpload/${riderDetails.avater}`} height='auto' width='200px' />
+                                                        <img alt='siam' style={{ marginBottom: '20px'}} src={window.location.origin + `/userUpload/${riderDetails.avater}`} height='auto' width='200px' />
                                                     </div>
 
                                                     <p><span>Owner Name: </span>{riderDetails.name}</p>

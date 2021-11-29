@@ -194,9 +194,9 @@ const AdminDisplay = () => {
 
               let sour;
               if(data.avater){
-                sour = <img style={{ borderRadius: '50%', marginRight: '30px'}} src={window.location.origin + `/userUpload/${data.avater}`} height='80px' width= '80px' /> 
+                sour = <img alt='siam' style={{ borderRadius: '50%', marginRight: '30px'}} src={window.location.origin + `/userUpload/${data.avater}`} height='80px' width= '80px' /> 
               } else {
-                sour = <img style={{ borderRadius: '50%', marginRight: '30px'}} src={noPhoto} height='80px' /> 
+                sour = <img alt='siam' style={{ borderRadius: '50%', marginRight: '30px'}} src={noPhoto} height='80px' /> 
               }
 
               return (

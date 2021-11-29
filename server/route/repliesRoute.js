@@ -9,6 +9,7 @@ const {
   incLike,
   deletereplies,
   getrepliesById,
+  editreplies,
 } = require("../controller/repliesController");
 const checkLogin = require("../middleware/common/checkLogin");
 
@@ -38,6 +39,7 @@ route.get('/:id', getrepliesById);
 route.post('/:id/:statusId', checkLogin, upload.single('attachment'), bodyParseData, postreplies);
 route.patch('/:id/:mainId', checkLogin, incLike);
 // route.delete('/:id', checkLogin, deleteStatus);
+route.put('/:statusId/:commentId/:id', checkLogin, upload.single('attachment'), bodyParseData, editreplies);
 route.delete('/:statusId/:commentId/:id', checkLogin, deletereplies);
 
 

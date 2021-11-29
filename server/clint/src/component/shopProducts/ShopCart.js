@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router";
 import "./shopProduct.css";
 
 const ShopCart = () => {
@@ -53,7 +52,7 @@ const ShopCart = () => {
 		};
 
 		axios
-			.put(`http://localhost:3000/cart/${id}/${shop._id}`, body)
+			.put(`/cart/${id}/${shop._id}`, body)
 			.then((res) => console.log('siam'))
 			.catch((err) => console.log(err));
 	};
@@ -95,8 +94,8 @@ const ShopCart = () => {
 
 						{cart.map((cart, index) => {
 							return (
-								<>
-									<div key={index} style={{ display: "none" }}>
+								<span key={index}>
+									<div style={{ display: "none" }}>
 										{(item = index)}
 										{(total = total + cart.totalPrice)}
 									</div>
@@ -171,7 +170,7 @@ const ShopCart = () => {
 											style={{color: 'blue', textDecoration: 'underline', cursor: 'pointer'}}>delete it</span>
 										</div>
 									)}
-								</>
+								</span>
 							);
 						})}
 						<div className="my-3" style={{ textAlign: "left", padding: "5px" }}>

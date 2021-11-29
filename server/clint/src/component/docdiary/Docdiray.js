@@ -27,6 +27,14 @@ const Docdiray = (props) => {
 
   const [CommentAttachment, setCommentAttachment] = useState([]);
 
+
+  //edit comment state
+  const [ editComment, setEditComment ] = useState('');
+
+  const [ editCommentAttachment, setEeditCommentAttachment ] = useState(null);
+
+  const [ editCommentAttachmentPreview, seteditCommentAttachmentPreview ] = useState([]);
+
   //const [ editSS, seteditSS] = useState(false);
   //cleanup state
   const cleanup = () => {
@@ -67,17 +75,14 @@ const Docdiray = (props) => {
 
   //post status
 
-  const [point, setpoint] = useState("nonPoint");
   const postStatus = (e) => {
     settextfildStatus(true);
     setstatus("");
     //console.log(status)
 
     const newStatus = JSON.stringify(status);
-    const newPoint = JSON.stringify(point);
     const data = new FormData();
     data.append("text", newStatus);
-    data.append("point", newPoint);
     //data.append('statusAttachment', statusAttachment);
 
     for (let i = 0; i < statusAttachment.length; i++) {
@@ -110,6 +115,7 @@ const Docdiray = (props) => {
   //delete
   const [deletecheck, setdeletecheck] = useState(true);
   const [pdi, setpdi] = useState(null);
+
   const showDelete = (i) => {
     //alert(i)
     //
@@ -530,23 +536,6 @@ const Docdiray = (props) => {
                         />
                       </div>
 
-                      <div style={{ display: "flex" }}>
-                        <input
-                          style={{
-                            height: "20px",
-                            marginRight: "10px",
-                          }}
-                          type="checkbox"
-                          value="point"
-                          name="pointstatus"
-                          onChange={(e) => {
-                            setpoint(e.target.value);
-                          }}
-                          id="statuspoint"
-                        />{" "}
-                        <label htmlFor="statuspoint">Point give???</label>
-                      </div>
-
                       <button
                         onClick={postStatus}
                         style={{ marginTop: "15px", width: "100%" }}
@@ -611,7 +600,7 @@ const Docdiray = (props) => {
 
             <div style={{ display: "flex", marginBottom: "1rem" }}>
               <div className="imageWrapperDoc" style={{ width: "10%" }}>
-                <spna
+                <span
                   style={{
                     height: "50px",
                     width: "50px",
@@ -628,7 +617,7 @@ const Docdiray = (props) => {
                     height="50px"
                     width="50px"
                   />
-                </spna>
+                </span>
               </div>
               <div
                 className="px-3 my-auto"
@@ -1170,12 +1159,14 @@ const Docdiray = (props) => {
                             <span>Reply</span>
                           )}
                         </span>{" "}
-                        {v.user.id === _id && v.pointGive === true ? (
+                        &nbsp;&nbsp;
+                        {value.user.id !== _id ? (
                           <span
                             onClick={() => givepoint(v.user.id, value.user.id)}
                             style={{ fontWeight: "bold", cursor: "pointer" }}
                           >
-                            give point{" "}
+                            <i className="fas fa-hand-holding-usd"></i> point{" "}
+                            &nbsp;&nbsp;
                           </span>
                         ) : (
                           <span></span>
@@ -1290,6 +1281,161 @@ const Docdiray = (props) => {
                         </div>
                       </div>
                       {v.user.id === _id || value.user.id === _id ? (
+                        <span>
+                          <div
+                            onClick={() => {
+                              setEditComment(value.text);
+                              setEeditCommentAttachment(
+                                value.commentAttachment
+                              );
+                            }}
+                            className="text-muted"
+                            data-toggle="modal"
+                            data-target={"#editComment" + index + i}
+                            style={{
+                              marginTop: "20px",
+
+                              marginLeft: "10px",
+                              cursor: "pointer",
+                              boxShadow:
+                                "rgba(255, 255, 255, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset",
+                              width: "25px",
+                              height: "25px",
+                              borderRadius: "50%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <i className="far fa-edit"></i>
+                          </div>
+                          {/* edit comment */}
+                          <div
+                            className="modal fade"
+                            id={"editComment" + index + i}
+                            tabIndex="-1"
+                            role="dialog"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div className="modal-dialog" role="document">
+                              <div className="modal-content">
+                                <span
+                                  style={{ textAlign: "end", padding: "10px" }}
+                                >
+                                  <button
+                                    type="button"
+                                    className="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                    onClick={() => {
+                                      setEditComment('');
+                                      setEeditCommentAttachment([]);
+                                      seteditCommentAttachmentPreview([]);
+                                    }}
+                                  >
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </span>
+                                <div className="modal-body">
+                                  <form onSubmit={(e) => {
+                                    e.preventDefault()
+                                    let text = JSON.stringify(editComment);
+                                    const data = new FormData();
+                                    data.append('text', text);
+                                    data.append('attachment', editCommentAttachment);
+                                    
+                                    axios.put(`/comment/${v._id}/${value._id}`, data)
+                                    .then(res => console.log(res))
+                                    .catch(err => console.log(err));
+
+                                  }}>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      placeholder="Write comment"
+                                      value={editComment}
+                                      required
+                                      onChange={(e) => {
+                                        setEditComment(e.target.value);
+                                      }}
+                                    />
+
+                                    <span style={{ display: "flex" }}>
+                                      {editCommentAttachmentPreview.length <=
+                                      0 ? (
+                                        value.commentAttachment ? (
+                                          <span style={{ padding: "10px" }}>
+                                            <br />
+                                            <img
+                                              src={
+                                                window.location.origin +
+                                                `/commentUpload/${value.commentAttachment}`
+                                              }
+                                              alt="siam"
+                                              height="100px"
+                                            />
+                                          </span>
+                                        ) : (
+                                          <span></span>
+                                        )
+                                      ) : (
+                                        <span style={{ padding: "30px" }}>
+                                          <img
+                                            src={editCommentAttachmentPreview}
+                                            alt="siam"
+                                            height="100px"
+                                          />
+                                        </span>
+                                      )}
+
+                                      <input
+                                        type="file"
+                                        id={"editFild" + index + i}
+                                        style={{ display: "none" }}
+                                        onChange={(e) => {
+                                          setEeditCommentAttachment(
+                                            e.target.files[0]
+                                          );
+
+                                          const render = new FileReader();
+                                          render.onloadend = () => {
+                                            seteditCommentAttachmentPreview(
+                                              render.result
+                                            );
+                                          };
+                                          render.readAsDataURL(
+                                            e.target.files[0]
+                                          );
+                                        }}
+                                      />
+                                      <label
+                                        htmlFor={"editFild" + index + i}
+                                        style={{
+                                          height: "100px",
+                                          margin: "30px",
+                                          width: "100px",
+                                          background: "#DAE2ED",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          alignItems: "center",
+                                          borderRadius: "10px",
+                                        }}
+                                      >
+                                        +
+                                      </label>
+                                    </span>
+                                    <button className='btn btn-primary' >Submit Edit</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      ) : (
+                        <span></span>
+                      )}
+                      {v.user.id === _id || value.user.id === _id ? (
                         <div
                           onClick={() => deleteComment(value._id)}
                           className="text-muted"
@@ -1320,6 +1466,8 @@ const Docdiray = (props) => {
           </div>
         );
       })}
+
+
     </div>
   );
 };

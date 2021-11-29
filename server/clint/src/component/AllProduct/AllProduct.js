@@ -25,8 +25,9 @@ const AllProduct = (props) => {
 	let srcMI;
 
 	//get products
-	let unmout = true;
+	
 	useEffect(() => {
+        let unmout = true;
 		axios
 			.get("/product/all")
 			.then((res) => {
@@ -40,7 +41,7 @@ const AllProduct = (props) => {
 		return () => {
 			unmout = false;
 		};
-	}, ["/product/all"]);
+	}, [product]);
 
 	//add cart
 
@@ -98,8 +99,11 @@ const AllProduct = (props) => {
                             product.map((v, i) => {
                                 const x = v.sellerA.address.toLowerCase();
                                 const p = v.title.toLowerCase();
-                                const s = v.sellerA.shopname.toLowerCase();
+                                //const s = v.sellerA.shopname.toLowerCase();
                                 const c = v.sellerA.catagory.toLowerCase();
+                                // let x='', p='', s='',c='';
+                                const s='';
+                                // console.log(v.sellerA.catagory)
                                 // /console.log(x + Se)
                                 if (
                                     x.includes(serachstr.toLowerCase())

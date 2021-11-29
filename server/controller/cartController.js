@@ -81,7 +81,7 @@ const postCart = async (req, res) => {
 const editCart = async (req, res) => {
     
     try{
-        //console.log(req.body.status)
+        //console.log(req.params.shopid)
         
         const users = await cartModel.find({
             $and: [

@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react';
+import React , {useState} from 'react';
 import './register.css'
 import regImg from './register.svg'
 import axios from 'axios';
@@ -124,7 +124,7 @@ const Register = () => {
         
         
         axios.post('/user', data)
-        .then(res => console.log(res))
+        .then(res => window.location.replace(window.location.origin + "/login"))
         .catch(err => {
             //console.log(err.response.data.errors)
             const re = err.response.data;

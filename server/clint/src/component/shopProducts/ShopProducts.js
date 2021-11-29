@@ -25,20 +25,6 @@ const ShopProducts = () => {
 	
 	useEffect( () => {
 
-		// try{
-		// 	const res = await axios.get(`/user/shop/${id}`);
-		// 	const resCart = await axios.get("/cart");
-		// 	if(unmount){
-		// 		setshop(res.data.users);
-		// 		setproducts(res.data.users.products);
-		// 		//console.log(products)	
-		// 	}
-		// } catch(err){
-		// 	console.log(err)
-		// }
-
-		
-		// //sconsole.log(id)
 		axios.get(`/user/shop/${id}`)
 		.then(res => {
 			
@@ -50,21 +36,11 @@ const ShopProducts = () => {
 		.catch(err => console.log(err));
 
 		
-		// axios.get("/cart")
-		// .then(res => {
-		// 	if(unmount){
-		// 		setcart(res.data.cart);
-		// 		//console.log(res.data.cart)
-		// 	}
-		// })
-		// .catch(err => console.log(err));
 		return(() => {
 			console.log('ok close')
 		})
 		
-	
-		
-	}, []);
+	});
 
 	//add cart
 
@@ -149,20 +125,21 @@ const ShopProducts = () => {
 									products.map((v, i) => {
 										var trimmedString = v.description.substring(0, 6);
 
-										{
-											v.avater
-												? (sourceProduct =
+										if(v.avater){
+											sourceProduct =
 														window.location.origin +
-														`/productAvater/${v.avater}`)
-												: (sourceProduct =
-														"https://images.unsplash.com/photo-1544148103-0773bf10d330?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80");
+														`/productAvater/${v.avater}`
+										} else{
+											sourceProduct =
+											"https://images.unsplash.com/photo-1544148103-0773bf10d330?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+							
 										}
 										return (
 											<>
 
 												<div key={i} className="col-sm-12 col-md-6 col-xl-6 col-lg-6 my-2">
 													<div style={{ position: "relative" }}>
-														<a
+														<div
 															style={{ textDecoration: "none", color: "black" }}
 														>
 															<div className="cardX" onClick={() => openModal(v)} style={{position: 'relative'}}>
@@ -189,7 +166,7 @@ const ShopProducts = () => {
 																		<img
 																			class="card-img-top"
 																			src={sourceProduct}
-																			alt="Card image cap"
+																			alt="Card"
 																			height="80px"
 																			
 																		/>
@@ -206,7 +183,7 @@ const ShopProducts = () => {
 																	onClick={() => addcart(v._id, "add")}
 																></i>
 															</div>
-														</a>
+														</div>
 
 														<div id="myModal" class="modalA">
 

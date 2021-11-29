@@ -3,7 +3,7 @@ const express = require('express');
 const route = express.Router();
 
 //internal import
-const { getComment, postComment, incLike, deleteComment } = require('../controller/commentControlller');
+const { getComment, postComment, incLike, deleteComment, editComment } = require('../controller/commentControlller');
 const checkLogin = require('../middleware/common/checkLogin');
 const upload = require('../utilities/commentUploader');
 
@@ -31,7 +31,9 @@ route.get('/', getComment);
 route.patch('/:id/:mainId', checkLogin, incLike);
 // route.delete('/:id', checkLogin, deleteStatus);
 
-route.delete('/:id', checkLogin, deleteComment)
+route.put('/:statusId/:commentId', checkLogin, upload.single('attachment'), bodyParseData, editComment);
+
+route.delete('/:id', checkLogin, deleteComment);
 
 module.exports = route;
 

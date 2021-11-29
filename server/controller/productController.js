@@ -167,13 +167,20 @@ const deleteProduct = async (req, res) => {
         //console.log(shoppingItem[0].products);
         const response = await productModel.findByIdAndDelete({_id: req.params.id});
 
-        console.log(response._id)
+        //console.log(response._id)
         
 
         if(response.avater){
             const delPath = `${__dirname}/../clint/public/productAvater/${response.avater}`;
             fs.unlinkSync(delPath);
         }
+
+        await people.updateOne({_id: req.user._id},
+            {
+                $pull: {
+                    products: response._id,
+                }
+            })
         res.json({
             user: response,
             msg: 'user delete successfully',

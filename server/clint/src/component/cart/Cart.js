@@ -126,7 +126,7 @@ const Cart = () => {
                                 <b>{value.quantity}</b>
                               </span>
                             </div>
-                            <h6>You Have {value.user.point} point</h6>
+                            
                             <div>
                               <select
                                 className="form-select"

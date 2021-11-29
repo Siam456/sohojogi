@@ -222,41 +222,7 @@ const incLike = async (req, res) => {
 
 const deletereplies = async (req, res) => {
   try {
-    //console.log(req.params.id)
-    // const responseUser = await repliesModel.find({ _id: req.params.id });
-
-    // responseUser.forEach(async (x) => {
-    //   //console.log(x)
-    //   const statusUser = await statusModel.findOne({ _id: x.statusid });
-    //   //console.log(statusUser);
-    //   if (
-    //     statusUser.user.id.toString() === req.user._id ||
-    //     x.user.id.toString() === req.user._id
-    //   ) {
-    //     const responseReplies = await repliesModel.findByIdAndDelete({
-    //       _id: req.params.id,
-    //     });
-
-    //     if (responseReplies.replyAttachment) {
-    //       const delPathreply = `${__dirname}/../clint/public/replyUpload/${responseReplies.replyAttachment}`;
-    //       fs.unlinkSync(delPathreply);
-    //     }
-
-    //     const commentReplies = await commentModel.findByIdAndUpdate(
-    //       { _id: responseReplies.commentid },
-    //       {
-    //         $pull: {
-    //           replies: { id: responseReplies._id },
-    //         },
-    //       }
-    //     );
-
-      //   res.json({
-      //     msg: "successfully delete reply",
-      //   });
-      // }
-    // });
-
+    
     const comment = await commentModel.findOne({_id: req.params.commentId});
     
     comment.replies.forEach(async(element) => {
@@ -276,14 +242,82 @@ const deletereplies = async (req, res) => {
         }
   
         
-  
-        // if(response){
-        //   const delpath = `${__dirname}/../clint/public/statusUpload/${req.params.image}`;
-        //   //console.log(delpath)    
-        //   fs.unlinkSync(delpath);
-        // }
       }
     });
+
+    res.json({
+      msg: 'ok'
+    })
+  } catch (err) {
+    res.status(500).json({
+      err,
+    });
+  }
+};
+
+const editreplies = async (req, res) => {
+  try {
+    //console.log(req.params.id)
+    
+    const comment = await commentModel.findOne({_id: req.params.commentId});
+    
+    comment.replies.forEach(async(element) => {
+      
+      
+      if(element.id.toString() === req.params.id){
+
+        const x = await commentModel.findOneAndUpdate(
+          { _id: req.params.commentId },
+          { $pull: {"replies": {id: element.id}} }
+        );
+
+        if(req.file){
+          const y = await commentModel.findOneAndUpdate(
+            { _id: req.params.commentId },{
+              $push: {
+                replies: {
+                  user: element.user,
+                  id: element.id,
+                  text: req.body,
+                  statusid: element.statusId,
+                  createdAt: element.createdAt,
+                  replyAttachment: req.file.filename,
+                },
+              },
+            }
+          );
+
+          if(element.replyAttachment){
+            const delPathreply = `${__dirname}/../clint/public/replyUpload/${element.replyAttachment}`;
+            fs.unlinkSync(delPathreply);
+          }
+  
+        } else{
+          const y = await commentModel.findOneAndUpdate(
+            { _id: req.params.commentId },{
+              $push: {
+                replies: {
+                  user: element.user,
+                  id: element.id,
+                  text: req.body,
+                  statusid: element.statusId,
+                  createdAt: element.createdAt,
+                  replyAttachment: element.replyAttachment,
+                }, 
+              },
+            }
+          );
+  
+        }
+
+        
+        
+      }
+    });
+
+    res.json({
+      x: 's'
+    })
   } catch (err) {
     res.status(500).json({
       err,
@@ -297,4 +331,5 @@ module.exports = {
   incLike,
   deletereplies,
   getrepliesById,
+  editreplies
 };

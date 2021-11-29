@@ -19,9 +19,10 @@ const ShopRq = () => {
         catagory: '',
     });
 
-    let unm = false;
+    
     const [userId, setUserId] = useState('');
     useEffect(() => {
+        let unm = false;
         axios.get('/shoprq')
         .then(res => {
             if(!unm){
@@ -156,7 +157,7 @@ const ShopRq = () => {
                                                     
                                                     <p><span>menu: </span></p>
                                                     <div style={{textAlign: 'center', width: '100%' , marginBottom: '20px'}}>
-                                                        <img style={{ marginBottom: '20px'}} src={window.location.origin + `/menuUpload/${shopDetails.menu}`} height='auto' width='100%' />
+                                                        <img alt='siam' style={{ marginBottom: '20px'}} src={window.location.origin + `/menuUpload/${shopDetails.menu}`} height='auto' width='100%' />
                                                     </div>
                                                     {/* <img style={{ marginBottom: '20px'}} src={window.location.origin + `/menuUpload/${shopDetails.menu}`} height='auto' width='100%' /> */}
 
