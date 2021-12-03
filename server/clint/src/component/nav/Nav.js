@@ -5,8 +5,9 @@ import {
 	Route,
 	NavLink,
 } from "react-router-dom";
+import NewsAll from '../news/NewsAll'
 import Adminnav from "../admin/adminnav/Adminnav";
-import Home from "../home/Home";
+import HomeX from "../HomePage/HomeX";
 import Login from "../login/Login";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,9 +30,9 @@ import Allshop from "../allshop/Allshop";
 import ShopProducts from "../shopProducts/ShopProducts";
 import PopulorProducts from "../populorProducts/PopulorProducts";
 import FeatureProduct from "../populorProducts/FeatureProduct";
-import NewsAll from "../news/NewsAll";
-import NewsAdmin from "../news/NewsAdmin";
 import News from "../news/News";
+import NewsAdmin from "../news/NewsAdmin";
+import NewsPage from "../NewsPage/NewsPage";
 import Docdiray from "../docdiary/Docdiray";
 import Foodproduct from "../populorProducts/Foodproduct";
 import Groceryproduct from "../populorProducts/Groceryproduct";
@@ -585,6 +586,10 @@ const Nav = () => {
 		setserachstr(e.target.value);
 	}
 
+  const setSearch = (value) => {
+		setserachstr(value);
+	}
+
 	const clearStr = (e) => {
 		setserachstr('');
 	}
@@ -712,7 +717,7 @@ const Nav = () => {
           {serachstr === "" ? (
             <Route exact path="/">
               {" "}
-              <Home />{" "}
+              <HomeX searchFun = {setSearch} />{" "}
             </Route>
           ) : (
             <Route path="/">
@@ -768,6 +773,10 @@ const Nav = () => {
           </Route>
 
           <Route path="/newslist">
+            {" "}
+            <NewsPage />{" "}
+          </Route>
+          <Route path="/newsX/:name">
             {" "}
             <NewsAll />{" "}
           </Route>

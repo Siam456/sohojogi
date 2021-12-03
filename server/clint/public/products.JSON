@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "name": "Product 1",
+        "price": 100,
+        "discount": 10,
+        "productImage1": "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg",
+        "productImage2": "https://5.imimg.com/data5/EC/VN/MY-5449970/vitamin-d3-tablets-500x500.jpg",
+        "seller": "Joytara medicine",
+        "company": "square"
+    },
+    {
+        "id": 2,
+        "name": "Product 2",
+        "price": 200,
+        "discount": 20,
+        "productImage1": "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg",
+        "productImage2": "https://5.imimg.com/data5/EC/VN/MY-5449970/vitamin-d3-tablets-500x500.jpg",
+        "seller": "Joytara medicine",
+        "company": "square"
+    },
+    {
+        "id": 3,
+        "name": "Product 3",
+        "price": 300,
+        "discount": 0,
+        "productImage1": "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg",
+        "productImage2": "https://5.imimg.com/data5/EC/VN/MY-5449970/vitamin-d3-tablets-500x500.jpg",
+        "seller": "Joytara medicine",
+        "company": "square"
+    },
+    {
+        "id": 4,
+        "name": "Product 4",
+        "price": 400,
+        "discount": 40,
+        "productImage1": "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg",
+        "productImage2": "https://5.imimg.com/data5/EC/VN/MY-5449970/vitamin-d3-tablets-500x500.jpg",
+        "seller": "Joytara medicine",
+        "company": "square"
+    },
+    {
+        "id": 5,
+        "name": "Product 5",
+        "price": 500,
+        "discount": 50,
+        "productImage1": "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-260nw-1409823341.jpg",
+        "productImage2": "https://5.imimg.com/data5/EC/VN/MY-5449970/vitamin-d3-tablets-500x500.jpg",
+        "seller": "Joytara medicine",
+        "company": "square"
+    }
+]

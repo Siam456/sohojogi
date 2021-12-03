@@ -1,0 +1,60 @@
+.foods-banner-container{
+    position: relative;
+}
+.foods-banner-text{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+    color: white;
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: 0.5em;
+}
+.home-foods-container{
+    background-color: rgba(211, 211, 211, 0.55);
+    border: 1px solid rgba(211, 211, 211, 0.75);
+    border-radius: 1em;
+    transition: ease-in-out 0.5s;
+    cursor: pointer;
+
+
+}
+.home-foods-container:hover{
+    transform: translate(0, -5px);
+    transition: ease-in-out 0.5s;
+    box-shadow: 0px 10px 15px 1px #88888888;
+}
+.home-foods-container:hover .home-foods-hover-img{
+    opacity: 0;
+}
+.home-foods-container:hover .home-foods-hidden-text{
+    display: block;
+}
+.home-foods-container:hover .home-foods-active-text{
+    display: none;
+}
+.home-foods-img{
+    position: relative;
+}
+.home-foods-hover-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: ease-in-out 0.5s;
+
+}
+.home-foods-img img{
+    border-radius: 0.5em;
+}
+
+.home-foods-text p{
+    letter-spacing: 0.4em;
+    line-height: 200%;
+}
+
+.home-foods-hidden-text{
+    display: none;
+    
+}

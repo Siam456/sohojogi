@@ -1,0 +1,31 @@
+.allNewsContent{
+    border: 1px solid lightgrey;
+    transition: ease-in-out 0.5s;
+    padding-bottom: 5px;
+
+}
+.allNewsText{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    position: relative;
+    
+}
+.allNewsText span{
+    color: black;
+    font-weight: bold;
+}
+
+.allNewsText i{
+    position: absolute;
+    bottom: 0;
+    right: 2%;
+    text-align: end;
+    color: grey;
+}
+
+.allNewsContent:hover{
+    transform: translate(0,-8px);
+    box-shadow: 0px 10px 10px 0px grey;
+    
+}

@@ -258,10 +258,10 @@ const NewsAdmin = () => {
                                         aria-label="Default select example"
                                     >
                                         <option defaultValue="Sports">Sports</option>
-                                        <option value="National">National</option>
-                                        <option value="International">International</option>
+                                        <option value="Fashion">Fashion</option>
+                                        <option value="Celebrity">Celebrity</option>
                                         
-                                        <option value="Entertainment">Entertainment</option>
+                                        <option value="Politicl">Politicl</option>
                                         
                                     </select>
                                 </>

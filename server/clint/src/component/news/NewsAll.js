@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./news.css";
+import { useParams } from "react-router";
 
 const NewsAll = () => {
 	const [getNews, setgetNews] = useState([]);
+    const { name } = useParams();
     //today
 
     var today = new Date();
@@ -46,7 +48,7 @@ const NewsAll = () => {
 	return (
 		<div className="container">
 			<h2 className="text-success my-4" style={{ textAlign: "center" }}>
-				<i className="fas fa-globe-europe"></i> Top News
+				<i className="fas fa-globe-europe"></i> Top {name} News
 			</h2>
 			<div className="filterDate my-3">
 				<p
@@ -94,107 +96,109 @@ const NewsAll = () => {
 
                     //console.log(Sdate + cdate)
 					let hrf = `/news/${v._id}`;
-					if(Sdate === ''){
-                        return (
-                            <div key={i} className="col-sm-12 col-lg-4 col-md-6 my-3">
+					if(v.catagory === name){
+                        if(Sdate === ''){
+                            return (
+                              <div
+                                key={i}
+                                className="col-sm-12 col-lg-4 col-md-6 my-3"
+                              >
                                 <a
-                                    href={hrf}
-                                    key={i}
-                                    style={{
-                                        color: "black",
-                                        textDecoration: "none",
-                                        cursor: "pointer",
-                                        marginTop: "30px",
-                                    }}
-                                    
+                                  href={hrf}
+                                  key={i}
+                                  style={{
+                                    color: "black",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                    marginTop: "30px",
+                                  }}
                                 >
-                                    <div
-                                        className="card"
-                                        style={{
-                                            width: "18rem",
-                                            marginLeft: "auto",
-                                            marginRight: "auto",
-                                        }}
-                                    >
-                                        <div style={{ height: "185px", overflow: "hidden" }}>
-                                            <img
-                                                className="card-img-top"
-                                                src={source}
-                                                alt="Card image cap"
-                                            />
-                                        </div>
-                                        <div className="card-body">
-                                            <h5 className="card-title">{v.title}</h5>
-                                            <p className="card-text">
-                                                {v.content.length >= 50 ? (
-                                                    <span>{v.content.slice(0, 50)}...</span>
-                                                ) : (
-                                                    <span>{v.content}</span>
-                                                )}
-                                            </p>
-                                            <p className="text-muted">
-                                                <i className="fas fa-globe-europe"></i> {v.catagory}
-                                            </p>
-                                            <p className="text-muted">
-                                                <i className="far fa-clock"></i>
-                                                {formattedDate}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        );
-                    } else if(Sdate === cdate){
-                        return (
-                            <>
-                                <a
-                                    href={hrf}
-                                    key={i}
+                                  <div
+                                    className="card"
                                     style={{
-                                        color: "black",
-                                        textDecoration: "none",
-                                        cursor: "pointer",
-                                        marginTop: "30px",
+                                      width: "18rem",
+                                      marginLeft: "auto",
+                                      marginRight: "auto",
                                     }}
-                                    className="col-sm"
-                                >
+                                  >
                                     <div
-                                        className="card"
-                                        style={{
-                                            width: "18rem",
-                                            marginLeft: "auto",
-                                            marginRight: "auto",
-                                        }}
+                                      style={{
+                                        height: "185px",
+                                        overflow: "hidden",
+                                      }}
                                     >
-                                        <div style={{ height: "185px", overflow: "hidden" }}>
-                                            <img
-                                                className="card-img-top"
-                                                src={source}
-                                                alt="Card image cap"
-                                            />
-                                        </div>
-                                        <div className="card-body">
-                                            <h5 className="card-title">{v.title}</h5>
-                                            <p className="card-text">
-                                                {v.content.length >= 50 ? (
-                                                    <span>{v.content.slice(0, 50)}...</span>
-                                                ) : (
-                                                    <span>{v.content}</span>
-                                                )}
-                                            </p>
-                                            <p className="text-muted">
-                                                <i className="fas fa-globe-europe"></i> {v.catagory}
-                                            </p>
-                                            <p className="text-muted">
-                                                <i className="far fa-clock"></i>
-                                                {formattedDate}
-                                            </p>
-                                        </div>
+                                      <img
+                                        className="card-img-top"
+                                        src={source}
+                                        alt="ss"
+                                      />
                                     </div>
+                                    <div className="allNewsText ps-2">
+                                      {v.title.length >= 20 ? (
+                                        <span>{v.title.slice(0, 20)}...</span>
+                                      ) : (
+                                        <span>{v.title}</span>
+                                      )}
+                                      <small>Published on: {cdate}</small>
+                                      <i className="fas fa-eye"> {v.view}</i>
+                                      <small>Category: {v.catagory}</small>
+                                    </div>
+                                  </div>
                                 </a>
-                            </>
-                        );
-                    } 
+                              </div>
+                            );
+                        } else if(Sdate === cdate){
+                            return (
+                                <>
+                                    <a
+                                        href={hrf}
+                                        key={i}
+                                        style={{
+                                            color: "black",
+                                            textDecoration: "none",
+                                            cursor: "pointer",
+                                            marginTop: "30px",
+                                        }}
+                                        className="col-sm"
+                                    >
+                                        <div
+                                            className="card"
+                                            style={{
+                                                width: "18rem",
+                                                marginLeft: "auto",
+                                                marginRight: "auto",
+                                            }}
+                                        >
+                                            <div style={{ height: "185px", overflow: "hidden" }}>
+                                                <img
+                                                    className="card-img-top"
+                                                    src={source}
+                                                    alt="Card"
+                                                />
+                                            </div>
+                                            <div className="card-body">
+                                                <h5 className="card-title">{v.title}</h5>
+                                                <p className="card-text">
+                                                    {v.content.length >= 50 ? (
+                                                        <span>{v.content.slice(0, 50)}...</span>
+                                                    ) : (
+                                                        <span>{v.content}</span>
+                                                    )}
+                                                </p>
+                                                <p className="text-muted">
+                                                    <i className="fas fa-globe-europe"></i> {v.catagory}
+                                                </p>
+                                                <p className="text-muted">
+                                                    <i className="far fa-clock"></i>
+                                                    {formattedDate}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </>
+                            );
+                        } 
+                    }
 				})}{" "}
 			</div>
 		</div>

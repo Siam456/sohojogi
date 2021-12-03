@@ -1,0 +1,89 @@
+.newsCategoryPolitial{
+    height: 320px;
+    width: 300px;
+    position: relative;
+    background: url(https://ichef.bbci.co.uk/news/976/cpsprodpb/185EF/production/_120632899_gettyimages-1330458437.jpg);
+    background-position: center;
+    background-size: cover;
+    animation: political 30s infinite 3s;
+}
+
+@keyframes political{
+    50%{
+        background: url(https://upload.wikimedia.org/wikipedia/commons/e/e1/Sheikh_Hasina_in_London_2011.jpg);
+    }
+    100%{
+        background: url(https://bsmedia.business-standard.com/_media/bs/img/article/2019-05/24/full/1558642779-7453.jpg);
+
+    }
+}
+
+.newsCategorySports{
+    height: 320px;
+    width: 300px;
+    position: relative;
+    background: url(https://static.toiimg.com/thumb/imgsize-59462,msid-88046222,width-650,resizemode-4/88046222.jpg);
+    background-position: center;
+    background-size: cover;
+    animation: sports 20s infinite 2s;
+}
+
+@keyframes sports{
+    50%{
+        background: url(https://c.ndtvimg.com/2021-11/ihv7bfug_india-test-afp_625x300_26_November_21.jpg?im=FaceCrop,algorithm=dnn,width=630,height=400);
+    }
+    100%{
+        background: url(https://cdn.primedia.co.za/primedia-broadcasting/image/upload/c_fill,h_436,w_700/qzfjce6xhvr1a8mzqte4);
+
+    }
+}
+
+.newsCategoryFashion{
+    height: 320px;
+    width: 300px;
+    position: relative;
+    background: url(https://assets.vogue.com/photos/5f14b2a3dbf730f69802986c/16:9/w_1280,c_limit/vogue-social.png);
+    background-position: center;
+    background-size: cover;
+    animation: fashion 25s infinite 2.5s;
+}
+
+@keyframes fashion{
+    50%{
+        background: url(https://static.independent.co.uk/2021/06/24/11/Comp-fashion-2.jpg?width=982&height=726&auto=webp&quality=75);
+    }
+    100%{
+        background: url(https://static.independent.co.uk/2021/11/11/10/cfda.jpg?width=640&auto=webp&quality=75);
+
+    }
+}
+.newsCategoryEnter{
+    height: 320px;
+    width: 300px;
+    position: relative;
+    background: url(https://www.pinkvilla.com/imageresize/newsmakers_14.jpg?width=752&format=webp&t=pvorg);
+    background-position: center;
+    background-size: cover;
+    animation: fashion 35s infinite 3.5s;
+}
+
+@keyframes fashion{
+    50%{
+        background: url(https://in.bmscdn.com/content-buzz/2020/09/entertainmentnewsfeatured.jpg);
+    }
+    100%{
+        background: url(https://static.spotboye.com/uploads/3-COLLAGE-3_2021-10-19-17-38-18_thumbnail.jpg);
+
+    }
+}
+
+
+
+.newsCategoryTitle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5em;
+    font-weight: bold;
+}

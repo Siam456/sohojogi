@@ -1,0 +1,28 @@
+.text-small {
+    font-size: 0.9rem;
+  }
+a {
+    color: whitesmoke;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  
+  a:hover, a:focus {
+    text-decoration: none;
+    opacity: 60%;
+    color: #000;
+  }
+  
+  .form-control {
+    background: #fff;
+    border-color: #545454;
+  }
+  
+  .form-control:focus {
+    background: #fff;
+  }
+  
+  footer {
+    background: #28a745;
+  }
+  

@@ -1,0 +1,15 @@
+.advertise-banner{
+    position: relative;
+    /* background: url('https://static.vecteezy.com/system/resources/previews/002/453/533/non_2x/big-sale-discount-banner-template-promotion-illustration-free-vector.jpg'); */
+    background-size: cover;
+}
+
+.advertise-banner-close{
+    color: #fff;
+    font-size: 25px;
+    position: absolute;
+    top: 10;
+    right: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
