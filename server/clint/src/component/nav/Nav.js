@@ -302,14 +302,7 @@ const Nav = () => {
 					<MyDelivary />{" "}
 				</Route>
 
-				<Route path="/shoprq">
-					{" "}
-					<ShopRq />{" "}
-				</Route>
-				<Route path="/riderrq">
-					{" "}
-					<RiderRq />{" "}
-				</Route>
+				
 
 				<Route path="/amdin/adminshoprq">
 					{" "}
@@ -396,14 +389,7 @@ const Nav = () => {
 					<Tracking />{" "}
 				</Route>
 				
-				<Route path="/shoprq">
-					{" "}
-					<ShopRq />{" "}
-				</Route>
-				<Route path="/riderrq">
-					{" "}
-					<RiderRq />{" "}
-				</Route>
+				
 				<Route path="/docdiary">
 					{" "}
 					<Test user={user} />{" "}
@@ -486,14 +472,7 @@ const Nav = () => {
 					<OrderItem />{" "}
 				</Route>
 
-				<Route path="/shoprq">
-					{" "}
-					<ShopRq />{" "}
-				</Route>
-				<Route path="/riderrq">
-					{" "}
-					<RiderRq />{" "}
-				</Route>
+				
 
 				<Route path="/amdin/addproduct">
 					{" "}
@@ -611,160 +590,224 @@ const Nav = () => {
 	}
 
 	return (
-		<div>
-			<Router>
-				<nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-					<a style={{ marginLeft: "20px" }} className="navbar-brand" href="/">
-						eFo<span style={{color: 'green'}}>od.</span>
-					</a>
-					<button
-						className="navbar-toggler"
-						type="button"
-						data-toggle="collapse"
-						data-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent"
-						aria-expanded="false"
-						aria-label="Toggle navigation"
-					>
-						<span className="navbar-toggler-icon"></span>
-					</button>
+    <div>
+      <Router>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+          <a style={{ marginLeft: "20px" }} className="navbar-brand" href="/">
+            Soho<span style={{ color: "green" }}>jogi.</span>
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-					<div className="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul className="navbar-nav ml-auto">
-							<li className="nav-item">
-								<NavLink onClick={clearStr} activeClassName="active" className="nav-link" to="/">
-									Home <span className="sr-only">(current)</span>
-								</NavLink>
-							</li>
-							<li className="nav-item">
-								<NavLink activeClassName="active" className="nav-link" to="/newslist">
-									News <span className="sr-only">(current)</span>
-								</NavLink>
-							</li>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <NavLink
+                  onClick={clearStr}
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/"
+                >
+                  Home <span className="sr-only">(current)</span>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/newslist"
+                >
+                  News <span className="sr-only">(current)</span>
+                </NavLink>
+              </li>
 
-							<li>
-								<NavLink
-									activeClassName="active"
-									className="nav-link"
-									to="/allshop"
-								>
-									shop
-								</NavLink>
-							</li>
-							
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/allshop"
+                >
+                  shop
+                </NavLink>
+              </li>
 
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Product
-								</a>
-								<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								
-									<NavLink
-										activeClassName="active"
-										className="dropdown-item"
-										to="/populorProduct"
-									>
-										Products <span className="sr-only">(current)</span>
-									</NavLink>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="/"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Product
+                </a>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <NavLink
+                    activeClassName="active"
+                    className="dropdown-item"
+                    to="/populorProduct"
+                  >
+                    Products <span className="sr-only">(current)</span>
+                  </NavLink>
 
-									<NavLink
-										activeClassName="active"
-										className="dropdown-item"
-										to="/food"
-									>
-										Food
-									</NavLink>
+                  <NavLink
+                    activeClassName="active"
+                    className="dropdown-item"
+                    to="/food"
+                  >
+                    Food
+                  </NavLink>
 
-									<NavLink
-										activeClassName="active"
-										className="dropdown-item"
-										to="/pharmacy"
-									>
-										Pharmacy
-									</NavLink>
+                  <NavLink
+                    activeClassName="active"
+                    className="dropdown-item"
+                    to="/pharmacy"
+                  >
+                    Pharmacy
+                  </NavLink>
 
-									<NavLink
-										activeClassName="active"
-										className="dropdown-item"
-										to="/grocery"
-									>
-										Grocery
-									</NavLink>
-								</div>
-							</li>
+                  <NavLink
+                    activeClassName="active"
+                    className="dropdown-item"
+                    to="/grocery"
+                  >
+                    Grocery
+                  </NavLink>
+                </div>
+              </li>
 
-							
+              {links}
+            </ul>
+          </div>
 
-							{links}
-						</ul>
-						
+          <div className="mx-2" style={{ display: "flex" }}>
+            <form className="form-inline m-0">
+              <input
+                value={serachstr}
+                onChange={search}
+                className="form-control mr-sm-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+            </form>
+            <div className="form-inline mx-2 my-lg-0">{login}</div>
+          </div>
+        </nav>
 
-						
-					</div>
+        <Switch>
+          {serachstr === "" ? (
+            <Route exact path="/">
+              {" "}
+              <Home />{" "}
+            </Route>
+          ) : (
+            <Route path="/">
+              {" "}
+              <AllProduct serachstr={serachstr} />{" "}
+            </Route>
+          )}
 
-					<div className='mx-2' style={{display: 'flex'}}>
-						<form className="form-inline m-0">
-							<input value={serachstr} onChange={search} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-							
-						</form>
-						<div className="form-inline mx-2 my-lg-0">{login}</div>
-					</div>
-				</nav>
+          <Route path="/login">
+            {" "}
+            <Login />{" "}
+          </Route>
 
-				<Switch>
-					{serachstr === '' ? 
-					<Route exact path="/">
-						{" "}
-						<Home />{" "}
-					</Route> :
-					<Route path="/">
-						{" "}
-						<AllProduct serachstr={serachstr} />{" "}
-					</Route>}
-					
-					
-					<Route path="/login">
-						{" "}
-						<Login />{" "}
-					</Route>
+          <Route path="/register">
+            {" "}
+            <Register />{" "}
+          </Route>
 
-                    <Route path="/register">
-                        {" "}
-                        <Register />{" "}
-                    </Route>
+          <Route path="/product/:indexParams/:id">
+            {" "}
+            <Product user={user} />{" "}
+          </Route>
 
-					<Route path="/product/:indexParams/:id">
-						{" "}
-						<Product user= {user} />{" "}
-					</Route>
+          <Route path="/allshop">
+            {" "}
+            <Allshop />
+          </Route>
+          <Route path="/shop/:id">
+            {" "}
+            <ShopProducts />
+          </Route>
+          <Route path="/populorProduct">
+            {" "}
+            <PopulorProducts />{" "}
+          </Route>
 
-					<Route path='/allshop'> <Allshop/></Route>
-					<Route path='/shop/:id'> <ShopProducts/></Route>
-					<Route path='/populorProduct'> <PopulorProducts /> </Route>
+          <Route path="/food">
+            {" "}
+            <Foodproduct />{" "}
+          </Route>
+          <Route path="/grocery">
+            {" "}
+            <Groceryproduct />{" "}
+          </Route>
+          <Route path="/pharmacy">
+            {" "}
+            <Pharmacyproduct />{" "}
+          </Route>
 
-					<Route path='/food'> <Foodproduct /> </Route>
-					<Route path='/grocery'> <Groceryproduct /> </Route>
-					<Route path='/pharmacy'> <Pharmacyproduct /> </Route>
+          <Route path="/featureProduct">
+            {" "}
+            <FeatureProduct />{" "}
+          </Route>
 
-					<Route path='/featureProduct'> <FeatureProduct /> </Route>
+          <Route path="/newslist">
+            {" "}
+            <NewsAll />{" "}
+          </Route>
+          <Route path="/news/:id">
+            {" "}
+            <News />{" "}
+          </Route>
+          <Route path="/test">
+            <Test />
+          </Route>
+          <Route path="/shoprq">
+            {" "}
+            <ShopRq />{" "}
+          </Route>
+          <Route path="/riderrq">
+            {" "}
+            <RiderRq />{" "}
+          </Route>
+          <Route path="/shoprq">
+            {" "}
+            <ShopRq />{" "}
+          </Route>
+          <Route path="/riderrq">
+            {" "}
+            <RiderRq />{" "}
+          </Route>
+          <Route path="/shoprq">
+            {" "}
+            <ShopRq />{" "}
+          </Route>
+          <Route path="/riderrq">
+            {" "}
+            <RiderRq />{" "}
+          </Route>
 
-					<Route path="/newslist">
-                        {" "}
-                        <NewsAll />{" "}
-                    </Route>
-					<Route path="/news/:id">
-                        {" "}
-                        <News />{" "}
-                    </Route>
-					<Route path='/test'>
-						<Test />
-					</Route>
-
-					{route}
-				</Switch>
-			</Router>
-		</div>
-	);
+          {route}
+        </Switch>
+      </Router>
+    </div>
+  );
 };
 
 export default Nav;

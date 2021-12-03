@@ -109,7 +109,13 @@ const Docdiray = (props) => {
 
   //edit status
   const postStatusEdit = (id) => {
-    alert(id);
+    //alert(editStatusText);
+    let body = {
+      text: editStatusText,
+    }
+    axios.put(`/status/${id}`, body)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
   };
 
   //delete
@@ -782,6 +788,7 @@ const Docdiray = (props) => {
                                     <label
                                       htmlFor="status-attachment2"
                                       style={{
+                                        display:'none',
                                         padding: "30px",
                                         border: "1px solid #E4E6E9",
                                         background: "#E4E6E9",
@@ -819,7 +826,7 @@ const Docdiray = (props) => {
                                   type="submit"
                                   className="btn btn-dark"
                                   disabled={textfildStatus}
-                                  data-dismiss="modal"
+                                 
                                 >
                                   Post
                                 </button>

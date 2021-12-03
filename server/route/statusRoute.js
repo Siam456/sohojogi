@@ -11,7 +11,8 @@ const {
   deleteStatus,
   getStatusById,
   deleteAttchment,
-  givePoint
+  givePoint,
+  editStatus
 } = require("../controller/statusController");
 const checkLogin = require('../middleware/common/checkLogin');
 
@@ -46,6 +47,8 @@ route.delete('/:id', checkLogin, deleteStatus);
 route.delete('/delete/:id/:image', checkLogin, deleteAttchment);
 
 route.patch('/givepoint/:statusUserId/:commentUserId', checkLogin, givePoint);
+
+route.put('/:id', checkLogin, editStatus);
 
 module.exports = route;
 

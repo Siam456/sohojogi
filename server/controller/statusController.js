@@ -273,6 +273,27 @@ const givePoint = async(req, res) => {
   }
 }
 
+//edit status
+
+const editStatus = async(req, res) => {
+  try{
+    // console.log(req.params.id);
+    // console.log(req.body)
+
+    const response = await statusModel.findOneAndUpdate({_id: req.params.id},{
+      $set: { text: req.body.text}
+    });
+    
+    res.json({
+      response,
+    })
+  } catch (err) {
+    res.status(500).json({
+      errors: err.message,
+    });
+  }
+}
+
 module.exports = {
   getStatus,
   postStatus,
@@ -280,5 +301,6 @@ module.exports = {
   deleteStatus,
   getStatusById,
   deleteAttchment,
-  givePoint
+  givePoint,
+  editStatus
 };
