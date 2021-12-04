@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./profile.css";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const Profile = (props) => {
   const { _id } = props.user;
@@ -105,7 +106,12 @@ const Profile = (props) => {
     try {
       var res = await axios.post(`user/cover/${_id}`, data);
       if (res) {
-        alert('Successful')
+        
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
       }
     } catch (err) {
       console.log(err.response);
@@ -117,7 +123,12 @@ const Profile = (props) => {
     try {
       var res = await axios.delete(`user/cover/${_id}`);
       if (res) {
-        alert('Successful')
+        
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
       }
     } catch (err) {
       console.log(err.response);
@@ -129,7 +140,12 @@ const Profile = (props) => {
     try {
       var res = await axios.patch(`user/cover/${_id}`, data);
       if (res) {
-        alert('Successful')
+        
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
       }
     } catch (err) {
       console.log(err.response);
@@ -170,7 +186,12 @@ const Profile = (props) => {
 
       const res = await axios.post(`user/profilepic/${_id}`, data);
       if (res) {
-        alert('Successful')
+        
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
       }
     } catch (err) {
       console.log(err.response);

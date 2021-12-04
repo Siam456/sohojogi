@@ -131,7 +131,7 @@ const Adminmain = () => {
 			<div style={{ textAlign: "center" }}>
 				<h1>
 					Admin Panel -{" "}
-					<span style={{ color: "#65629C" }}>eFood application</span>
+					<span style={{ color: "#65629C" }}>Sohozogi application</span>
 				</h1>
 				<button onClick={openModal} className="btn btn-primary">
 					Add user

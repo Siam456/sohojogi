@@ -31,15 +31,15 @@ const AllNews = ({news}) => {
                                   value.newsCoverPhoto
                                 }
                                 alt="ssss"
-                                height="200"
-                                width="300"
+                                height="150"
+                                width="250"
                               />
                             ) : (
                               <img
                                 src="https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
                                 alt="ssss"
-                                height="200"
-                                width="300"
+                                height="150"
+                                width="250"
                               />
                             )}
                             <div className="allNewsText ps-2">

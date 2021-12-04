@@ -53,10 +53,10 @@ const Login = () => {
                         <div className="col-sm">
                             
                             <form method='POST' onSubmit={postLogin}>
-                            <h3>eFood Application - LogIn</h3>
+                            <h3>Sohozogi Application - LogIn</h3>
                                 <input type="text" onChange={setval} className="form-control" name='username' placeholder="Email/Phone" /> <br></br>
                                 <input type="password" onChange={setval} className="form-control" name='password' placeholder="Password" /> <br></br>
-                                <a href='/register' style={{float: 'right'}}>Need Account??</a>
+                                <a href='/register' style={{float: 'right', color: 'black'}}>Need Account??</a>
                                 <p id='login-err' style={{ color: 'red', marginLeft: '10px'}}></p>
                                 
                                 <input type="submit" className="btn btn-primary" value="Log in" />

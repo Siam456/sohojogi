@@ -131,7 +131,7 @@ const PopulorProducts = () => {
                   
                   return (
                     <>
-                      <div style={{width: '22rem'}} className="col-sm-12 col-md-6 col-lg-4 my-3" key={i}>
+                      <div style={{width: '20rem'}} className="col-sm-12 col-md-6 col-lg-4 my-3" key={i}>
                         <div class="card">
                           <div class="imgBx">
                             {v.avater !== null ? (

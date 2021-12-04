@@ -1,11 +1,14 @@
 import React , { useEffect, useState} from 'react';
 import axios from 'axios';
 import './cart.css'
+import Swal from 'sweetalert2'
 
 const Cart = () => {
     const [cartx, setcartx] = useState([]);
+    const [active, setActive] = useState(false)
+    const [ paymentMethod, setpaymentMethod ] = useState('cashOnDelivary');
 
-    const [ paymentMethod, setpaymentMethod ] = useState('cashOnDelivary')
+    const [ balcity, setbalcity ] = useState('');
 
 
     useEffect(() => {
@@ -34,7 +37,13 @@ const Cart = () => {
 
         axios.delete(`/cart/${id}`)
         .then(res => {
-            console.log(res);
+          Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+          );
+
+          window.location.replace(`{window.location.origin}/`);
         })
         .catch(err => console.log(err))
     }
@@ -45,10 +54,19 @@ const Cart = () => {
         //alert(id)
         const body = {
             status: paymentMethod,
+            city: balcity
         }
         axios.post(`/shoppingitem/${id}`, body)
         .then(res => {
-            window.location.reload();
+          //alert('Added successfully')
+          Swal.fire(
+            'Good job!',
+            'Your order has been placed. Track your order from track order page!',
+            'success'
+          )
+          setInterval(function(){ window.location.replace("http://localhost:3000/") }, 3000);
+          //window.location.replace('/shoppingitem')
+            
         })
         .catch(err => console.log(err))
     }
@@ -70,7 +88,7 @@ const Cart = () => {
                     trackingOrder = (
                       <div className="container cart">
                         <div className="row p-0 g-5">
-                          <div
+                          {/* <div
                             className="col-sm-6"
                             style={{
                               textAlign: "center",
@@ -90,7 +108,42 @@ const Cart = () => {
                               height="200px"
                               alt="siam"
                             />
-                          </div>
+                          </div> */}
+                         <div className='col-sm-6'>
+                         <form class="row g-3">
+                            <div class="col-md-6">
+                              <label for="inputEmail4" class="form-label">Name</label>
+                              <input type="text" defaultValue={value.user.name} disabled class="form-control" id="name"/>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="inputPassword4" class="form-label">Phone</label>
+                              <input type="tel" class="form-control" id="Phone" defaultValue={value.user.phone} disabled/>
+                            </div>
+                            <div class="col-12">
+                              <label for="inputAddress" class="form-label">Address</label>
+                              <input onChange={(e) => {
+                                setbalcity(e.target.value);
+                              }} type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required/>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <label for="inputCity" class="form-label">City</label>
+                              <input defaultValue={value.user.address} type="text" class="form-control" id="inputCity" disabled/>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="inputState" class="form-label">State</label>
+                              <select id="inputState" class="form-select">
+                                <option selected>Choose...</option>
+                                <option>Bangladesh</option>
+                              </select>
+                            </div>
+                            
+                            
+                            <div class="col-12 text-center">
+                              <button onClick={(e)=>{e.preventDefault(); setActive(!active)}} type="submit" class="btn btn-primary">Proceed payment</button>
+                            </div>
+                          </form>
+                         </div>
                           <div className="col-sm-6">
                             <h2 style={{ color: "gray" }}>
                               {" "}
@@ -160,8 +213,10 @@ const Cart = () => {
                                 remove from Cart
                               </button>
                               <button
+                                disabled = {!active}
                                 className="btn btn-success"
                                 onClick={() => addShopping(value._id)}
+                                
                                 style={{ marginLeft: "10px" }}
                               >
                                 <i

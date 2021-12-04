@@ -414,7 +414,7 @@ const Docdiray = (props) => {
 			</UserContext.Consumer> */}
 
       <h2 style={{ textAlign: "center" }} className="text-success py-4">
-        Welcome to Doc Diary
+        Welcome to Our Community
       </h2>
       <div className="docWrapper">
         <h5 className="text-success">Post your Problem</h5>

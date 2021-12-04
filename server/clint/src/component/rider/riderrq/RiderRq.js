@@ -4,6 +4,8 @@ import Imgrider from '../image/rider.jpg'
 import ImgriderOne from '../image/rider2.jpg'
 import ImgriderTwo from '../image/rider3.jpg'
 import axios from 'axios';
+import Swal from 'sweetalert2'
+
 
 
 const RiderRq = () => {
@@ -127,7 +129,15 @@ const RiderRq = () => {
         data.append('avater', avater);
 
         axios.post('/riderRq', data)
-        .then(res => console.log(res))
+        .then(res => {
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+              );
+
+              setInterval(function(){ window.location.replace("http://localhost:3000/response") }, 3000);
+        })
         .catch(err => {
             //console.log(err.response.data.msg)
 

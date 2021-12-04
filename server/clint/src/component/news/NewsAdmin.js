@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './news.css'
+import Swal from 'sweetalert2'
 
 const NewsAdmin = () => {
 
@@ -143,7 +144,14 @@ const NewsAdmin = () => {
     //delete news
     const deletenews = (id) => {
         axios.delete(`/news/${id}`)
-        .then(res => window.location.reload())
+        .then(res => {
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'successfully deleted'
+              )
+            
+        })
         .catch(err => console.log(err));
     }
 
@@ -195,7 +203,14 @@ const NewsAdmin = () => {
 		data.append("avater", avater);
 
         axios.patch(`/news/${newsId}`, data)
-        .then(res => window.location.reload())
+        .then(res => {
+                
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'Edit successfully'
+            )
+        })
         .catch(err => {
             const re = err.response.data;
             //console.log(re)

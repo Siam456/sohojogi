@@ -132,7 +132,7 @@ const Groceryproduct = () => {
                     <>
                       <div
                         key={i}
-                        style={{ width: "22rem" }}
+                        style={{ width: "20rem" }}
                         className="col-sm-12 col-md-6 col-lg-4 my-3"
                       >
                         <div class="card">

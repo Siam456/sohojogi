@@ -124,7 +124,10 @@ const Register = () => {
         
         
         axios.post('/user', data)
-        .then(res => window.location.replace(window.location.origin + "/login"))
+        .then(res => {
+            alert('successfully Registered.. Login now...');
+            window.location.replace("http://localhost:3000/login")
+        })
         .catch(err => {
             //console.log(err.response.data.errors)
             const re = err.response.data;
@@ -161,7 +164,7 @@ const Register = () => {
                         </div>
                         <div className="col-sm">
                             <div className='formWrapper'>
-                                <h3>efood-application singup</h3>
+                                <h3>Sohozogi-application singup</h3>
 
 
                                 <form method='POST' onSubmit={postUser} enctype='multipart/form-data'>

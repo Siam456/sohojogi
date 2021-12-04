@@ -29,7 +29,7 @@ const TrendingNews = ({news}) => {
                 </Col>
                 <Col>
                     <Row lg={2} md={2} sm={1}>
-                        {newsC.slice(1,4).map((value, index) => {
+                        {newsC.slice(1,5).map((value, index) => {
                             return (
                               <Link
                                 to={"/news/" + value._id}
@@ -48,15 +48,15 @@ const TrendingNews = ({news}) => {
                                           value.newsCoverPhoto
                                         }
                                         alt="ssss"
-                                        height="200"
-                                        width="300"
+                                        height="150"
+                                        width="250"
                                       />
                                     ) : (
                                       <img
                                         src="https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
                                         alt="ssss"
-                                        height="200"
-                                        width="300"
+                                        height="150"
+                                        width="250"
                                       />
                                     )}
 

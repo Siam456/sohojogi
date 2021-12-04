@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import './shoprq.css'
+import Swal from 'sweetalert2'
 
 const ShopRq = () => {
     const [user, setuser] = useState({
@@ -146,7 +147,17 @@ const ShopRq = () => {
 
         
         axios.post('/shoprq', data)
-        .then(res => console.log(res))
+        .then(res => {
+            
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+            );
+            setInterval(function(){ window.location.replace("http://localhost:3000/response") }, 3000);
+
+            
+        })
         .catch(err => { 
             console.log(err.response)
             const ree = err.response.data.errors;
@@ -219,7 +230,7 @@ const ShopRq = () => {
                                             
                                             <option selected value="Food">Food</option>
                                             <option value="Grocery">Grocery</option>
-                                            <option value="Phamacy">Phamacy</option>
+                                            <option value="Pharmacy">Pharmacy</option>
                                         </select> <br/>
                                     </div>
 

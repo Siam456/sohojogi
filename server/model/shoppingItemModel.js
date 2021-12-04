@@ -22,6 +22,10 @@ const Schema = mongoose.Schema({
     selerId: {
         type: mongoose.Types.ObjectId,
     },
+    city: {
+        type: String,
+        require: true,
+    },
     status: {
         type: String,
         default: 'Preparing'

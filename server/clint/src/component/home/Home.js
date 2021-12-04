@@ -32,18 +32,7 @@ const Home = () => {
     }, ['/product/all'])
 
 
-    //show product 
-    const showProduct = (id) => {
-        //alert(id)
-
-        axios.patch(`/product/0/${id}`)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
-
-        //window.location.reload();
-
-        
-    }
+    
 
     //show more
     const showMore = () => {
@@ -71,7 +60,7 @@ const Home = () => {
                 <div className="carousel-item active" style={{position: 'relative', maxHeight: '90vh', overflow: 'hidden'}}>
                     <img className="d-block w-100" src="https://thumbs.dreamstime.com/b/food-background-breakfast-yogurt-granola-muesli-strawberries-banner-image-website-gray-concrete-table-top-view-214357125.jpg" alt="First slide" />
                     <div className='bannerDes'>
-                        <h2>Welcome to efood</h2>
+                        <h2>Welcome to Sohozogi</h2>
                         <p className='text-muted'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, repudiandae?</p>
                         <a href='#start' className='btn btn-outline-dark'>get Start</a>
                     </div>
@@ -79,7 +68,7 @@ const Home = () => {
                 <div className="carousel-item" style={{position: 'relative', maxHeight: '90vh', overflow: 'hidden'}}>
                     <img className="d-block w-100" src="https://images.squarespace-cdn.com/content/v1/555b5cf1e4b0864ccf1a0156/1483549305598-ZE4SGFY3MD4Y33TP05OA/Website+Background+Image.jpg?format=1500w" alt="Second slide"/>
                     <div className='bannerDes'>
-                        <h2>Welcome to efood</h2>
+                        <h2>Welcome to Sohozogi</h2>
                         <p className='text-muted'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, repudiandae?</p>
                         <a href='#start' className='btn btn-outline-dark'>get Start</a>
                     </div>
@@ -147,7 +136,7 @@ const Home = () => {
                         <div ></div>
                             <img className="d-block w-100" src="https://wallpaperaccess.com/full/1306019.jpg" alt="Second slide" />
                         <div className='info'>
-                            <p style={{fontSize: '25px'}}>List your restaurant or shop on efood</p>
+                            <p style={{fontSize: '25px'}}>List your restaurant or shop on Sohozogi</p>
                             <p className='text-muted'>Would you like millions of new customers to enjoy your amazing food and groceries? So would we!
                             It's simple: we list your menu and product lists online, help you process orders, pick them up, and deliver them to hungry pandas – in a heartbeat!
                             Interested? Let's start our partnership today!</p>
@@ -207,7 +196,7 @@ const Home = () => {
                         <div ></div>
                             <img className="d-block w-100" src="https://images.unsplash.com/photo-1572195577046-2f25894c06fc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZGVsaXZlcnl8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80" alt="Second slide" />
                         <div className='info'>
-                            <p style={{fontSize: '25px'}}>Share your riding expreince on efood</p>
+                            <p style={{fontSize: '25px'}}>Share your riding expreince on Sohozogi</p>
                             <p className='text-muted'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the.</p>
                             <a href='/riderrq' className='btn btn-danger'>Get Start</a>
                         </div>
@@ -217,7 +206,7 @@ const Home = () => {
                 </section>
 
                 <div className='container my-5'>
-                    <h4>Order food from the best restaurants and shops with efood Bangladesh</h4>
+                    <h4>Order food from the best restaurants and shops with Sohozogi Bangladesh</h4>
                     <p className='text-muted'>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
                     The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
                     <div className='hidepara' id='para'>

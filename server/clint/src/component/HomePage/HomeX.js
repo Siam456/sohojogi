@@ -10,6 +10,7 @@ import Partners from './Partners';
 import TopCarousel from './TopCarousel';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 const HomeX = (props) => {
     const {searchFun} = props;
@@ -55,7 +56,11 @@ const HomeX = (props) => {
 			);
 
 			if (res) {
-				alert('ADDED')
+				Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
 			}
 		} catch (err) {
 			console.log(err);

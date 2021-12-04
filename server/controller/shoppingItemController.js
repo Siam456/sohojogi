@@ -68,6 +68,7 @@ const postshoppingItem = async (req, res) => {
                 quantity: response.quantity,
                 totalPrice: response.totalPrice,
                 selerId: response.selerId,
+                city: req.body.city
             })
 
             items = shoppingItem.save();
@@ -79,6 +80,7 @@ const postshoppingItem = async (req, res) => {
                 totalPrice: response.totalPrice,
                 selerId: response.selerId,
                 paymentStatus: req.body.status,
+                city: req.body.city
             })
 
             items = shoppingItem.save();
@@ -115,6 +117,7 @@ const postshoppingItemArray = (req, res) => {
                     quantity: response.quantity,
                     totalPrice: response.totalPrice,
                     selerId: response.selerId,
+                    city: req.body.city
                 })
                 const items = shoppingItem.save();
                 res.json({

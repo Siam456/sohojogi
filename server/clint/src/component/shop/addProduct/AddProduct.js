@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./addproduct.css";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const AddProduct = (props) => {
 	const [product, setproduct] = useState({
@@ -140,7 +141,11 @@ const AddProduct = (props) => {
 		axios
 			.post("/product", data)
 			.then((res) => {
-				alert("Item Added Successfully");
+				Swal.fire(
+					'Good job!',
+					'You clicked the button!',
+					'success'
+				  )
 				window.location.reload();
 			})
 			.catch((err) => {
@@ -234,7 +239,7 @@ const AddProduct = (props) => {
 						data-target="#exampleModalLong"
 						style={{marginBottom: '50px'}}
 					>
-						Add Meal
+						Add 
 					</button>
 				</div>
 

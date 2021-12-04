@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './adminshoprq.css'
+import Swal from 'sweetalert2'
 
 const ShopRq = () => {
     
@@ -50,7 +51,11 @@ const ShopRq = () => {
         
         axios.post('/user/rq', data)
         .then(res => {
-            alert('added successfully');
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+              )
             window.location.reload();
         })
         .catch(err => console.log(err.message))
@@ -60,7 +65,11 @@ const ShopRq = () => {
     const cancelRq = (id) => {
         axios.delete(`/shoprq/${id}`)
         .then(res => {
-            alert('delete successfully');
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+              )
             closeModal();
             window.location.reload();
         })

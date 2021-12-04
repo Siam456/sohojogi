@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import noPhoto from './nophoto.png'
+import Swal from 'sweetalert2'
 
 const AdminDisplay = () => {
   const [user, setuser] = useState([]);
@@ -118,7 +119,13 @@ const AdminDisplay = () => {
      }
 
     axios.put(`/user/${editID}`, data)
-    .then(res => alert('successfully updated'))
+    .then(res => {
+      Swal.fire(
+        'Good job!',
+        'You clicked the button!',
+        'success'
+      )
+    })
     .catch(err => {
       //console.log(err.response.data.errors)
       const re = err.response.data;
@@ -129,7 +136,11 @@ const AdminDisplay = () => {
         
       })
       } else{ 
-        alert('successfully updated');
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
       }
       
     })
@@ -141,7 +152,11 @@ const AdminDisplay = () => {
     axios
       .delete(`/user/${id}`)
       .then((res) => {
-        alert("Delete Successfully");
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
       })
       .catch((err) => console.log(err));
   };

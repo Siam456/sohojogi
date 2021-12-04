@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import './CardGenerator.css';
+import Swal from 'sweetalert2'
 
 const CardGenerator = ({ item, setModalId }) => {
     const { _id , title, price, discount, avater, sellerA } = item;
@@ -23,7 +24,11 @@ const CardGenerator = ({ item, setModalId }) => {
 			);
 
 			if (res) {
-				alert('ADDED')
+				Swal.fire(
+                    'Good job!',
+                    'Item added to cart!',
+                    'success'
+                  )
 			}
 		} catch (err) {
 			console.log(err);

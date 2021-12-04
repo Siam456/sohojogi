@@ -50,7 +50,7 @@ const Partners = () => {
     return (
         <Container>
             <div>
-                <h1 className='my-5'> OUR PARTNERS </h1>
+                <h1 className='my-5' style={{textAlign: 'center'}}> OUR PARTNERS </h1>
                 <Slider {...settings}>
                     <div>
                         <Card

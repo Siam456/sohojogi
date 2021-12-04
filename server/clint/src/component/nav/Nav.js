@@ -6,6 +6,7 @@ import {
 	NavLink,
 } from "react-router-dom";
 import NewsAll from '../news/NewsAll'
+import Response from '../response/Response'
 import Adminnav from "../admin/adminnav/Adminnav";
 import HomeX from "../HomePage/HomeX";
 import Login from "../login/Login";
@@ -235,7 +236,7 @@ const Nav = () => {
 
         <li>
           <NavLink activeClassName="active" className="nav-link" to="/docdiary">
-            Doc Diary
+            Community
           </NavLink>
         </li>
 
@@ -353,7 +354,7 @@ const Nav = () => {
 						className="nav-link"
 						to="/docdiary"
 					>
-						Doc Diary
+						Community
 					</NavLink>
 				</li>
 
@@ -437,7 +438,7 @@ const Nav = () => {
 						className="nav-link"
 						to="/docdiary"
 					>
-						Doc Diary
+						Community
 					</NavLink>
 				</li>
 
@@ -451,13 +452,10 @@ const Nav = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink activeClassName="active" className="nav-link" to="/cart">
-						<i
-							className="fas fa-shopping-cart"
-							style={{ fontSize: "20px", marginInlineStart: "20px" }}
-						></i>
-					</NavLink>
-				</li>
+          <NavLink activeClassName="active" className="nav-link" to="/profile">
+            profile
+          </NavLink>
+        </li>
 			</>
 		);
 
@@ -528,13 +526,10 @@ const Nav = () => {
 				</li>
 				
 				<li>
-					<NavLink activeClassName="active" className="nav-link" to="/cart">
-						<i
-							className="fas fa-shopping-cart"
-							style={{ fontSize: "20px", marginInlineStart: "20px" }}
-						></i>
-					</NavLink>
-				</li>
+          <NavLink activeClassName="active" className="nav-link" to="/profile">
+            profile
+          </NavLink>
+        </li>
 
 				
 			</>
@@ -599,7 +594,7 @@ const Nav = () => {
       <Router>
         <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
           <a style={{ marginLeft: "20px" }} className="navbar-brand" href="/">
-            Soho<span style={{ color: "green" }}>jogi.</span>
+            Soho<span style={{ color: "green" }}>zogi</span>
           </a>
           <button
             className="navbar-toggler"
@@ -625,25 +620,9 @@ const Nav = () => {
                   Home <span className="sr-only">(current)</span>
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  activeClassName="active"
-                  className="nav-link"
-                  to="/newslist"
-                >
-                  News <span className="sr-only">(current)</span>
-                </NavLink>
-              </li>
+              
 
-              <li>
-                <NavLink
-                  activeClassName="active"
-                  className="nav-link"
-                  to="/allshop"
-                >
-                  shop
-                </NavLink>
-              </li>
+              
 
               <li class="nav-item dropdown">
                 <a
@@ -654,8 +633,9 @@ const Nav = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Product
+                  Products
                 </a>
+                
                 <div
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
@@ -692,6 +672,25 @@ const Nav = () => {
                     Grocery
                   </NavLink>
                 </div>
+              </li>
+
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/allshop"
+                >
+                  Shops
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/newslist"
+                >
+                  News 
+                </NavLink>
               </li>
 
               {links}
@@ -810,6 +809,11 @@ const Nav = () => {
           <Route path="/riderrq">
             {" "}
             <RiderRq />{" "}
+          </Route>
+
+          <Route path="/response">
+            {" "}
+            <Response />{" "}
           </Route>
 
           {route}

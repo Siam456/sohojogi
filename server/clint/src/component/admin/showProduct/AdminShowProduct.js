@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "./adminShowProducts.css";
+import Swal from 'sweetalert2'
 
 const AdminShowProduct = () => {
   const [shop, setshop] = useState([]);
@@ -29,7 +30,11 @@ const AdminShowProduct = () => {
     axios
       .delete(`/product/${id}`)
       .then((res) => {
-        alert("delete successfully");
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
         window.location.reload();
       })
       .catch((err) => console.log(err));

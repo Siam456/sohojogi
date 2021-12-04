@@ -58,7 +58,7 @@ const JoinUs = () => {
     return (
         <section className='py-5'>
             <h1 className='pb-3 text-center'>BE A PART SOHOZOGI</h1>
-            <Container className='pb-5'>
+            <Container className='pb-5' style={{textAlign: 'center'}}>
                 <Row>
                     <Col className='border-end border-secondary'> <span className='fs-1 fw-bolder'>2</span> <br /> <span className='fs-3 text-uppercase'> Years</span></Col>
                     <Col className='border-end border-secondary'> <span className='fs-1 fw-bolder'>4500+</span> <br /> <span className='fs-3 text-uppercase'>Products</span></Col>

@@ -11,7 +11,7 @@ const LifeStyle = () => {
     }, [])
     return (
         <section className='py-5'>
-            <h1 className='pb-3'>LIFE STYLES</h1>
+            <h1 style={{textAlign: 'center'}} className='pb-3'>LIFE STYLES</h1>
             <Container>
                 {/* <Row>
                     <Col md={4}>
